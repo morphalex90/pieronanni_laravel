@@ -81,7 +81,7 @@ export default function Contact({ auth }: PageProps<{}>) {
                             <div className="d-flex">
                                 <div>
                                     <label htmlFor="privacy">
-                                        <input name="privacy" id="privacy" type="checkbox" onChange={handleChange} defaultChecked={data.privacy} required />
+                                        <input name="privacy" id="privacy" type="checkbox" onChange={() => setData('privacy', !data.privacy)} defaultChecked={data.privacy} required />
                                         <span> Privacy</span>
                                     </label>
                                     <InputError className="mt-2" message={errors.privacy} />
