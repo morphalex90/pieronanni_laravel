@@ -14,10 +14,10 @@ export default function MainMenu({ position = '' }) {
                 <li><NavLink href="/about" active={route().current('about')} title="About">About</NavLink></li>
                 <li><NavLink href="/projects" active={route().current('projects')} title="Projects">Projects</NavLink></li>
                 <li><NavLink href="/contact" active={route().current('contact')} title="Contact">Contact</NavLink></li>
-                <li><NavLink href="/cv.pdf" active={route().current('cv')} title="cv">CV</NavLink></li>
+                <li><a href="/cv.pdf" title="cv">CV</a></li>
 
                 {position === 'header' &&
-                    <li className="has-icon"><a href="https://www.linkedin.com/in/piero-nanni-87407193/?locale=en_US" title="LinkedIn" target="_blank" rel="noopener noreferrer"><img src={linkedin} alt="LinkedIn" title="LinkedIn" height={26} width={26} /></a></li>
+                    <li className="has-icon"><a href="https://www.linkedin.com/in/piero-nanni-87407193" title="LinkedIn" target="_blank" rel="noopener noreferrer"><img src={linkedin} alt="LinkedIn" title="LinkedIn" height={26} width={26} /></a></li>
                 }
             </ul>
         </nav>
