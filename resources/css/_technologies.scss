@@ -1,0 +1,60 @@
+.technologies {
+    display: flex;
+    gap: 7px 17px;
+    margin-bottom: 30px;
+    overflow-x: scroll;
+
+    border: 1px solid #ff1493;
+    border-radius: 25px;
+    padding: 5px 7px;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media only screen and (min-width: 768px) {
+        gap: 10px 30px;
+        overflow-x: unset;
+
+        flex-wrap: wrap;
+        justify-content: center;
+
+        border: none;
+        border-radius: 0;
+        padding: 0;
+    }
+
+    &__single {
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.4s;
+        display: flex;
+        gap: 0 5px;
+        align-items: center;
+        flex: 0 0 100px;
+        max-width: 100px;
+
+        &:first-child {
+            max-width: 40px;
+        }
+
+        @media only screen and (min-width: 768px) {
+            flex: none;
+            max-width: none;
+            width: auto;
+        }
+
+        &.is-active,
+        &:hover {
+            color: #ff1493;
+        }
+
+        span {
+            font-size: 12px;
+
+            @media only screen and (min-width: 768px) {
+                font-size: 14px;
+            }
+        }
+    }
+}

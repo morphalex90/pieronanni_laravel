@@ -1,0 +1,81 @@
+body {
+    font-family: Calibri, sans-serif;
+    font-size: 13px;
+    margin: 0;
+}
+
+a {
+    color: #337ab7 !important;
+    text-decoration: none;
+}
+
+.col-9 {
+    float: left;
+    width: 75%;
+}
+
+.col-8 {
+    float: left;
+    width: 66%;
+}
+
+/* .col-7{float:left; width:58%;} */
+.col-6 {
+    float: left;
+    width: 49%;
+}
+
+/* .col-5{float:left; width:41%;} */
+.col-4 {
+    float: left;
+    width: 33%;
+}
+
+.col-3 {
+    float: left;
+    width: 25%;
+}
+
+.clear {
+    clear: both;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+ul {
+    margin-top: 0px;
+    padding-left: 15px;
+}
+
+.project-list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.project-list li {
+    width: 50%;
+}
+
+.project-list li a {
+    font-size: 12px;
+}
+
+.section strong {
+    margin-bottom: 4px;
+    font-size: 20px;
+}
+
+.job-description ul {
+    margin-bottom: 0;
+}

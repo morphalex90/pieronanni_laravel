@@ -1,0 +1,32 @@
+.footer {
+    padding-top: 20px;
+
+    &__container {
+        display: flex;
+        flex-wrap: wrap;
+        width: 95%;
+        max-width: 1400px;
+        margin: auto;
+        font-size: 12px;
+    }
+
+    &__menu {
+        width: 100%;
+
+        @media only screen and (min-width: 768px) {
+            flex: 0 0 50%;
+            max-width: 50%;
+        }
+    }
+
+    &__copy {
+        width: 100%;
+        text-align: center;
+
+        @media only screen and (min-width: 768px) {
+            flex: 0 0 50%;
+            max-width: 50%;
+            text-align: right;
+        }
+    }
+}

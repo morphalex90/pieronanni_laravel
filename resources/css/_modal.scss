@@ -1,0 +1,57 @@
+.modal {
+    position: relative;
+    margin: 20px auto 10px auto;
+    max-width: calc(1300px - 100px);
+    background-color: #fff;
+    color: #000;
+    padding: 20px;
+    border-radius: 12px;
+    z-index: 2;
+    box-shadow: 0 0 10px 1px rgb(255 20 147 / 55%);
+
+    a {
+        color: #000 !important;
+    }
+
+    &__header {
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid #ff1493;
+        margin-bottom: 20px;
+        justify-content: space-between;
+    }
+
+    &__title {
+        margin-bottom: 0;
+    }
+
+    &__close {
+        background-color: transparent;
+        border: 0;
+        cursor: pointer;
+        transition: all 0.4s;
+
+        &:hover {
+            color: #ff1493;
+        }
+    }
+
+    // &__content {
+    // }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}

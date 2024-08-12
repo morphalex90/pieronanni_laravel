@@ -1,0 +1,51 @@
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding: 20px 0;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+
+    &__container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+        max-width: 95%;
+        margin: auto;
+    }
+
+    &__menu {
+        width: 100%;
+        // margin: auto;
+    }
+
+    &__burger {
+        top: 20px;
+        right: 20px;
+        position: absolute;
+
+        @media only screen and (min-width: 768px) {
+            display: none;
+        }
+
+        &__icon {
+            background-color: transparent;
+            // border: 1px solid red;
+            border: none;
+            cursor: pointer;
+            height: 27px;
+            width: 40px;
+            padding: 0;
+
+            span {
+                display: block;
+                background-color: #fff;
+                height: 5px;
+                width: 100%;
+                margin-bottom: 5px;
+                border-radius: 10px;
+            }
+        }
+    }
+}

@@ -1,0 +1,114 @@
+.projects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+
+    &__single {
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+
+        padding-top: 30px;
+        background: #000;
+        border-top-left-radius: 0.4rem;
+        border-top-right-radius: 0.4rem;
+        transition: box-shadow 0.4s;
+
+        box-shadow: 0 0 10px 1px rgb(255 255 255 / 15%);
+
+        @media only screen and (min-width: 576px) {
+            max-width: calc(50% - 15px);
+        }
+
+        @media only screen and (min-width: 768px) {
+            max-width: calc(33% - 18px);
+        }
+
+        @media only screen and (min-width: 992px) {
+            max-width: calc(25% - 22.5px);
+        }
+
+        &:hover {
+            box-shadow: 0 0 10px 1px rgb(255 20 147 / 35%);
+
+            .projects__single__image img {
+                transform: translate(0px, -340px);
+                transition: all 5s linear;
+            }
+        }
+
+        &::before {
+            content: " ";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            z-index: -1;
+            border-top-left-radius: 0.4rem;
+            border-top-right-radius: 0.4rem;
+        }
+
+        &::after {
+            content: " ";
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            top: 15px;
+            left: 15px;
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px #ff3b46, 15px 0 0 0 #ffc100, 30px 0 0 2px #007505, 15px 0 0 0 #ffc100,
+                15px 0 0 2px #ffc100;
+            background: #ff3b46;
+        }
+
+        &__image {
+            overflow: hidden;
+            max-height: 200px;
+            background: transparent;
+
+            img {
+                transform: translate(0px, 0px);
+                transition: all 1s linear;
+                width: 100%;
+            }
+        }
+
+        &__content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        &__title {
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 12px;
+            padding: 10px 40px 10px 56px;
+            cursor: pointer;
+        }
+
+        &__tech {
+            position: absolute;
+            top: 2.5px;
+            right: 10px;
+
+            img {
+                margin-right: 5px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}
+
+.jobs {
+    margin-bottom: 50px;
+}

@@ -1,0 +1,102 @@
+.main-menu {
+    &.--header {
+        position: absolute;
+        background-color: blue;
+        padding: 30px;
+        z-index: 99999999;
+        top: 0;
+        left: 0;
+
+        @media only screen and (min-width: 768px) {
+            position: relative;
+            background-color: transparent;
+            padding: 0;
+        }
+
+        @media only screen and (max-width: 768px) {
+            & {
+                display: none;
+            }
+            .--open & {
+                display: block;
+            }
+        }
+
+        ul {
+            justify-content: center;
+            position: relative;
+            display: block;
+
+            @media only screen and (min-width: 768px) {
+                display: flex;
+            }
+
+            li {
+                margin: 20px 0;
+
+                @media only screen and (min-width: 768px) {
+                    margin: 0 5px;
+                }
+
+                &.has-icon {
+                    margin-top: -5px;
+
+                    a {
+                        padding: 0;
+                        border: 0;
+                        display: block;
+                        line-height: 0;
+
+                        &:hover {
+                            img {
+                                transform: rotate(45deg);
+                                background-color: #fff;
+                            }
+                        }
+
+                        img {
+                            transition: all 0.4s;
+                            background-color: #ff1493;
+                            border-radius: 50%;
+                        }
+                    }
+                }
+
+                a {
+                    // text-decoration: none;
+                    border: 1px solid #ff1493;
+                    padding: 5px 9px;
+                    font-size: 14px;
+
+                    // @media only screen and (min-width: 768px) {
+                    //     font-size: 14px;
+                    // }
+
+                    &.is-active {
+                        color: #ff1493;
+                    }
+                }
+            }
+        }
+    }
+
+    &.--footer {
+        ul {
+            justify-content: center;
+
+            @media only screen and (min-width: 768px) {
+                justify-content: left;
+            }
+
+            li {
+                a {
+                    // text-decoration: none;
+
+                    &.is-active {
+                        color: #ff1493;
+                    }
+                }
+            }
+        }
+    }
+}
