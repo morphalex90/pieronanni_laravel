@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -22,6 +22,8 @@ Route::get('/contact', function () {
     return Inertia::render('Contact', []);
 })->name('contact');
 
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
 Route::get('/cv', [PDFController::class, 'cv'])->name('cv');
 
 Route::get('/cv.pdf', function () {
@@ -38,4 +40,4 @@ Route::get('/cv.pdf', function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-require __DIR__ . '/auth.php';
+// require __DIR__ . '/auth.php';
