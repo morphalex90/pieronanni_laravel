@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Contact;
+use App\Models\Job;
+use App\Models\Technology;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -15,9 +18,14 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
+
+        Technology::create(['key' => '*', 'name' => 'All',]);
+        Technology::factory(9)->create();
+        Contact::factory(10)->create();
+        Job::factory(10)->create();
     }
 }

@@ -4,17 +4,14 @@ import { motion } from 'framer-motion';
 import Layout from '@/Layouts/Layout'
 import { useEffect, useState } from 'react';
 import { JobList } from '@/components/Data/Jobs';
-import { TechnologiesData } from '@/components/Data/Technologies';
 import Project from '@/Components/Project'
 
-export default function Projects({ auth }: PageProps<{}>) {
+export default function Projects({ auth, technologies }: PageProps<{ technologies: any[] }>) {
     const [jobs, setJobs] = useState<any[]>([]);
-    const [technologies, setTechnologies] = useState<any[]>([]);
     const [activeTechnology, setActiveTechnology] = useState<any>(null);
 
     useEffect(() => {
         setJobs(JobList);
-        setTechnologies(TechnologiesData);
         setActiveTechnology('*');
     }, []);
 

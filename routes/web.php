@@ -3,6 +3,7 @@
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Technology;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -15,7 +16,8 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('/projects', function () {
-    return Inertia::render('Projects', []);
+    $technologies = Technology::orderBy('name')->get();
+    return Inertia::render('Projects', ['technologies' => $technologies]);
 })->name('projects');
 
 Route::get('/contact', function () {
