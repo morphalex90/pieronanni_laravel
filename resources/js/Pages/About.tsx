@@ -21,7 +21,7 @@ export default function About({ auth }: PageProps<{}>) {
         <>
             <Head>
                 {/* <link rel="canonical" href={process.env.NEXT_PUBLIC_APP_URL + '/about'} /> */}
-                <title>About | Piero Nanni</title>
+                <title>About</title>
                 <meta name="description" content="Discover who Piero Nanni is, his career path and what he is doing at the moment" />
 
                 <meta property="og:type" content="profile" />

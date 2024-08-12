@@ -39,7 +39,7 @@ export default function Projects({ auth }: PageProps<{}>) {
         <>
             <Head>
                 {/* <link rel="canonical" href={process.env.NEXT_PUBLIC_APP_URL + '/projects'} /> */}
-                <title>Projects | Piero Nanni</title>
+                <title>Projects</title>
                 <meta name="description" content="Check out the complete list of websites created by Piero Nanni during his career" />
 
                 <meta property="og:type" content="profile" />

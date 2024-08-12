@@ -30,7 +30,7 @@ export default function Contact({ auth }: PageProps<{}>) {
         <>
             <Head>
                 {/* <link rel="canonical" href={process.env.NEXT_PUBLIC_APP_URL + '/contact'} /> */}
-                <title>Contact | Piero Nanni</title>
+                <title>Contact</title>
                 <meta name="description" content="Have some questions? Need help? Feel free to ask me everything you need" />
 
                 <meta property="og:type" content="profile" />
