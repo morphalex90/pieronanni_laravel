@@ -1,6 +1,3 @@
-import { useState } from 'react';
-
-
 export default function Icon({ technology }: { technology: string }) {
 
     if (technology === 'drupal') {
