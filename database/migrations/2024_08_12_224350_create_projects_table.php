@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Job::class);
             $table->string('title');
             $table->string('url');
-            $table->string('github');
+            $table->string('github')->nullable();
             $table->text('description');
             $table->date('published_at');
         });
