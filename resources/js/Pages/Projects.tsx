@@ -5,6 +5,7 @@ import Layout from '@/Layouts/Layout'
 import { useEffect, useState } from 'react';
 import { JobList } from '@/components/Data/Jobs';
 import Project from '@/Components/Project'
+import Icon from '@/Components/Icon';
 
 export default function Projects({ auth, technologies }: PageProps<{ technologies: any[] }>) {
     const [jobs, setJobs] = useState<any[]>([]);
@@ -54,7 +55,7 @@ export default function Projects({ auth, technologies }: PageProps<{ technologie
                         {technologies.map((tech, id) =>
                             <div key={id} className={'technologies__single' + (activeTechnology === tech.key ? ' is-active' : '')} onClick={e => filterProjects(tech.key)}>
                                 {tech.key !== '*' &&
-                                    <img key={id} src={'../img/' + tech.key + '.webp'} alt={tech.name} height={20} width={20} />
+                                    <Icon technology={tech.key} />
                                 }
                                 <span>{tech.name}</span>
                             </div>

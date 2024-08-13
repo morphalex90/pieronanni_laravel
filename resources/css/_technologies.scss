@@ -56,5 +56,14 @@
                 font-size: 14px;
             }
         }
+
+        svg {
+            height: 25px;
+            width: 25px;
+
+            path {
+                fill: #ff1493;
+            }
+        }
     }
 }
