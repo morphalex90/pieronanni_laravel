@@ -9,3 +9,6 @@
 
 ## Generate it all
     $ php artisan make:model Post -mcrf
+
+## Do do list
+- convert Modal to native Dialog
