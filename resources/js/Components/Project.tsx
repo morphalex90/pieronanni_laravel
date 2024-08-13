@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import Modal from '@/Components/Modal'
 import Icon from '@/Components/Icon';
 
+import placeholder from '@/../img/placeholder.svg'
+
 export default function Project({ project, delay }: { project: any, delay: number }) {
     const [modalShow, setModalShow] = useState(false);
     const [modalContent, setModalContent] = useState(null);
@@ -11,11 +13,7 @@ export default function Project({ project, delay }: { project: any, delay: numbe
         <>
             <motion.div className="projects__single" initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3, delay }} onClick={e => { setModalShow(true); setModalContent(project); }}>
                 <div className="projects__single__image">
-                    {project?.images?.[0] ?
-                        <img src={'../img/projects/' + project.images[0]} alt={project.title} title={project.title} width={333} height={200} />
-                        :
-                        <div>No image</div>
-                    }
+                    <img src={project?.images?.[0] ? '../img/projects/' + project.images[0] : placeholder} alt={project.title} title={project.title} width={333} height={200} />
                 </div>
 
                 <div className="projects__single__content">
