@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('url');
             $table->text('description');
             $table->date('published_at');
-            $table->timestamps();
         });
     }
 

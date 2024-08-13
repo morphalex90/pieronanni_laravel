@@ -20,7 +20,6 @@ return new class extends Migration
             $table->text('description_cv');
             $table->date('started_at');
             $table->date('ended_at')->nullable();
-            $table->timestamps();
         });
     }
 
