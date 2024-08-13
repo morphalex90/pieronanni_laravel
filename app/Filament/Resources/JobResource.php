@@ -40,13 +40,13 @@ class JobResource extends Resource
                     ->nullable()
                     ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
-                    ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'link', 'orderedList', 'table', 'blockquote', 'strike']),
+                    ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 MarkdownEditor::make('description_cv')
                     ->maxLength(1000)
                     ->nullable()
                     ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
-                    ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'link', 'orderedList', 'table', 'blockquote', 'strike']),
+                    ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 DatePicker::make('started_at')->required(),
                 DatePicker::make('ended_at')->nullable(),
             ]);

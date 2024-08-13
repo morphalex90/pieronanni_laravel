@@ -38,7 +38,7 @@ class ProjectResource extends Resource
                     ->nullable()
                     ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
-                    ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'link', 'orderedList', 'table', 'blockquote', 'strike']),
+                    ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 DatePicker::make('published_at')->required(),
                 Select::make('job_id')->label('Job')
                     ->relationship(name: 'job', titleAttribute: 'title')
