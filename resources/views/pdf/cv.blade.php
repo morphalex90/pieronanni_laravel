@@ -38,7 +38,11 @@
                     <div class="clear"></div>
                     <br>
 
-                    <div class="job-description">{{ $job->description_cv }}</div>
+                    <div class="job-description">
+                        @markdown
+                            {!! $job->description_cv !!}
+                        @endmarkdown
+                    </div>
 
                     <ul class="project-list">
                         @foreach ($job->projects as $project)

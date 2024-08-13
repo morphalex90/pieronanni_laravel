@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import { Link, Head } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import Layout from '@/Layouts/Layout'
-import { useState } from 'react';
+import Markdown from 'react-markdown'
 
 export default function About({ jobs }: { jobs: any[] }) {
     const [activeJob, setActiveJob] = useState(jobs.length);
@@ -81,7 +82,7 @@ export default function About({ jobs }: { jobs: any[] }) {
                                             <h3>{job.title}</h3>
                                             <div><i><a href={job.company.url} target="_blank" rel="noreferrer">{job.company.name}</a> - {job.location} ({new Date(job.started_at).toLocaleDateString("en-GB", { year: 'numeric', month: 'long' })}{(job.ended_at !== null ? ' - ' + new Date(job.ended_at).toLocaleDateString("en-GB", { year: 'numeric', month: 'long' }) : '')})</i></div>
                                             <br />
-                                            <div dangerouslySetInnerHTML={{ __html: job.description }} />
+                                            <div><Markdown>{job.description}</Markdown></div>
                                         </div>
                                     )
                                 }

@@ -8,6 +8,7 @@ use App\Filament\Resources\JobResource\RelationManagers\ProjectsRelationManager;
 use App\Models\Job;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -34,8 +35,18 @@ class JobResource extends Resource
                 TextInput::make('company.name')->label('Company name')->required(),
                 TextInput::make('company.url')->label('Company url')->required(),
                 TextInput::make('location')->required(),
-                Textarea::make('description')->required(),
-                Textarea::make('description_cv')->required(),
+                MarkdownEditor::make('description')
+                    ->maxLength(1000)
+                    ->nullable()
+                    ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->lazy()
+                    ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'link', 'orderedList', 'table', 'blockquote', 'strike']),
+                MarkdownEditor::make('description_cv')
+                    ->maxLength(1000)
+                    ->nullable()
+                    ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->lazy()
+                    ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'link', 'orderedList', 'table', 'blockquote', 'strike']),
                 DatePicker::make('started_at')->required(),
                 DatePicker::make('ended_at')->nullable(),
             ]);

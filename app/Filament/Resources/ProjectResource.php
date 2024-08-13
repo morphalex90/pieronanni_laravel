@@ -7,6 +7,7 @@ use App\Filament\Resources\ProjectResource\RelationManagers\TechnologiesRelation
 use App\Models\Project;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -32,7 +33,12 @@ class ProjectResource extends Resource
                 TextInput::make('title')->required()->maxLength(255),
                 TextInput::make('url')->required()->url()->maxLength(255),
                 TextInput::make('github')->url()->maxLength(255)->nullable()->label('GitHub'),
-                Textarea::make('description')->required(),
+                MarkdownEditor::make('description')
+                    ->maxLength(1000)
+                    ->nullable()
+                    ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->lazy()
+                    ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'link', 'orderedList', 'table', 'blockquote', 'strike']),
                 DatePicker::make('published_at')->required(),
                 Select::make('job_id')->label('Job')
                     ->relationship(name: 'job', titleAttribute: 'title')
