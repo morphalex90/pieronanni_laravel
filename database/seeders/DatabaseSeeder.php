@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@test.com',
+        ]);
 
         Technology::create(['key' => '*', 'name' => 'All',]);
         Technology::create(['key' => 'drupal', 'name' => 'Drupal',]);
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
 
         Contact::factory(10)->create();
         Job::factory(10)->create();
-        Project::factory(10)->create();
+        Project::factory(20)->create();
 
         $technologies = Technology::where('key', '!=', '*')->get();
         Project::all()->each(function ($user) use ($technologies) {
