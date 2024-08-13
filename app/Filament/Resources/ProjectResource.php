@@ -31,7 +31,7 @@ class ProjectResource extends Resource
             ->schema([
                 TextInput::make('title')->required()->maxLength(255),
                 TextInput::make('url')->required()->url()->maxLength(255),
-                TextInput::make('github')->required()->url()->maxLength(255),
+                TextInput::make('github')->url()->maxLength(255)->nullable()->label('GitHub'),
                 Textarea::make('description')->required(),
                 DatePicker::make('published_at')->required(),
                 Select::make('job_id')->label('Job')
