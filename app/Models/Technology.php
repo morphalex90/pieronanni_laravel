@@ -19,6 +19,7 @@ class Technology extends Model
      */
     protected $fillable = [
         'name',
+        'key',
     ];
 
     public function projects(): BelongsToMany
