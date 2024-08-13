@@ -2,10 +2,8 @@ import { Link, Head } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import Layout from '@/Layouts/Layout'
 import { useState } from 'react';
-import { JobList } from '@/components/Data/Jobs';
 
-export default function About() {
-    const [jobs, setJobs] = useState(JobList);
+export default function About({ jobs }: { jobs: any[] }) {
     const [activeJob, setActiveJob] = useState(jobs.length);
     const startYear = 2011;
     const currentYear = new Date().getFullYear();
@@ -46,16 +44,16 @@ export default function About() {
                             <div className="timeline__jobs">
                                 {jobs.length > 0 &&
                                     jobs.map((job: any) => {
-                                        const marginLeft = ((job.start_date.substring(0, 4) - startYear));
+                                        const marginLeft = ((job.started_at.substring(0, 4) - startYear));
                                         let endDate = null;
 
-                                        if (job.end_date === '' || job.end_date === null) { // no finish year
+                                        if (job.ended_at === '' || job.ended_at === null) { // no finish year
                                             endDate = currentYear; // save the current year
                                         } else {
-                                            endDate = job.end_date.substring(0, 4);
+                                            endDate = job.ended_at.substring(0, 4);
                                         }
 
-                                        const width = (endDate - job.start_date.substring(0, 4) + 1);
+                                        const width = (endDate - job.started_at.substring(0, 4) + 1);
                                         return (
                                             <div key={job.id} className={job.id === activeJob ? ' --active' : ''} style={{ '--unit-margin-left': marginLeft, '--unit-width': width, '--tot-years': years.length }} onClick={() => { setActiveJob(job.id) }}>{job.company.name}</div>
                                         )
@@ -78,7 +76,7 @@ export default function About() {
                                     jobs.map((job: any) =>
                                         <div key={job.id} className={job.id === activeJob ? ' --active' : ''}>
                                             <h3>{job.title}</h3>
-                                            <div><i><a href={job.company.url} target="_blank" rel="noreferrer">{job.company.name}</a> - {job.location} ({new Date(job.start_date).toLocaleDateString("en-GB", { year: 'numeric', month: 'long' })}{(job.end_date !== null ? ' - ' + new Date(job.end_date).toLocaleDateString("en-GB", { year: 'numeric', month: 'long' }) : '')})</i></div>
+                                            <div><i><a href={job.company.url} target="_blank" rel="noreferrer">{job.company.name}</a> - {job.location} ({new Date(job.started_at).toLocaleDateString("en-GB", { year: 'numeric', month: 'long' })}{(job.ended_at !== null ? ' - ' + new Date(job.ended_at).toLocaleDateString("en-GB", { year: 'numeric', month: 'long' }) : '')})</i></div>
                                             <br />
                                             <div dangerouslySetInnerHTML={{ __html: job.description }} />
                                         </div>

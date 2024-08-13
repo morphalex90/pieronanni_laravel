@@ -12,7 +12,9 @@ Route::get('/', function () {
 })->name('homepage');
 
 Route::get('/about', function () {
-    return Inertia::render('About', []);
+    $jobs = Job::orderBy('started_at', 'DESC')->get();
+
+    return Inertia::render('About', ['jobs' => $jobs]);
 })->name('about');
 
 Route::get('/projects', function () {
