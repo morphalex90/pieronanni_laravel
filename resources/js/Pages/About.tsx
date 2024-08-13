@@ -54,8 +54,11 @@ export default function About({ jobs }: { jobs: any[] }) {
                                         }
 
                                         const width = (endDate - job.started_at.substring(0, 4) + 1);
+
+                                        const customProprieties = { '--unit-margin-left': marginLeft, '--unit-width': width, '--tot-years': years.length } as React.CSSProperties;
+
                                         return (
-                                            <div key={job.id} className={job.id === activeJob ? ' --active' : ''} style={{ '--unit-margin-left': marginLeft, '--unit-width': width, '--tot-years': years.length }} onClick={() => { setActiveJob(job.id) }}>{job.company.name}</div>
+                                            <div key={job.id} className={job.id === activeJob ? ' --active' : ''} style={{ ...customProprieties }} onClick={() => { setActiveJob(job.id) }}>{job.company.name}</div>
                                         )
                                     })
                                 }
