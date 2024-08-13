@@ -20,6 +20,7 @@ class ProjectFactory extends Factory
             'job_id' => fake()->numberBetween(1, 10),
             'title' => fake()->title(),
             'url' => fake()->url(),
+            'github' => fake()->url(),
             'description' => fake()->sentence(50),
             'published_at' => fake()->date(),
         ];

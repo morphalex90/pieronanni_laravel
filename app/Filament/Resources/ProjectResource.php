@@ -31,6 +31,7 @@ class ProjectResource extends Resource
             ->schema([
                 TextInput::make('title')->required()->maxLength(255),
                 TextInput::make('url')->required()->url()->maxLength(255),
+                TextInput::make('github')->required()->url()->maxLength(255),
                 Textarea::make('description')->required(),
                 DatePicker::make('published_at')->required(),
                 Select::make('job_id')->label('Job')
@@ -46,6 +47,7 @@ class ProjectResource extends Resource
             ->columns([
                 TextColumn::make('title')->sortable(),
                 TextColumn::make('url')->sortable(),
+                TextColumn::make('github')->sortable()->label('GitHub'),
                 TextColumn::make('job.title')->sortable(),
                 TextColumn::make('description')->limit(50),
                 TextColumn::make('technologies.name'),

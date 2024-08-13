@@ -22,6 +22,7 @@ class Project extends Model
         'job_id',
         'title',
         'url',
+        'github',
         'description',
         'published_at',
         'description_cv',
