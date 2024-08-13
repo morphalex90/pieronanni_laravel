@@ -6,6 +6,7 @@ use App\Filament\Resources\TechnologyResource\Pages;
 use App\Filament\Resources\TechnologyResource\RelationManagers;
 use App\Models\Technology;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -24,7 +25,8 @@ class TechnologyResource extends Resource
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')->required()->maxLength(255),
+                TextInput::make('key')->required()->maxLength(255),
             ]);
     }
 
