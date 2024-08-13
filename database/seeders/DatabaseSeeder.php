@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Contact;
 use App\Models\Job;
+use App\Models\Project;
 use App\Models\Technology;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -16,8 +17,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
@@ -34,5 +33,13 @@ class DatabaseSeeder extends Seeder
 
         Contact::factory(10)->create();
         Job::factory(10)->create();
+        Project::factory(20)->create();
+
+        $technologies = Technology::all();
+        Project::all()->each(function ($user) use ($technologies) {
+            $user->technologies()->attach(
+                $technologies->random(rand(1, 3))->pluck('id')->toArray()
+            );
+        });
     }
 }

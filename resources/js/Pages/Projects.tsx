@@ -1,18 +1,15 @@
-import { Link, Head } from '@inertiajs/react';
+import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
-import { motion } from 'framer-motion';
 import Layout from '@/Layouts/Layout'
 import { useEffect, useState } from 'react';
-import { JobList } from '@/components/Data/Jobs';
 import Project from '@/Components/Project'
 import Icon from '@/Components/Icon';
 
-export default function Projects({ auth, technologies }: PageProps<{ technologies: any[] }>) {
-    const [jobs, setJobs] = useState<any[]>([]);
+export default function Projects({ auth, technologies, allJobs }: PageProps<{ technologies: any[], allJobs: any[] }>) {
+    const [jobs, setJobs] = useState<any[]>(allJobs);
     const [activeTechnology, setActiveTechnology] = useState<any>(null);
 
     useEffect(() => {
-        setJobs(JobList);
         setActiveTechnology('*');
     }, []);
 
@@ -20,11 +17,11 @@ export default function Projects({ auth, technologies }: PageProps<{ technologie
         setActiveTechnology(tech); // set active tech
 
         if (tech === '*') { // if it's 'All', re load all
-            setJobs(JobList);
+            setJobs(allJobs);
         } else { // otherwise filter by tech
             setJobs((prevState: any) => {
-                const newState = JobList.map(obj => {
-                    const tmp = obj.projects.filter(project => project.technologies.indexOf(tech) !== -1)
+                const newState = allJobs.map(obj => {
+                    const tmp = obj.projects.filter((project: any) => project.technologies.indexOf(tech) !== -1)
                     // console.log(tmp);
                     return { ...obj, projects: tmp };
                 });
