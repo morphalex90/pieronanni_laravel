@@ -11,7 +11,7 @@ a {
 
 .col-9 {
     float: left;
-    width: 75%;
+    width: 74%;
 }
 
 .col-8 {
@@ -69,6 +69,10 @@ ul {
 
 .project-list li a {
     font-size: 12px;
+}
+
+.section {
+    padding-top: 10px;
 }
 
 .section strong {
