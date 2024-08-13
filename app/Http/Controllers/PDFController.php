@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Job;
+use Illuminate\Support\Facades\URL;
+use Mpdf\HTMLParserMode;
+use Mpdf\Mpdf;
+use Mpdf\Output\Destination;
 
 class PDFController extends Controller
 {
@@ -11,11 +15,13 @@ class PDFController extends Controller
      */
     public function cv()
     {
+        $stylesheet = file_get_contents('css/cv.css');
 
-        $output = 'test pdf';
+        $jobs = Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
 
+        $html = view('pdf.cv', ['jobs' => $jobs]);
 
-        $mpdf = new \Mpdf\Mpdf([
+        $mpdf = new Mpdf([
             'tempDir' => '../tmp',
             'margin_left' => 0,
             'margin_right' => 0,
@@ -26,8 +32,9 @@ class PDFController extends Controller
         $mpdf->SetTitle('Curriculum Vitae Piero Nanni');
         $mpdf->SetAuthor("Piero Nanni");
 
-        $mpdf->WriteHTML($output);
+        $mpdf->WriteHTML($stylesheet, HTMLParserMode::HEADER_CSS);
+        $mpdf->WriteHTML($html, HTMLParserMode::HTML_BODY);
 
-        $mpdf->Output('cv_piero_nanni.pdf', \Mpdf\Output\Destination::INLINE);
+        $mpdf->Output('cv_piero_nanni.pdf', Destination::INLINE);
     }
 }
