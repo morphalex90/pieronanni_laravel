@@ -1,32 +1,33 @@
 import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
 import Layout from '@/Layouts/Layout'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Project from '@/Components/Project'
 import Icon from '@/Components/Icon';
 
 export default function Projects({ auth, technologies, allJobs }: PageProps<{ technologies: any[], allJobs: any[] }>) {
     const [jobs, setJobs] = useState<any[]>(allJobs);
-    const [activeTechnology, setActiveTechnology] = useState<any>(null);
+    const [activeTechnology, setActiveTechnology] = useState<any>('*');
 
-    useEffect(() => {
-        setActiveTechnology('*');
-    }, []);
+    function filterProjects(techKey: any) {
+        setActiveTechnology(techKey)
 
-    const filterProjects = (tech: any) => {
-        setActiveTechnology(tech); // set active tech
-
-        if (tech === '*') { // if it's 'All', re load all
+        if (techKey === '*') { // if it's 'All', re load all
             setJobs(allJobs);
-        } else { // otherwise filter by tech
-            setJobs((prevState: any) => {
-                const newState = allJobs.map(obj => {
-                    const tmp = obj.projects.filter((project: any) => project.technologies.indexOf(tech) !== -1)
-                    // console.log(tmp);
-                    return { ...obj, projects: tmp };
-                });
-                return newState;
-            });
+        } else { // filter by tech key
+            const reducedJobs = allJobs.reduce((result: any, job: any) => {
+                const filteredProjects = job.projects.filter((project: any) =>
+                    project.technologies.some((tech: any) => tech.key === techKey)
+                );
+
+                if (filteredProjects.length > 0) {
+                    result.push({ ...job, projects: filteredProjects });
+                }
+
+                return result;
+            }, []);
+
+            setJobs(reducedJobs)
         }
     }
 
@@ -61,23 +62,21 @@ export default function Projects({ auth, technologies, allJobs }: PageProps<{ te
                 }
 
                 {jobs?.length > 0 &&
-                    <>
-                        {jobs.map(job =>
-                            <div key={job.id} className="jobs">
-                                {job.projects?.length > 0 &&
-                                    <>
-                                        <h3 className="text-center"><a href={job.company.url} target="_blank" rel="noreferrer">{job.company.name}</a></h3>
+                    (jobs.map(job =>
+                        <div key={job.id} className="jobs">
+                            {job.projects?.length > 0 &&
+                                <>
+                                    <h3 className="text-center"><a href={job.company.url} target="_blank" rel="noreferrer">{job.company.name}</a></h3>
 
-                                        <div className="projects">
-                                            {job.projects?.map((project: any, projectId: any) =>
-                                                <Project key={projectId} project={project} delay={(projectId + 1) / 12} />
-                                            )}
-                                        </div>
-                                    </>
-                                }
-                            </div>
-                        )}
-                    </>
+                                    <div className="projects">
+                                        {job.projects?.map((project: any, projectId: any) =>
+                                            <Project key={projectId} project={project} delay={(projectId + 1) / 12} />
+                                        )}
+                                    </div>
+                                </>
+                            }
+                        </div>
+                    ))
                 }
             </Layout>
         </>
