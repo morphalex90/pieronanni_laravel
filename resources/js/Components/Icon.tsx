@@ -29,6 +29,6 @@ export default function Icon({ technology }: { technology: string }) {
     }
 
     return (
-        <div>[No Icon for {technology}]</div>
+        <div>[{technology}]</div>
     );
 }
