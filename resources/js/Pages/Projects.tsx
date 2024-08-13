@@ -1,11 +1,10 @@
 import { Head } from '@inertiajs/react';
-import { PageProps } from '@/types';
 import Layout from '@/Layouts/Layout'
 import { useState } from 'react';
 import Project from '@/Components/Project'
 import Icon from '@/Components/Icon';
 
-export default function Projects({ auth, technologies, allJobs }: PageProps<{ technologies: any[], allJobs: any[] }>) {
+export default function Projects({ technologies, allJobs }: { technologies: any[], allJobs: any[] }) {
     const [jobs, setJobs] = useState<any[]>(allJobs);
     const [activeTechnology, setActiveTechnology] = useState<any>('*');
 

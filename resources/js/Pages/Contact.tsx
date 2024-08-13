@@ -1,12 +1,11 @@
-import { Link, Head, useForm } from '@inertiajs/react';
-import { PageProps } from '@/types';
+import { Head, useForm } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import Layout from '@/Layouts/Layout'
 import { FormEventHandler, useState } from 'react';
 import { Transition } from '@headlessui/react';
 import InputError from '@/Components/InputError';
 
-export default function Contact({ auth }: PageProps<{}>) {
+export default function Contact() {
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;

@@ -1,9 +1,8 @@
-import { Link, Head } from '@inertiajs/react';
-import { PageProps } from '@/types';
+import { Head } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import Layout from '@/Layouts/Layout'
 
-export default function Homepage({ auth }: PageProps<{}>) {
+export default function Homepage() {
 
     return (
         <>

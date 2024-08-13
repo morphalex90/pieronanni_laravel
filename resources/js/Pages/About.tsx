@@ -1,11 +1,10 @@
 import { Link, Head } from '@inertiajs/react';
-import { PageProps } from '@/types';
 import { motion } from 'framer-motion';
 import Layout from '@/Layouts/Layout'
 import { useState } from 'react';
 import { JobList } from '@/components/Data/Jobs';
 
-export default function About({ auth }: PageProps<{}>) {
+export default function About() {
     const [jobs, setJobs] = useState(JobList);
     const [activeJob, setActiveJob] = useState(jobs.length);
     const startYear = 2011;
