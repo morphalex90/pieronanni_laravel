@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-// import parse from 'html-react-parser';
-// import DOMPurify from 'dompurify';
+import Markdown from 'react-markdown'
 
 export default function Modal({ show, onClose, title, content }) {
     const [isBrowser, setIsBrowser] = useState(false);
@@ -30,8 +29,7 @@ export default function Modal({ show, onClose, title, content }) {
                     <div className="d-flex --reverse">
 
                         <div>
-                            <div dangerouslySetInnerHTML={{ __html: content.description }} />
-                            {/* {parse(DOMPurify.sanitize(content.description, { USE_PROFILES: { html: true } }))} */}
+                            <div><Markdown>content.description</Markdown></div>
 
                             <div style={{ display: 'flex', gap: 10 }}>
                                 <a href={content.url} className="button" target="_blank" rel="noreferrer">Visit site</a>
