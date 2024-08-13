@@ -29,7 +29,7 @@ export default function Modal({ show, onClose, title, content }) {
                     <div className="d-flex --reverse">
 
                         <div>
-                            <div><Markdown>content.description</Markdown></div>
+                            <div><Markdown>{content.description}</Markdown></div>
 
                             <div style={{ display: 'flex', gap: 10 }}>
                                 <a href={content.url} className="button" target="_blank" rel="noreferrer">Visit site</a>
