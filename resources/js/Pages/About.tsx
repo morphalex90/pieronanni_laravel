@@ -8,8 +8,8 @@ import { JobList } from '@/components/Data/Jobs';
 export default function About({ auth }: PageProps<{}>) {
     const [jobs, setJobs] = useState(JobList);
     const [activeJob, setActiveJob] = useState(jobs.length);
-    const [startYear] = useState(2011);
-    const [currentYear] = useState(new Date().getFullYear());
+    const startYear = 2011;
+    const currentYear = new Date().getFullYear();
 
     // Years timeline
     const years = [];
@@ -101,7 +101,7 @@ export default function About({ auth }: PageProps<{}>) {
                         <p>In May 2015, I was offered the opportunity to work at a web agency (<a href="https://www.magicnet.it/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Magic">Magic</a>), where I was trained on how companies develop websites and e-commerce platforms. During my three years with the company, I expanded my knowledge of WordPress, Drupal, and Magento.</p>
 
                         <p>In June 2018, I moved to London to expand my knowledge and increase my English language skills.<br />
-                            After a couple of months I joined <a href="https://purrgroup.com/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Purr">Purr</a>, a web agency based in central London. Since starting, there have been many interesting projects and new ways of building websites that I had never previously explored.</p>
+                            After a couple of months I joined Purr, a web agency based in central London. Since starting, there have been many interesting projects and new ways of building websites that I had never previously explored.</p>
 
                         <p>In May 2022, I joined <a href="https://www.soundpickr.com/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Soundpickr">Soundpickr</a> and started working with Laravel and React.</p>
                     </motion.section>
