@@ -27,23 +27,23 @@ class JobResource extends Resource
         return $form
             ->schema([
                 TextInput::make('title')->required()->columnSpanFull(),
-                TextInput::make('company.name')->label('Company name')->required(),
-                TextInput::make('company.url')->label('Company url')->required(),
+                TextInput::make('company.name')->label('Company name')->required()->maxLength(100),
+                TextInput::make('company.url')->label('Company url')->required()->maxLength(155),
                 MarkdownEditor::make('description')
                     ->maxLength(1000)
                     ->nullable()
-                    ->hint(fn ($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 MarkdownEditor::make('description_cv')
                     ->maxLength(1000)
                     ->nullable()
-                    ->hint(fn ($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 DatePicker::make('started_at')->required(),
                 DatePicker::make('ended_at')->nullable(),
-                TextInput::make('location')->required(),
+                TextInput::make('location')->required()->maxLength(255),
             ]);
     }
 
