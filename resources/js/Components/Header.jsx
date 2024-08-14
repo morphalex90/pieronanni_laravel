@@ -25,7 +25,7 @@ export default function Header() {
                 </div>
 
                 <div className="header__burger">
-                    <button type="button" className="header__burger__icon" onClick={() => openMobileMenu()} aria-expanded={isOpen ? 'true' : 'false'} aria-controls="main-menu">
+                    <button type="button" className="header__burger__icon" onClick={() => openMobileMenu()} aria-label="Open Menu Mobile" aria-expanded={isOpen ? 'true' : 'false'} aria-controls="main-menu">
                         <span></span>
                         <span></span>
                         <span></span>
