@@ -21,7 +21,7 @@ class JobFactory extends Factory
             'company' => ['name' => fake()->name(), 'url' => fake()->url()],
             'location' => fake()->country(),
             'description' => fake()->sentence(50),
-            'description_cv' => fake()->sentence(50),
+            'description_cv' => fake()->paragraphs(3, true),
             'started_at' => fake()->date(),
             'ended_at' => fake()->date(),
         ];
