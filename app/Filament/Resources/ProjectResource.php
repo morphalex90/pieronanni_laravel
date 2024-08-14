@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Filament\Resources\ProjectResource\RelationManagers\FilesRelationManager;
 use App\Filament\Resources\ProjectResource\RelationManagers\TechnologiesRelationManager;
+use App\Models\Job;
 use App\Models\Project;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\MarkdownEditor;
@@ -34,14 +35,14 @@ class ProjectResource extends Resource
                 MarkdownEditor::make('description')
                     ->maxLength(1000)
                     ->nullable()
-                    ->hint(fn ($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 TextInput::make('description_cv')->required()->maxLength(255),
                 DatePicker::make('published_at')->required(),
                 Select::make('job_id')->label('Job')
                     ->relationship(name: 'job', titleAttribute: 'title')
-                    // ->getOptionLabelFromRecordUsing(fn(User $user) => "{$user->first_name} {$user->last_name} ({$user->email})")
+                    ->getOptionLabelFromRecordUsing(fn(Job $user) => "{$user->title} ({$user->company['name']})")
                     ->required()->searchable()->preload(),
             ]);
     }
