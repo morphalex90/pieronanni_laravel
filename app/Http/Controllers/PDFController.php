@@ -25,12 +25,20 @@ class PDFController extends Controller
             'tempDir' => '../tmp',
             'margin_left' => 0,
             'margin_right' => 0,
-            'margin_top' => 0,
-            'margin_bottom' => 0,
-            'default_font' => 'calibri'
+            'margin_top' => 5,
+            'margin_bottom' => 5,
+            'default_font' => 'calibri',
+
+            'margin_footer' => 5,
+
+            'pagenumPrefix' => 'Page ',
+            'nbpgPrefix' => ' / ',
         ]);
-        $mpdf->SetTitle('Curriculum Vitae Piero Nanni');
+
+        $mpdf->defaultfooterline = 0;
+        $mpdf->SetTitle('CV Piero Nanni');
         $mpdf->SetAuthor("Piero Nanni");
+        $mpdf->setFooter('{PAGENO}{nbpg}');
 
         $mpdf->WriteHTML($stylesheet, HTMLParserMode::HEADER_CSS);
         $mpdf->WriteHTML($html, HTMLParserMode::HTML_BODY);

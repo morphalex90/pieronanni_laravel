@@ -2,16 +2,16 @@
 
 <div>
     <div class="col-6">
-        <div style="margin-left:20px; margin-right:20px; padding-top:10px;">
-            <div style="font-size:35px; font-weight:bold">Piero Nanni</div>
-            <div>Web developer</div>
+        <div style="margin-left:20px; margin-right:20px; padding-top: 15px;">
+            <div style="font-size:35px; font-weight:bold; line-height:1px; margin-bottom: 10px;">Piero Nanni</div>
+            <div>Full stack developer</div>
             <div style="margin-bottom:10px"><a href="https://www.pieronanni.me">www.pieronanni.me</a></div>
             {{-- <div><em>I don&rquo;t know, it&rquo;s something about web developing that calms me down, ya know?</em></div> --}}
         </div>
     </div>
 
     <div class="col-6 text-right">
-        <div style="margin-left:20px; margin-right:20px; padding-top:20px;">
+        <div style="margin-left:20px; margin-right:20px;">
             <div>London, UK</div>
             <div>+44 7724 146851</div>
             <div><a href="mailto:piero.nanni@gmail.com">piero.nanni@gmail.com</a></div>
@@ -28,7 +28,7 @@
 
             <div class="section"><strong>WORK EXPERIENCE</strong></div>
             @foreach ($jobs as $job)
-                <div>
+                <div style="border-bottom:1px solid darkgrey;">
                     <div style="margin-top: 20px;"><strong style="font-size: 19px;">{{ $job->title }}</strong></div>
                     <div class="col-6"><a href={{ $job->company['url'] }}>{{ $job->company['name'] }}</a>
                         (<i>{{ $job->location }}</i>)
@@ -36,20 +36,22 @@
                     <div class="col-6"><i>{{ Carbon\Carbon::parse($job->started_at)->format('F Y') }}
                             - {{ Carbon\Carbon::parse($job->ended_at)->format('F Y') }}</i></div>
                     <div class="clear"></div>
-                    <br>
+                    {{-- <br> --}}
 
                     <div class="job-description">
-                        @markdown
+                        <x-markdown>
                             {!! $job->description_cv !!}
-                        @endmarkdown
+                        </x-markdown>
                     </div>
 
                     <ul class="project-list">
                         @foreach ($job->projects as $project)
                             <li>
+                                {{-- {{ Inertia\Inertia::HTML('Icon', ['technology' => $project->technologies[0]->name]) }} --}}
                                 {{-- <img src="" alt={{ $project->title }} title={{ $project->title }} height="15"
                                     width="15"> --}}
-                                <a href={{ $project->url }}>{{ $project->title }}</a>
+                                <span><a href={{ $project->url }}>{{ $project->title }}</a> - blabla project
+                                    description</span>
                             </li>
                         @endforeach
                     </ul>
