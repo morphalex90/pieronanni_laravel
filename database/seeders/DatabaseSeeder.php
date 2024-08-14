@@ -22,14 +22,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@test.com',
         ]);
 
-        Technology::create(['key' => '*', 'name' => 'All',]);
-        Technology::create(['key' => 'drupal', 'name' => 'Drupal',]);
-        Technology::create(['key' => 'html', 'name' => 'HTML',]);
-        Technology::create(['key' => 'magento', 'name' => 'Magento',]);
-        Technology::create(['key' => 'laravel', 'name' => 'Laravel',]);
-        Technology::create(['key' => 'react', 'name' => 'React',]);
-        Technology::create(['key' => 'nextjs', 'name' => 'Next.js',]);
-        Technology::create(['key' => 'wp', 'name' => 'WordPress',]);
+        Technology::create(['key' => '*', 'name' => 'All']);
+        Technology::create(['key' => 'drupal', 'name' => 'Drupal']);
+        Technology::create(['key' => 'html', 'name' => 'HTML']);
+        Technology::create(['key' => 'magento', 'name' => 'Magento']);
+        Technology::create(['key' => 'laravel', 'name' => 'Laravel']);
+        Technology::create(['key' => 'react', 'name' => 'React']);
+        Technology::create(['key' => 'nextjs', 'name' => 'Next.js']);
+        Technology::create(['key' => 'wp', 'name' => 'WordPress']);
 
         Contact::factory(10)->create();
         Job::factory(10)->create();

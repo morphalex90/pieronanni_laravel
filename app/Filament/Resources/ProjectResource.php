@@ -6,18 +6,15 @@ use App\Filament\Resources\ProjectResource\Pages;
 use App\Filament\Resources\ProjectResource\RelationManagers\FilesRelationManager;
 use App\Filament\Resources\ProjectResource\RelationManagers\TechnologiesRelationManager;
 use App\Models\Project;
-use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
 
 class ProjectResource extends Resource
 {
@@ -37,7 +34,7 @@ class ProjectResource extends Resource
                 MarkdownEditor::make('description')
                     ->maxLength(1000)
                     ->nullable()
-                    ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->hint(fn ($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 TextInput::make('description_cv')->required()->maxLength(255),

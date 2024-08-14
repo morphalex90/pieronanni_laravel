@@ -37,7 +37,7 @@ class PDFController extends Controller
 
         $mpdf->defaultfooterline = 0;
         $mpdf->SetTitle('CV Piero Nanni');
-        $mpdf->SetAuthor("Piero Nanni");
+        $mpdf->SetAuthor('Piero Nanni');
         $mpdf->setFooter('{PAGENO}{nbpg}');
 
         $mpdf->WriteHTML($stylesheet, HTMLParserMode::HEADER_CSS);

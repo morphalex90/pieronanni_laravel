@@ -3,21 +3,16 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\JobResource\Pages;
-use App\Filament\Resources\JobResource\RelationManagers;
 use App\Filament\Resources\JobResource\RelationManagers\ProjectsRelationManager;
 use App\Models\Job;
-use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\MarkdownEditor;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class JobResource extends Resource
 {
@@ -37,13 +32,13 @@ class JobResource extends Resource
                 MarkdownEditor::make('description')
                     ->maxLength(1000)
                     ->nullable()
-                    ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->hint(fn ($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 MarkdownEditor::make('description_cv')
                     ->maxLength(1000)
                     ->nullable()
-                    ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->hint(fn ($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 DatePicker::make('started_at')->required(),
