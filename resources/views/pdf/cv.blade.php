@@ -34,7 +34,7 @@
                         <i>{{ Carbon\Carbon::parse($job->started_at)->format('F Y') }}
 
                             @if ($job->ended_at)
-                                - {{ Carbon\Carbon::parse($job->ended_at)->format('F Y') }}
+                                - {{ Carbon\Carbon::parse($job->ended_at)->format('F Y') }} ({{ $job->duration }})
                             @else
                                 - Present
                             @endif
