@@ -33,7 +33,7 @@ class ProjectResource extends Resource
                 TextInput::make('url')->required()->url()->maxLength(255),
                 TextInput::make('github')->url()->maxLength(255)->nullable()->label('GitHub'),
                 MarkdownEditor::make('description')
-                    ->maxLength(1000)
+                    ->maxLength(2000)
                     ->nullable()
                     ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
