@@ -18,15 +18,15 @@ export default function About({ jobs }: { jobs: any[] }) {
     return (
         <>
             <Head>
-                {/* <link rel="canonical" href={process.env.NEXT_PUBLIC_APP_URL + '/about'} /> */}
+                <link rel="canonical" href={route('homepage') + '/about'} />
                 <title>About</title>
                 <meta name="description" content="Discover who Piero Nanni is, his career path and what he is doing at the moment" />
 
                 <meta property="og:type" content="profile" />
                 <meta property="og:title" content="About | Piero Nanni" />
                 <meta property="og:description" content="Discover who Piero Nanni is, his career path and what he is doing at the moment" />
-                <meta property="og:image" content="" />
-                {/* <meta property="og:url" content={process.env.NEXT_PUBLIC_APP_URL + '/about'} /> */}
+                {/* <meta property="og:image" content="" /> */}
+                <meta property="og:url" content={route('homepage') + '/about'} />
             </Head>
 
             <Layout className="about">
@@ -40,6 +40,7 @@ export default function About({ jobs }: { jobs: any[] }) {
                         <p><a href="https://github.com/morphalex90" target="_blank" rel="noreferrer" title="GitHub">github.com/morphalex90</a></p>
 
                         <div className="timeline">
+                            <h3 className="text-center">Jobs timeline</h3>
 
                             {/* Jobs */}
                             <div className="timeline__jobs">

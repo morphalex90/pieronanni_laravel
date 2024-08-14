@@ -33,15 +33,15 @@ export default function Projects({ technologies, allJobs }: { technologies: any[
     return (
         <>
             <Head>
-                {/* <link rel="canonical" href={process.env.NEXT_PUBLIC_APP_URL + '/projects'} /> */}
+                <link rel="canonical" href={route('homepage') + '/projects'} />
                 <title>Projects</title>
                 <meta name="description" content="Check out the complete list of websites created by Piero Nanni during his career" />
 
                 <meta property="og:type" content="profile" />
                 <meta property="og:title" content="Projects | Piero Nanni" />
                 <meta property="og:description" content="Check out the complete list of websites created by Piero Nanni during his career" />
-                <meta property="og:image" content="" />
-                {/* <meta property="og:url" content={process.env.NEXT_PUBLIC_APP_URL + '/projects'} /> */}
+                {/* <meta property="og:image" content="" /> */}
+                <meta property="og:url" content={route('homepage') + '/projects'} />
             </Head>
 
             <Layout className="page-projects">
