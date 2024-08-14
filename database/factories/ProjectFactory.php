@@ -23,7 +23,7 @@ class ProjectFactory extends Factory
             'github' => fake()->url(),
             'description' => fake()->sentence(50),
             'description_cv' => fake()->words(25, true),
-            'published_at' => fake()->date(),
+            'published_at' => fake()->dateTimeThisDecade(),
         ];
     }
 }

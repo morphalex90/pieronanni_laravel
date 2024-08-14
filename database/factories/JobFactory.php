@@ -20,10 +20,10 @@ class JobFactory extends Factory
             'title' => fake()->name(),
             'company' => ['name' => fake()->name(), 'url' => fake()->url()],
             'location' => fake()->country(),
-            'description' => fake()->sentence(50),
+            'description' => fake()->paragraphs(3, true),
             'description_cv' => fake()->paragraphs(3, true),
-            'started_at' => fake()->date(),
-            'ended_at' => fake()->date(),
+            'started_at' => fake()->dateTimeThisDecade('- 2 year'),
+            'ended_at' => fake()->dateTimeThisDecade('+ 2 years'),
         ];
     }
 }
