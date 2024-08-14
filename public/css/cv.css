@@ -5,8 +5,8 @@ body {
 }
 
 a {
-    color: #337ab7 !important;
-    text-decoration: none;
+    color: #000;
+    font-weight: bold;
 }
 
 .col-9 {
@@ -19,13 +19,11 @@ a {
     width: 66%;
 }
 
-/* .col-7{float:left; width:58%;} */
 .col-6 {
     float: left;
     width: 49%;
 }
 
-/* .col-5{float:left; width:41%;} */
 .col-4 {
     float: left;
     width: 33%;
@@ -65,16 +63,6 @@ ul {
     font-size: 12px;
 }
 
-.project-list li img {
-    height: 20px;
-    width: 20px;
-}
-
-.project-list li svg {
-    height: 5px;
-    width: 5px;
-}
-
 .section {
     padding-top: 10px;
 }
@@ -82,6 +70,10 @@ ul {
 .section strong {
     margin-bottom: 4px;
     font-size: 20px;
+}
+
+.job {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 .job-description ul {
