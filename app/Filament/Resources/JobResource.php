@@ -31,13 +31,13 @@ class JobResource extends Resource
                 TextInput::make('company.url')->label('Company url')->required()->maxLength(155),
                 MarkdownEditor::make('description')
                     ->maxLength(1000)
-                    ->nullable()
+                    ->required()
                     ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 MarkdownEditor::make('description_cv')
                     ->maxLength(1000)
-                    ->nullable()
+                    ->required()
                     ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
