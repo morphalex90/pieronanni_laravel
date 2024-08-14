@@ -47,9 +47,11 @@
                     <ul class="project-list">
                         @foreach ($job->projects as $project)
                             <li>
-                                {{-- {{ Inertia\Inertia::HTML('Icon', ['technology' => $project->technologies[0]->name]) }} --}}
-                                {{-- <img src="" alt={{ $project->title }} title={{ $project->title }} height="15"
-                                    width="15"> --}}
+                                @if ($project->technologies[0])
+                                    {!! file_get_contents('svg/' . $project->technologies[0]->key . '.svg') !!}
+                                    {{-- @include('pdf.icons', ['technology' => $project->technologies[0]->key]) --}}
+                                @endif
+
                                 <span><a href={{ $project->url }}>{{ $project->title }}</a> - blabla project
                                     description</span>
                             </li>
