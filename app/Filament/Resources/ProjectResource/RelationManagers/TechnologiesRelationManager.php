@@ -32,7 +32,7 @@ class TechnologiesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\AttachAction::make(),
+                Tables\Actions\AttachAction::make()->preloadRecordSelect(),
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
