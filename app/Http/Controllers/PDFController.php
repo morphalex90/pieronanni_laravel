@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
-use Illuminate\Support\Facades\URL;
 use Mpdf\HTMLParserMode;
 use Mpdf\Mpdf;
 use Mpdf\Output\Destination;
@@ -33,6 +32,7 @@ class PDFController extends Controller
 
             'pagenumPrefix' => 'Page ',
             'nbpgPrefix' => ' / ',
+            'nbpgSuffix' => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', // add margin right to pagination
         ]);
 
         $mpdf->defaultfooterline = 0;
