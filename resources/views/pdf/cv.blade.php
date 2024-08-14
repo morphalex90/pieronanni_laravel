@@ -30,8 +30,16 @@
                     <div class="col-6"><a href={{ $job->company['url'] }}>{{ $job->company['name'] }}</a>
                         (<i>{{ $job->location }}</i>)
                     </div>
-                    <div class="col-6 text-right"><i>{{ Carbon\Carbon::parse($job->started_at)->format('F Y') }}
-                            - {{ Carbon\Carbon::parse($job->ended_at)->format('F Y') }}</i></div>
+                    <div class="col-6 text-right">
+                        <i>{{ Carbon\Carbon::parse($job->started_at)->format('F Y') }}
+
+                            @if ($job->ended_at)
+                                - {{ Carbon\Carbon::parse($job->ended_at)->format('F Y') }}
+                            @else
+                                - Present
+                            @endif
+                        </i>
+                    </div>
                     <div class="clear"></div>
                     {{-- <br> --}}
 
