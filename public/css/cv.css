@@ -58,17 +58,21 @@ ul {
     padding-left: 0;
     margin-top: 5px;
     margin-bottom: 10px;
-    display: flex;
-    flex-wrap: wrap;
     width: 100%;
-}
-
-.project-list li {
-    width: 50%;
 }
 
 .project-list li a {
     font-size: 12px;
+}
+
+.project-list li img {
+    height: 20px;
+    width: 20px;
+}
+
+.project-list li svg {
+    height: 5px;
+    width: 5px;
 }
 
 .section {
@@ -81,5 +85,6 @@ ul {
 }
 
 .job-description ul {
+    margin-top: 5px;
     margin-bottom: 0;
 }
