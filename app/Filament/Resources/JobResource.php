@@ -31,10 +31,9 @@ class JobResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')->required(),
+                TextInput::make('title')->required()->columnSpanFull(),
                 TextInput::make('company.name')->label('Company name')->required(),
                 TextInput::make('company.url')->label('Company url')->required(),
-                TextInput::make('location')->required(),
                 MarkdownEditor::make('description')
                     ->maxLength(1000)
                     ->nullable()
@@ -49,6 +48,7 @@ class JobResource extends Resource
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 DatePicker::make('started_at')->required(),
                 DatePicker::make('ended_at')->nullable(),
+                TextInput::make('location')->required(),
             ]);
     }
 
@@ -76,7 +76,8 @@ class JobResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('started_at', 'DESC');
     }
 
     public static function getRelations(): array

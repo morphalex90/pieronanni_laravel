@@ -54,11 +54,12 @@ class ProjectResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('title')->sortable(),
-                TextColumn::make('url')->sortable(),
-                TextColumn::make('github')->sortable()->label('GitHub'),
+                TextColumn::make('url')->sortable()->limit(50),
+                TextColumn::make('github')->sortable()->limit(50)->label('GitHub'),
                 TextColumn::make('job.title')->sortable(),
                 TextColumn::make('description')->limit(50),
                 TextColumn::make('description_cv')->limit(50),
+                TextColumn::make('files_count')->counts('files')->label('Images')->sortable(),
                 TextColumn::make('technologies.name'),
                 TextColumn::make('published_at')->since()->sortable()->dateTooltip(),
             ])
@@ -72,7 +73,8 @@ class ProjectResource extends Resource
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->defaultSort('published_at', 'DESC');
     }
 
     public static function getRelations(): array
