@@ -15,6 +15,7 @@
             padding: 4px 8px;
             transition: all 0.5s;
             overflow: hidden;
+            color: #000;
 
             width: calc(100% / var(--tot-years) * var(--unit-width));
             margin-left: calc(100% / var(--tot-years) * var(--unit-margin-left));
@@ -37,10 +38,12 @@
             text-align: center;
             position: relative;
             background-color: #ff1493;
+            color: #000;
             font-size: 10px;
 
             &:nth-child(even) {
                 background-color: #000;
+                color: #fff;
 
                 &::after {
                     border-color: transparent transparent transparent #000;
