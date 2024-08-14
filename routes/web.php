@@ -19,7 +19,8 @@ Route::get('/about', function () {
 
 Route::get('/projects', function () {
     $technologies = Technology::orderBy('name')->get();
-    $jobs = Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
+    $jobs = Job::with('projects.technologies', 'projects.files')->orderBy('started_at', 'DESC')->get();
+
     return Inertia::render('Projects', ['technologies' => $technologies, 'allJobs' => $jobs]);
 })->name('projects');
 

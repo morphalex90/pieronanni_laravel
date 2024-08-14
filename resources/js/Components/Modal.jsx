@@ -40,8 +40,8 @@ export default function Modal({ show, onClose, title, content }) {
                         </div>
 
                         <div>
-                            {content?.images?.map((image, id) =>
-                                <img key={id} src={'../img/projects/' + image} alt={title || content.title} title={title || content.title} />
+                            {content?.files?.map((image) =>
+                                <img key={image.id} src={image.url} alt={title || content.title} title={title || content.title} />
                             )}
                         </div>
 
