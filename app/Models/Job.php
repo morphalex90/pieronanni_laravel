@@ -54,7 +54,7 @@ class Job extends Model
      */
     public function projects(): HasMany
     {
-        return $this->hasMany(Project::class)->orderBy('published_at');
+        return $this->hasMany(Project::class)->orderBy('published_at', 'DESC');
     }
 
     /**
