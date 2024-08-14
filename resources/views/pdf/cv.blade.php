@@ -1,59 +1,60 @@
 {{-- <link rel="stylesheet" href="{{ URL::asset('css/cv.css') }}" /> --}}
 
 <div>
-    <div class="col-6">
-        <div style="margin-left:20px; margin-right:20px; padding-top: 15px;">
-            <div style="font-size:35px; font-weight:bold; line-height:1px; margin-bottom: 10px;">Piero Nanni</div>
-            <div>Full stack developer</div>
-            <div style="margin-bottom:10px"><a href="https://www.pieronanni.me">www.pieronanni.me</a></div>
-            {{-- <div><em>I don&rquo;t know, it&rquo;s something about web developing that calms me down, ya know?</em></div> --}}
+    <div style="border-bottom: 2px solid #000;">
+        <div class="col-6">
+            <div style="margin-left:20px; margin-right:20px; padding-top: 15px;">
+                <div style="font-size:35px; font-weight:bold; line-height:1px; margin-bottom: 10px;">Piero Nanni</div>
+                <div><i>Full stack developer</i></div>
+                <div style="margin-bottom:10px"><a href="https://www.pieronanni.me">www.pieronanni.me</a></div>
+                {{-- <div><em>I don&rquo;t know, it&rquo;s something about web developing that calms me down, ya know?</em></div> --}}
+            </div>
+        </div>
+
+        <div class="col-6 text-right">
+            <div>London, UK {!! file_get_contents('svg/location.svg') !!}</div>
+            <div>+44 7724 146851 {!! file_get_contents('svg/call.svg') !!}</div>
+            <div><a href="mailto:piero.nanni@gmail.com">piero.nanni@gmail.com</a> {!! file_get_contents('svg/mail.svg') !!}</div>
+            <div><a href="https://github.com/morphalex90">github.com/morphalex90</a> {!! file_get_contents('svg/github.svg') !!}</div>
         </div>
     </div>
-
-    <div class="col-6 text-right">
-        <div style="margin-left:20px; margin-right:20px;">
-            <div>London, UK</div>
-            <div>+44 7724 146851</div>
-            <div><a href="mailto:piero.nanni@gmail.com">piero.nanni@gmail.com</a></div>
-            <div><a href="https://github.com/morphalex90">github.com/morphalex90</a></div>
-        </div>
-    </div>
-
-    <div class="clear"></div>
-
-    <div style="height: 2px; width: 100%; border-bottom: 2px solid #000;"></div>
 
     <div class="col-9">
         <div style="margin-left: 20px; border-right: 2px solid #000; padding-right: 20px;">
 
-            <div class="section"><strong>WORK EXPERIENCE</strong></div>
+            <div class="section text-center"><strong>WORK EXPERIENCE</strong>
+            </div>
             @foreach ($jobs as $job)
-                <div style="border-bottom:1px solid darkgrey;">
+                <div class="job">
                     <div style="margin-top: 20px;"><strong style="font-size: 19px;">{{ $job->title }}</strong></div>
                     <div class="col-6"><a href={{ $job->company['url'] }}>{{ $job->company['name'] }}</a>
                         (<i>{{ $job->location }}</i>)
                     </div>
-                    <div class="col-6"><i>{{ Carbon\Carbon::parse($job->started_at)->format('F Y') }}
+                    <div class="col-6 text-right"><i>{{ Carbon\Carbon::parse($job->started_at)->format('F Y') }}
                             - {{ Carbon\Carbon::parse($job->ended_at)->format('F Y') }}</i></div>
                     <div class="clear"></div>
                     {{-- <br> --}}
 
                     <div class="job-description">
-                        <x-markdown>
-                            {!! $job->description_cv !!}
-                        </x-markdown>
+                        <x-markdown>{!! $job->description_cv !!}</x-markdown>
                     </div>
 
                     <ul class="project-list">
                         @foreach ($job->projects as $project)
                             <li>
-                                @if ($project->technologies[0])
-                                    {!! file_get_contents('svg/' . $project->technologies[0]->key . '.svg') !!}
-                                    {{-- @include('pdf.icons', ['technology' => $project->technologies[0]->key]) --}}
+                                @if (count($project->technologies) > 0)
+                                    @foreach ($project->technologies as $tech)
+                                        {!! file_get_contents('svg/' . $tech->key . '.svg') !!}
+                                    @endforeach
+                                    {{-- @else
+                                    <div style="height:10px; width:5%; float:left;">
+                                        {!! file_get_contents('svg/placeholder.svg') !!}
+                                    </div> --}}
                                 @endif
 
-                                <span><a href={{ $project->url }}>{{ $project->title }}</a> - blabla project
-                                    description</span>
+                                <span style="float:right:"><a href={{ $project->url }}>{{ $project->title }}</a> -
+                                    {{ $project->description_cv }}
+                                </span>
                             </li>
                         @endforeach
                     </ul>
@@ -71,7 +72,7 @@
                 <li>Languages
                     <ul>
                         <li>PHP</li>
-                        <li>HTML5</li>
+                        {{-- <li>HTML5</li> --}}
                         <li>JS & TS</li>
                         <li>CSS3, Sass & BEM</li>
                         <li>SQL</li>
@@ -81,7 +82,7 @@
                 <li>CMS
                     <ul>
                         <li>WordPress</li>
-                        <li>Drupal 6, 7, 8, 9</li>
+                        <li>Drupal</li>
                     </ul>
                 </li>
 
