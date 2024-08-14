@@ -22,6 +22,7 @@ class ProjectFactory extends Factory
             'url' => fake()->url(),
             'github' => fake()->url(),
             'description' => fake()->sentence(50),
+            'description_cv' => fake()->words(25, true),
             'published_at' => fake()->date(),
         ];
     }

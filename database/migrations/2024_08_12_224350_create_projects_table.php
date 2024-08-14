@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('url');
             $table->string('github')->nullable();
             $table->text('description');
+            $table->string('description_cv');
             $table->date('published_at');
         });
     }

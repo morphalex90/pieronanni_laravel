@@ -30,7 +30,7 @@ class ProjectResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title')->required()->maxLength(255),
+                TextInput::make('title')->required()->maxLength(255)->columnSpanFull(),
                 TextInput::make('url')->required()->url()->maxLength(255),
                 TextInput::make('github')->url()->maxLength(255)->nullable()->label('GitHub'),
                 MarkdownEditor::make('description')
@@ -39,6 +39,7 @@ class ProjectResource extends Resource
                     ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
+                TextInput::make('description_cv')->required()->maxLength(255),
                 DatePicker::make('published_at')->required(),
                 Select::make('job_id')->label('Job')
                     ->relationship(name: 'job', titleAttribute: 'title')
@@ -56,6 +57,7 @@ class ProjectResource extends Resource
                 TextColumn::make('github')->sortable()->label('GitHub'),
                 TextColumn::make('job.title')->sortable(),
                 TextColumn::make('description')->limit(50),
+                TextColumn::make('description_cv')->limit(50),
                 TextColumn::make('technologies.name'),
                 TextColumn::make('published_at')->since()->sortable()->dateTooltip(),
             ])

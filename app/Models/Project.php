@@ -24,10 +24,8 @@ class Project extends Model
         'url',
         'github',
         'description',
-        'published_at',
         'description_cv',
-        'started_at',
-        'ended_at',
+        'published_at',
     ];
 
     public function technologies(): BelongsToMany
