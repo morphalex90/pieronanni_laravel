@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ProjectResource\RelationManagers;
 
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -32,7 +33,10 @@ class TechnologiesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\AttachAction::make()->preloadRecordSelect(),
+                Tables\Actions\AttachAction::make()->preloadRecordSelect()
+                    ->recordSelect(function (Select $select) {
+                        return $select->multiple();
+                    }),
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
