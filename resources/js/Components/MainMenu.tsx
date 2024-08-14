@@ -5,8 +5,8 @@ import NavLink from "./NavLink";
 export default function MainMenu({ position = '' }) {
 
     return (
-        <nav className={'main-menu' + (position ? ' --' + position : '')}>
-            <ul>
+        <nav role="navigation" className={'main-menu' + (position ? ' --' + position : '')}>
+            <ul id="main-menu">
                 {position === 'header' &&
                     <li className="has-icon"><a href="https://github.com/morphalex90" title="GitHub" target="_blank" rel="noopener noreferrer"><img src={github} alt="GitHub" title="GitHub" height={26} width={26} /></a></li>
                 }
