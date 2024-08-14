@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Markdown from 'react-markdown'
 
-export default function Modal({ show, onClose, title, content }) {
+export default function Modal({ show, onClose, title, content }: { show: any, onClose: any, title?: any, content: any }) {
     const [isBrowser, setIsBrowser] = useState(false);
 
     useEffect(() => {
@@ -12,7 +12,7 @@ export default function Modal({ show, onClose, title, content }) {
         }
     }, [content]);
 
-    const handleCloseClick = (e) => {
+    const handleCloseClick = (e: any) => {
         if (e.target === e.currentTarget) {
             onClose();
         }
@@ -40,8 +40,8 @@ export default function Modal({ show, onClose, title, content }) {
                         </div>
 
                         <div>
-                            {content?.files?.map((image) =>
-                                <img key={image.id} src={image.url} alt={title || content.title} title={title || content.title} />
+                            {content?.files?.map((image: any) =>
+                                <img key={image.id} src={image.url} alt={title || content.title} title={title || content.title} loading="lazy" />
                             )}
                         </div>
 
@@ -53,10 +53,10 @@ export default function Modal({ show, onClose, title, content }) {
 
     ) : null;
 
-    if (isBrowser) {
+    if (isBrowser && modalContent !== null) {
         return ReactDOM.createPortal(
             modalContent,
-            document.getElementById("modal-root")
+            document.getElementById("modal-root")!
         );
     } else {
         return null;
