@@ -13,7 +13,7 @@ export default function Project({ project, delay }: { project: any, delay: numbe
         <>
             <motion.div className="projects__single" initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3, delay }} onClick={e => { setModalShow(true); setModalContent(project); }}>
                 <div className="projects__single__image">
-                    <img src={project?.files?.[0] ? project.files[0].url : placeholder} alt={project.title} title={project.title} width={333} height={200} />
+                    <img src={project?.files?.[0] ? project.files[0].url : placeholder} alt={project.title} title={project.title} width={333} height={200} loading="lazy" />
                 </div>
 
                 <div className="projects__single__content">
@@ -28,7 +28,7 @@ export default function Project({ project, delay }: { project: any, delay: numbe
                 </div>
             </motion.div >
 
-            <Modal title={'Test'} onClose={() => setModalShow(false)} show={modalShow} content={modalContent} />
+            <Modal onClose={() => setModalShow(false)} show={modalShow} content={modalContent} />
         </>
     );
 }
