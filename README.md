@@ -1,8 +1,13 @@
-# Piero Nanni v3 - Laravel 
+# Piero Nanni v3 - Laravel
 
-## Google fonts
+## How to install
+`composer install` then `npm install`
+
+## How to start
+`npm run dev` then use Herd or `php artisan serve`
+
+### Google fonts
     $ php artisan google-fonts:fetch
-
 
 ## Pint
     $ ./vendor/bin/pint
