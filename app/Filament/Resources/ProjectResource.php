@@ -51,14 +51,14 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('title')->sortable(),
-                TextColumn::make('url')->sortable()->limit(50),
-                TextColumn::make('github')->sortable()->limit(50)->label('GitHub'),
-                TextColumn::make('job.company.name')->sortable(),
+                TextColumn::make('title')->sortable()->searchable(isIndividual: true, isGlobal: false),
+                TextColumn::make('url')->sortable()->limit(50)->searchable(isIndividual: true, isGlobal: false),
+                TextColumn::make('github')->sortable()->limit(50)->label('GitHub')->searchable(isIndividual: true, isGlobal: false),
+                TextColumn::make('job.company.name')->sortable()->searchable(isIndividual: true, isGlobal: false),
                 TextColumn::make('description')->limit(50),
                 TextColumn::make('description_cv')->limit(50),
                 TextColumn::make('files_count')->counts('files')->label('Images')->sortable(),
-                TextColumn::make('technologies.name'),
+                TextColumn::make('technologies.name')->searchable(isIndividual: true, isGlobal: false),
                 TextColumn::make('published_at')->since()->sortable()->dateTooltip(),
             ])
             ->filters([
