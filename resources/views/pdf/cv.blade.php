@@ -26,11 +26,15 @@
             </div>
             @foreach ($jobs as $job)
                 <div class="job">
-                    <div style="margin-top: 20px;"><strong style="font-size: 19px;">{{ $job->title }}</strong></div>
-                    <div class="col-6"><a href={{ $job->company['url'] }}>{{ $job->company['name'] }}</a>
+                    <div style="margin-top: 20px;">
+                        <strong style="font-size: 19px;">{{ $job->title }}</strong>
+                        <a href={{ $job->company['url'] }}>{{ $job->company['name'] }}</a>
+                    </div>
+
+                    <div class="col-5">
                         (<i>{{ $job->location }}</i>)
                     </div>
-                    <div class="col-6 text-right">
+                    <div class="col-7 text-right">
                         <i>{{ Carbon\Carbon::parse($job->started_at)->format('F Y') }}
 
                             @if ($job->ended_at)
@@ -66,7 +70,6 @@
                             </li>
                         @endforeach
                     </ul>
-                </div>
             @endforeach
         </div>
     </div>

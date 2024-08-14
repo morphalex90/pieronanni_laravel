@@ -19,9 +19,19 @@ a {
     width: 66%;
 }
 
+.col-7 {
+    float: left;
+    width: 58.33333333%;
+}
+
 .col-6 {
     float: left;
     width: 49%;
+}
+
+.col-5 {
+    float: left;
+    width: 41.66666667%;
 }
 
 .col-4 {
