@@ -56,6 +56,15 @@ return [
             'throw' => false,
         ],
 
+        'backblaze' => [
+            'driver' => 's3',
+            'key' => env('B3_KEY'),
+            'secret' => env('B3_SECRET'),
+            'region' => 'eu-central-003',
+            'bucket' => env('B3_BUCKET'),
+            'endpoint' => 'https://s3.eu-central-003.backblazeb2.com',
+            'use_path_style_endpoint' => true,
+        ],
     ],
 
     /*
