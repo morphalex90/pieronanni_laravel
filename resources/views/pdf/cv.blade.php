@@ -70,6 +70,7 @@
                             </li>
                         @endforeach
                     </ul>
+                </div>
             @endforeach
         </div>
     </div>
