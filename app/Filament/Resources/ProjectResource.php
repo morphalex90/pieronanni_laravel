@@ -54,7 +54,7 @@ class ProjectResource extends Resource
                 TextColumn::make('title')->sortable(),
                 TextColumn::make('url')->sortable()->limit(50),
                 TextColumn::make('github')->sortable()->limit(50)->label('GitHub'),
-                TextColumn::make('job.title')->sortable(),
+                TextColumn::make('job.company.name')->sortable(),
                 TextColumn::make('description')->limit(50),
                 TextColumn::make('description_cv')->limit(50),
                 TextColumn::make('files_count')->counts('files')->label('Images')->sortable(),
