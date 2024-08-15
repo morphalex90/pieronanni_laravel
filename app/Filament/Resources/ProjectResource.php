@@ -42,7 +42,7 @@ class ProjectResource extends Resource
                 DatePicker::make('published_at')->required(),
                 Select::make('job_id')->label('Job')
                     ->relationship(name: 'job', titleAttribute: 'title')
-                    ->getOptionLabelFromRecordUsing(fn(Job $user) => "{$user->title} ({$user->company['name']})")
+                    ->getOptionLabelFromRecordUsing(fn(Job $user) => "{$user->company['name']} [{$user->title}]")
                     ->required()->searchable()->preload(),
             ]);
     }
