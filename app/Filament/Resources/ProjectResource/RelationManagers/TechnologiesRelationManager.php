@@ -26,7 +26,6 @@ class TechnologiesRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('name')
-            ->modifyQueryUsing(fn(Builder $query) => $query->where('key', '=', '*'))
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('key'),
