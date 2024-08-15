@@ -8,6 +8,7 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class TechnologiesRelationManager extends RelationManager
 {
@@ -25,6 +26,7 @@ class TechnologiesRelationManager extends RelationManager
     {
         return $table
             ->recordTitleAttribute('name')
+            ->modifyQueryUsing(fn(Builder $query) => $query->where('key', '=', '*'))
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('key'),
@@ -33,18 +35,19 @@ class TechnologiesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\AttachAction::make()->preloadRecordSelect()
+                Tables\Actions\AttachAction::make()
+                    ->preloadRecordSelect()
                     ->recordSelect(function (Select $select) {
                         return $select->multiple();
-                    }),
+                    })
+                    ->recordSelectOptionsQuery(fn(Builder $query) => $query->where('key', '!=', '*'))
             ])
             ->actions([
-                // Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DetachAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DetachBulkAction::make(),
                 ]),
             ]);
     }
