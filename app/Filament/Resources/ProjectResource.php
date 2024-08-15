@@ -16,6 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProjectResource extends Resource
 {
@@ -41,7 +42,11 @@ class ProjectResource extends Resource
                 TextInput::make('description_cv')->required()->maxLength(255),
                 DatePicker::make('published_at')->required(),
                 Select::make('job_id')->label('Job')
-                    ->relationship(name: 'job', titleAttribute: 'title')
+                    ->relationship(
+                        name: 'job',
+                        titleAttribute: 'title',
+                        modifyQueryUsing: fn(Builder $query) => $query->orderBy('company'),
+                    )
                     ->getOptionLabelFromRecordUsing(fn(Job $user) => "{$user->company['name']} [{$user->title}]")
                     ->required()->searchable()->preload(),
             ]);
