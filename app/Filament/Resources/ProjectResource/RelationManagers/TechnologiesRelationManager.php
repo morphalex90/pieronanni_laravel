@@ -19,6 +19,7 @@ class TechnologiesRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->required()->maxLength(255),
+                Forms\Components\TextInput::make('key')->required()->maxLength(255),
             ]);
     }
 
@@ -34,6 +35,7 @@ class TechnologiesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
+                Tables\Actions\CreateAction::make(),
                 Tables\Actions\AttachAction::make()
                     ->preloadRecordSelect()
                     ->recordSelect(function (Select $select) {
