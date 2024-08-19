@@ -1,10 +1,10 @@
 import github from '@/../img/github.svg';
 import NavLink from "./NavLink";
 
-export default function MainMenu({ position = '' }: { position: string }) {
+export default function MainMenu({ className, position = '' }: { className: string, position: string }) {
 
     return (
-        <nav role="navigation" className={'main-menu' + (position ? ' --' + position : '')}>
+        <nav role="navigation" className={'main-menu' + (position ? ' --' + position : '') + (' ' + className)}>
             <ul id={position === 'header' ? 'main-menu' : ''}>
                 {position === 'header' &&
                     <li className="has-icon"><a href="https://github.com/morphalex90" title="GitHub" target="_blank" rel="noopener noreferrer"><img src={github} alt="GitHub" title="GitHub" height={26} width={26} /></a></li>
