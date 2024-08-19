@@ -102,10 +102,10 @@ main {
     // min-height: calc(100vh - 46px);
     overflow: hidden;
 
-    .--open & {
-        position: relative;
-        z-index: -1;
-    }
+    // .--open & {
+    //     position: relative;
+    //     z-index: -1;
+    // }
 
     .homepage &,
     .page-404 & {
@@ -126,7 +126,7 @@ main {
     @media only screen and (min-width: 768px) {
         // display: flex;
         // min-height: 602px;
-        padding-top: 61px;
+        padding-top: 62px;
     }
 }
 
