@@ -1,8 +1,7 @@
 import github from '@/../img/github.svg';
-import linkedin from '@/../img/linkedin.svg';
 import NavLink from "./NavLink";
 
-export default function MainMenu({ position = '' }) {
+export default function MainMenu({ position = '' }: { position: string }) {
 
     return (
         <nav role="navigation" className={'main-menu' + (position ? ' --' + position : '')}>
