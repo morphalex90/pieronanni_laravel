@@ -52,12 +52,26 @@
                                 transform: rotate(45deg);
                                 background-color: #fff;
                             }
+
+                            svg {
+                                transform: rotate(45deg);
+                            }
+
+                            svg path {
+                                fill: #fff;
+                            }
                         }
 
-                        img {
+                        img,
+                        svg {
                             transition: all 0.4s;
                             background-color: #ff1493;
                             border-radius: 50%;
+                            height: 27px;
+                            width: 27px;
+                        }
+                        svg path {
+                            fill: #ff1493;
                         }
                     }
                 }
