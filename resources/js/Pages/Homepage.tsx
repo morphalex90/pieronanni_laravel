@@ -9,11 +9,11 @@ export default function Homepage() {
             <Head>
                 <link rel="canonical" href={route('homepage')} />
                 <title>Piero Nanni</title>
-                <meta name="description" content="PHP / Js Developer in love with Next.js, London based" />
+                <meta name="description" content="PHP / Js Developer in love with Laravel and Next.js, London based" />
 
                 <meta property="og:type" content="profile" />
                 <meta property="og:title" content="Piero Nanni" />
-                <meta property="og:description" content="PHP / Js Developer in love with Next.js, London based" />
+                <meta property="og:description" content="PHP / Js Developer in love with Laravel and Next.js, London based" />
                 {/* <meta property="og:image" content="" /> */}
                 <meta property="og:url" content={route('homepage')} />
             </Head>
