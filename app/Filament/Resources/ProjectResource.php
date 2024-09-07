@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Filament\Resources\ProjectResource\RelationManagers\FilesRelationManager;
-use App\Filament\Resources\ProjectResource\RelationManagers\TechnologiesRelationManager;
 use App\Models\Job;
 use App\Models\Project;
 use Filament\Forms\Components\DatePicker;
@@ -49,6 +48,14 @@ class ProjectResource extends Resource
                     )
                     ->getOptionLabelFromRecordUsing(fn(Job $user) => "{$user->company['name']} [{$user->title}]")
                     ->required()->searchable()->preload(),
+                Select::make('technologies')
+                    ->multiple()
+                    ->preload()
+                    ->relationship(
+                        name: 'technologies',
+                        titleAttribute: 'name',
+                        modifyQueryUsing: fn(Builder $query) => $query->where('key', '!=', '*'),
+                    ),
             ]);
     }
 
@@ -83,7 +90,6 @@ class ProjectResource extends Resource
     public static function getRelations(): array
     {
         return [
-            TechnologiesRelationManager::class,
             FilesRelationManager::class,
         ];
     }
