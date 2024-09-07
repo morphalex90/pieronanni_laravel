@@ -46,8 +46,8 @@ class File extends Model
     {
         if ($this->uri != null) {
 
-            return Cache::tags('images')->remember('img:' . $this->uri, 3600, function () { // generate 1 hour image link and cache it for 1 hour
-                return Storage::disk('backblaze')->temporaryUrl($this->uri, now()->addHours(1));
+            return Cache::tags('images')->remember('img:' . $this->uri, (12 * 3600), function () { // generate 1 hour image link and cache it for 1 hour
+                return Storage::disk('backblaze')->temporaryUrl($this->uri, now()->addHours(12));
             });
         }
 
