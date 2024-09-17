@@ -22,8 +22,8 @@
     <div class="col-9">
         <div style="margin-left: 20px; border-right: 2px solid #000; padding-right: 20px;">
 
-            <div class="section text-center"><strong>WORK EXPERIENCE</strong>
-            </div>
+            <div class="section text-center"><strong>WORK EXPERIENCE</strong></div>
+
             @foreach ($jobs as $job)
                 <div class="job">
                     <div style="margin-top: 20px;">
@@ -64,7 +64,8 @@
                                     </div> --}}
                                 @endif
 
-                                <span style="float:right:"><a href={{ $project->url }}>{{ $project->title }}</a> -
+                                <span style="float:right:">
+                                    <a href={{ $project->url }}>{{ $project->title }}</a> -
                                     {{ $project->description_cv }}
                                 </span>
                             </li>
