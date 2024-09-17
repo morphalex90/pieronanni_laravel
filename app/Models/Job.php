@@ -62,6 +62,10 @@ class Job extends Model
      */
     public function getDurationAttribute()
     {
+        if ($this->ended_at == null) {
+            return null;
+        }
+
         $date_end = Carbon::parse($this->ended_at);
         $date_start = Carbon::parse($this->started_at);
 
