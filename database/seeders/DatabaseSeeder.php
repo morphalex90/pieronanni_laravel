@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Click;
 use App\Models\Contact;
 use App\Models\Job;
 use App\Models\Project;
@@ -41,5 +42,7 @@ class DatabaseSeeder extends Seeder
                 $technologies->random(rand(1, 3))->pluck('id')->toArray()
             );
         });
+
+        Click::factory(10)->create();
     }
 }
