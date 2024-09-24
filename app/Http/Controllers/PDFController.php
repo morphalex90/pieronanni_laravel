@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Click;
 use App\Models\Job;
+use Illuminate\Http\Request;
 use Mpdf\HTMLParserMode;
 use Mpdf\Mpdf;
 use Mpdf\Output\Destination;
@@ -12,8 +14,12 @@ class PDFController extends Controller
     /**
      * Display PDF CV.
      */
-    public function cv()
+    public function cv(Request $request)
     {
+        Click::create([
+            'user_agent' => $request->userAgent(),
+        ]);
+
         $stylesheet = file_get_contents('css/cv.css');
 
         $jobs = Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
