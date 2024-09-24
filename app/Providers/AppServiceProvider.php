@@ -6,6 +6,7 @@ use App\Models\Click;
 use App\Observers\ClickObserver;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,5 +29,7 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         Click::observe(ClickObserver::class);
+
+        Vite::prefetch(concurrency: 3);
     }
 }
