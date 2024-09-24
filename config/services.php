@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'telegram' => [
+        'key' => env('TELEGRAMP_API_TOKEN'),
+    ],
+
 ];
