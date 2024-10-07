@@ -69,7 +69,8 @@ class Job extends Model
         $date_end = Carbon::parse($this->ended_at);
         $date_start = Carbon::parse($this->started_at);
 
-        $format = (int)$date_start->diffInYears($date_end) > 0 ? '%y years, %m months' : '%m months';
+        $format = (int) $date_start->diffInYears($date_end) > 0 ? '%y years, %m months' : '%m months';
+
         return $date_start->diff($date_end)->format($format);
     }
 }
