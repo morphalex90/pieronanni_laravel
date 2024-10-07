@@ -1,7 +1,7 @@
 import { Head, useForm } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import Layout from '@/Layouts/Layout'
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler } from 'react';
 import { Transition } from '@headlessui/react';
 import InputError from '@/Components/InputError';
 
