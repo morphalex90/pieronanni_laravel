@@ -34,7 +34,7 @@ class ProjectResource extends Resource
                 TextInput::make('github')->url()->maxLength(255)->nullable()->label('GitHub'),
                 MarkdownEditor::make('description')
                     ->maxLength(2000)
-                    ->nullable()
+                    ->required()
                     ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
