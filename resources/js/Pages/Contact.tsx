@@ -2,11 +2,10 @@ import { Head, useForm } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import Layout from '@/Layouts/Layout'
 import { FormEventHandler } from 'react';
-import { Transition } from '@headlessui/react';
 import InputError from '@/Components/InputError';
 
-export default function Contact() {
-    const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
+export default function Contact({ flash }: { flash: { success: false, error: false } }) {
+    const { data, setData, post, errors, processing, recentlySuccessful, reset } = useForm({
         name: '',
         email: '',
         message: '',
@@ -16,7 +15,9 @@ export default function Contact() {
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        post(route('contact.store'));
+        post(route('contact.store'), {
+            onSuccess: () => reset()
+        });
     };
 
     return (
@@ -29,7 +30,6 @@ export default function Contact() {
                 <meta property="og:type" content="profile" />
                 <meta property="og:title" content="Contact | Piero Nanni" />
                 <meta property="og:description" content="Have some questions? Need help? Feel free to ask me everything you need" />
-                {/* <meta property="og:image" content="" /> */}
                 <meta property="og:url" content={route('contact')} />
             </Head>
 
@@ -45,7 +45,6 @@ export default function Contact() {
 
                     <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.2 }}>
                         <iframe style={{ borderRadius: 12 }} src="https://open.spotify.com/embed/playlist/3SjvhmS9oUWxUZehcyhYrT?utm_source=generator&theme=1" width="100%" height="380" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify"></iframe>
-                        {/* <Songs /> */}
                     </motion.div>
 
                     <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.4 }}>
@@ -84,22 +83,19 @@ export default function Contact() {
                             </div>
                         </form>
 
-                        {/* {response &&
-                            <div style={{ marginTop: 20 }}>{response}</div>
-                        } */}
+                        {recentlySuccessful &&
+                            <>
+                                {flash.success &&
+                                    <p className="text-sm text-gray-600" style={{ marginTop: 20 }}>{flash.success}</p>
+                                }
 
-                        <Transition
-                            show={recentlySuccessful}
-                            enter="transition ease-in-out"
-                            enterFrom="opacity-0"
-                            leave="transition ease-in-out"
-                            leaveTo="opacity-0"
-                        >
-                            <p className="text-sm text-gray-600" style={{ marginTop: 20 }}>Thank you! I&apos;ll get back to you shortly</p>
-                        </Transition>
+                                {flash.error &&
+                                    <p className="text-sm text-gray-600" style={{ marginTop: 20 }}>{flash.error}</p>
+                                }
+                            </>
+                        }
                     </motion.div>
                 </div>
-
             </Layout>
         </>
     );
