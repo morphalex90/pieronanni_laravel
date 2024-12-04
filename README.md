@@ -1,5 +1,7 @@
 # Piero Nanni v3 - Laravel
 
+[![Laravel](https://github.com/morphalex90/pieronanni_laravel/actions/workflows/laravel.yml/badge.svg)](https://github.com/morphalex90/pieronanni_laravel/actions/workflows/laravel.yml)
+
 ## How to install & run
     composer install
     npm install
