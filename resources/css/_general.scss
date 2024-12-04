@@ -108,7 +108,7 @@ main {
     // }
 
     .homepage &,
-    .page-404 & {
+    .error & {
         display: flex;
         justify-content: center;
     }
@@ -119,7 +119,7 @@ main {
     flex: 1 1;
 
     .homepage &,
-    .page-404 & {
+    .error & {
         display: flex;
     }
 
