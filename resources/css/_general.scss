@@ -186,4 +186,11 @@ ul {
         color: #fff;
         border: 1px solid #fff;
     }
+
+    &.--hover-big {
+        &:hover {
+            transform: scale(1.2) rotate(2deg) skew(2deg, 2deg);
+            color: #fff !important;
+        }
+    }
 }
