@@ -1,4 +1,4 @@
-function Synt() {
+export default function Synt() {
 
     const firstStep = 8;
 
@@ -54,5 +54,3 @@ function Synt() {
         </div>
     );
 }
-
-export default Synt;
