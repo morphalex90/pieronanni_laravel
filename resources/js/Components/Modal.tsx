@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+import { ProjectType } from "@/types";
+import { MouseEvent, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import Markdown from 'react-markdown'
 
-export default function Modal({ show, onClose, title, content }: { show: any, onClose: any, title?: any, content: any }) {
+export default function Modal({ show, onClose, title, content }: { show: boolean, onClose: any, title?: string, content: ProjectType }) {
     const [isBrowser, setIsBrowser] = useState(false);
 
     useEffect(() => {
         if (content != null) {
             setIsBrowser(true);
-            // console.log(content);
         }
     }, [content]);
 
-    const handleCloseClick = (e: any) => {
+    const handleCloseClick = (e: MouseEvent<HTMLDivElement> | MouseEvent<HTMLButtonElement>) => {
         if (e.target === e.currentTarget) {
             onClose();
         }
@@ -40,7 +40,7 @@ export default function Modal({ show, onClose, title, content }: { show: any, on
                         </div>
 
                         <div>
-                            {content?.files?.map((image: any) =>
+                            {content?.files?.map((image) =>
                                 <img key={image.id} src={image.url} alt={title || content.title} title={title || content.title} loading="lazy" />
                             )}
                         </div>

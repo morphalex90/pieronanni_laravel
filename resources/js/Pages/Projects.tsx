@@ -3,20 +3,21 @@ import Layout from '@/Layouts/Layout'
 import { useState } from 'react';
 import Project from '@/Components/Project'
 import Icon from '@/Components/Icon';
+import { JobType, ProjectType, TechnologyType } from '@/types';
 
-export default function Projects({ technologies, allJobs }: { technologies: any[], allJobs: any[] }) {
-    const [jobs, setJobs] = useState<any[]>(allJobs);
-    const [activeTechnology, setActiveTechnology] = useState<any>('*');
+export default function Projects({ technologies, allJobs }: { technologies: TechnologyType[], allJobs: JobType[] }) {
+    const [jobs, setJobs] = useState(allJobs);
+    const [activeTechnology, setActiveTechnology] = useState<string>('*');
 
-    function filterProjects(techKey: any) {
+    function filterProjects(techKey: string) {
         setActiveTechnology(techKey)
 
         if (techKey === '*') { // if it's 'All', re load all
             setJobs(allJobs);
         } else { // filter by tech key
-            const reducedJobs = allJobs.reduce((result: any, job: any) => {
-                const filteredProjects = job.projects.filter((project: any) =>
-                    project.technologies.some((tech: any) => tech.key === techKey)
+            const reducedJobs = allJobs.reduce((result: JobType[], job: JobType) => {
+                const filteredProjects = job.projects.filter((project: ProjectType) =>
+                    project.technologies.some((tech: TechnologyType) => tech.key === techKey)
                 );
 
                 if (filteredProjects.length > 0) {
@@ -33,7 +34,7 @@ export default function Projects({ technologies, allJobs }: { technologies: any[
     return (
         <>
             <Head>
-                <link rel="canonical" href={route('homepage') + '/projects'} />
+                <link rel="canonical" href={route('projects')} />
                 <title>Projects</title>
                 <meta name="description" content="Check out the complete list of websites created by Piero Nanni during his career" />
 
@@ -41,7 +42,7 @@ export default function Projects({ technologies, allJobs }: { technologies: any[
                 <meta property="og:title" content="Projects | Piero Nanni" />
                 <meta property="og:description" content="Check out the complete list of websites created by Piero Nanni during his career" />
                 {/* <meta property="og:image" content="" /> */}
-                <meta property="og:url" content={route('homepage') + '/projects'} />
+                <meta property="og:url" content={route('projects')} />
             </Head>
 
             <Layout className="page-projects">
@@ -50,7 +51,7 @@ export default function Projects({ technologies, allJobs }: { technologies: any[
                 {technologies.length > 0 &&
                     <div className="technologies">
                         {technologies.map((tech, id) =>
-                            <div key={id} className={'technologies__single' + (activeTechnology === tech.key ? ' is-active' : '')} onClick={e => filterProjects(tech.key)}>
+                            <div key={id} className={'technologies__single' + (activeTechnology === tech.key ? ' is-active' : '')} onClick={() => filterProjects(tech.key)}>
                                 {tech.key !== '*' &&
                                     <Icon technology={tech.key} />
                                 }
@@ -68,7 +69,7 @@ export default function Projects({ technologies, allJobs }: { technologies: any[
                                     <h3 className="text-center"><a href={job.company.url} target="_blank" rel="noreferrer">{job.company.name}</a></h3>
 
                                     <div className="projects">
-                                        {job.projects?.map((project: any, projectId: any) =>
+                                        {job.projects?.map((project: ProjectType, projectId: number) =>
                                             <Project key={projectId} project={project} delay={(projectId + 1) / 12} />
                                         )}
                                     </div>

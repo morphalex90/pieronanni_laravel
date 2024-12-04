@@ -3,22 +3,23 @@ import { Link, Head } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import Layout from '@/Layouts/Layout'
 import Markdown from 'react-markdown'
+import { JobType } from '@/types';
 
-export default function About({ jobs }: { jobs: any[] }) {
+export default function About({ jobs }: { jobs: JobType[] }) {
     const [activeJob, setActiveJob] = useState(jobs.length);
     const startYear = 2011;
     const currentYear = new Date().getFullYear();
 
     // Years timeline
     const years = [];
-    for (var i = startYear; i <= currentYear; i++) {
+    for (let i = startYear; i <= currentYear; i++) {
         years.push(i);
     }
 
     return (
         <>
             <Head>
-                <link rel="canonical" href={route('homepage') + '/about'} />
+                <link rel="canonical" href={route('about')} />
                 <title>About</title>
                 <meta name="description" content="Discover who Piero Nanni is, his career path and what he is doing at the moment" />
 
@@ -26,7 +27,7 @@ export default function About({ jobs }: { jobs: any[] }) {
                 <meta property="og:title" content="About | Piero Nanni" />
                 <meta property="og:description" content="Discover who Piero Nanni is, his career path and what he is doing at the moment" />
                 {/* <meta property="og:image" content="" /> */}
-                <meta property="og:url" content={route('homepage') + '/about'} />
+                <meta property="og:url" content={route('about')} />
             </Head>
 
             <Layout className="about">
@@ -78,7 +79,7 @@ export default function About({ jobs }: { jobs: any[] }) {
                             {/* Descriptions */}
                             <div className="timeline__descriptions">
                                 {jobs.length > 0 &&
-                                    jobs.map((job: any) =>
+                                    jobs.map((job: JobType) =>
                                         <div key={job.id} className={job.id === activeJob ? ' --active' : ''}>
                                             <h3>{job.title}</h3>
                                             <div><i><a href={job.company.url} target="_blank" rel="noreferrer">{job.company.name}</a> - {job.location} ({new Date(job.started_at).toLocaleDateString("en-GB", { year: 'numeric', month: 'long' })}{(job.ended_at !== null ? ' - ' + new Date(job.ended_at).toLocaleDateString("en-GB", { year: 'numeric', month: 'long' }) : '')})</i></div>

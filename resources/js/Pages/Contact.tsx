@@ -6,12 +6,6 @@ import { Transition } from '@headlessui/react';
 import InputError from '@/Components/InputError';
 
 export default function Contact() {
-
-    const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        setData(name, value);
-    }
-
     const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
         name: '',
         email: '',
@@ -28,7 +22,7 @@ export default function Contact() {
     return (
         <>
             <Head>
-                <link rel="canonical" href={route('homepage') + '/contact'} />
+                <link rel="canonical" href={route('contact')} />
                 <title>Contact</title>
                 <meta name="description" content="Have some questions? Need help? Feel free to ask me everything you need" />
 
@@ -36,7 +30,7 @@ export default function Contact() {
                 <meta property="og:title" content="Contact | Piero Nanni" />
                 <meta property="og:description" content="Have some questions? Need help? Feel free to ask me everything you need" />
                 {/* <meta property="og:image" content="" /> */}
-                <meta property="og:url" content={route('homepage') + '/contact'} />
+                <meta property="og:url" content={route('contact')} />
             </Head>
 
             <Layout className="contact">
@@ -59,13 +53,13 @@ export default function Contact() {
                             <div className="d-flex">
                                 <div className="form__field">
                                     <label htmlFor="field_name">Name</label>
-                                    <input name="name" id="field_name" type="text" onChange={handleChange} value={data.name} placeholder="John Doe" required />
+                                    <input name="name" id="field_name" type="text" onChange={(e) => setData('name', e.target.value)} value={data.name} placeholder="John Doe" required />
                                     <InputError className="mt-2" message={errors.name} />
                                 </div>
 
                                 <div className="form__field">
                                     <label htmlFor="field_email">Email</label>
-                                    <input name="email" id="field_email" type="email" onChange={handleChange} value={data.email} placeholder="john@doe.com" required />
+                                    <input name="email" id="field_email" type="email" onChange={(e) => setData('email', e.target.value)} value={data.email} placeholder="john@doe.com" required />
                                     <InputError className="mt-2" message={errors.email} />
 
                                 </div>
@@ -73,7 +67,7 @@ export default function Contact() {
 
                             <div className="form__field">
                                 <label htmlFor="field_message">Message</label>
-                                <textarea name="message" id="field_message" onChange={handleChange} value={data.message} placeholder="Write me anything you want" required></textarea>
+                                <textarea name="message" id="field_message" onChange={(e) => setData('message', e.target.value)} value={data.message} placeholder="Write me anything you want" required></textarea>
                                 <InputError className="mt-2" message={errors.message} />
                             </div>
 
@@ -106,7 +100,7 @@ export default function Contact() {
                     </motion.div>
                 </div>
 
-            </Layout >
+            </Layout>
         </>
     );
 }

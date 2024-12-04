@@ -3,7 +3,7 @@ function Synt() {
     const firstStep = 8;
 
     const horizontalLines = [];
-    for (var i = 4; i >= 0.5; (i = i - 0.5)) {
+    for (let i = 4; i >= 0.5; (i = i - 0.5)) {
         horizontalLines.push(i);
     }
 
