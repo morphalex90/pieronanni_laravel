@@ -105,7 +105,9 @@ export default function About({ jobs }: { jobs: any[] }) {
                         <p>In June 2018, I moved to London to expand my knowledge and increase my English language skills.<br />
                             After a couple of months I joined Purr, a web agency based in central London. Since starting, there have been many interesting projects and new ways of building websites that I had never previously explored.</p>
 
-                        <p>In May 2022, I joined <a href="https://www.soundpickr.com/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Soundpickr">Soundpickr</a> and started working with Laravel and React.</p>
+                        <p>In May 2022, I joined <a href="https://www.soundpickr.com/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Soundpickr">Soundpickr</a> and started working with Laravel and React to build a music streaming service. Sadly this startup shut down at the end of 2023 because of lack of foundings.</p>
+
+                        <p>In January 2024, I joined <a href="https://www.cyber-duck.co.uk/" className="t-underline" target="_blank" rel="noreferrer" title="Visit CyberDuck">CyberDuck</a> (recently acquired by <a href="https://www.caci.co.uk/" className="t-underline" target="_blank" rel="noreferrer" title="Visit CACI">CACI</a>) as a backend developer and started working on Worcester Bosh, a gigantic Laravel project.</p>
                     </motion.section>
                 </div>
             </Layout>
