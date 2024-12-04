@@ -1,10 +1,10 @@
 # Piero Nanni v3 - Laravel
 
-## How to install
-`composer install` then `npm install`
-
-## How to start
-`npm run dev` then use Herd or `php artisan serve`
+## How to install & run
+    composer install
+    npm install
+    php artisan storage:link
+    composer run dev
 
 ### Google fonts
     $ php artisan google-fonts:fetch
