@@ -7,13 +7,13 @@
     composer run dev
 
 ### Google fonts
-    $ php artisan google-fonts:fetch
+    php artisan google-fonts:fetch
 
 ## Pint
-    $ ./vendor/bin/pint
+    ./vendor/bin/pint
 
 ## Generate it all
-    $ php artisan make:model Post -mcrf
+    php artisan make:model Post -mcrf
 
 ## Do do list
 - convert Modal to native Dialog
