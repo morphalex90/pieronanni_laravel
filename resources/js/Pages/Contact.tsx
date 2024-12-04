@@ -95,7 +95,7 @@ export default function Contact() {
                             leave="transition ease-in-out"
                             leaveTo="opacity-0"
                         >
-                            <p className="text-sm text-gray-600 dark:text-gray-400">Thank you! I&aposll get back to you shortly</p>
+                            <p className="text-sm text-gray-600" style={{ marginTop: 20 }}>Thank you! I&apos;ll get back to you shortly</p>
                         </Transition>
                     </motion.div>
                 </div>
