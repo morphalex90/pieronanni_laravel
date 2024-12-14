@@ -1,11 +1,10 @@
 import github from '@/../img/github.svg'
-import NavLink from './NavLink'
 import '../../css/_main-menu.scss'
-
+import NavLink from './NavLink'
 
 export default function MainMenu({ className, position = '' }: { className?: string; position: string }) {
     return (
-        <nav role="navigation" className={'main-menu' + (position ? ' --' + position : '') + (' ' + className)}>
+        <nav role="navigation" className={'main-menu ' + (position ? '--' + position : '') + (' ' + className)}>
             <ul id={position === 'header' ? 'main-menu' : ''}>
                 {position === 'header' && (
                     <li className="has-icon">
