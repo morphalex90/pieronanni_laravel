@@ -42,7 +42,6 @@ export interface JobType {
     ended_at: Date;
 }
 
-
 export interface ImageType {
     id: number;
     uri: string;
