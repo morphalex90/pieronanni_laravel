@@ -23,16 +23,19 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        if (app()->environment('production')) {
-            $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
-                if (in_array($response->getStatusCode(), [500, 503, 404, 403])) {
-                    return Inertia::render('Error', ['status' => $response->getStatusCode()])
-                        ->toResponse($request)
-                        ->setStatusCode($response->getStatusCode());
-                }
+        $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
+            if (! app()->environment(['local', 'testing']) && in_array($response->getStatusCode(), [500, 503, 404, 403])) {
+                return Inertia::render('Error', ['status' => $response->getStatusCode()])
+                    ->toResponse($request)
+                    ->setStatusCode($response->getStatusCode());
+            } elseif ($response->getStatusCode() === 419) {
+                return back()->with([
+                    'message' => 'The page expired, please try again.',
+                ]);
+            }
 
-                return $response;
-            });
-        }
+            return $response;
+        });
+
         Integration::handles($exceptions);
     })->create();
