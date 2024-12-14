@@ -1,19 +1,21 @@
-import { useState } from 'react';
-import { Link, Head } from '@inertiajs/react';
-import { motion } from 'framer-motion';
+import { useState } from 'react'
+import { Link, Head } from '@inertiajs/react'
+import { motion } from 'framer-motion'
 import Layout from '@/Layouts/Layout'
 import Markdown from 'react-markdown'
-import { JobType } from '@/types';
+import { JobType } from '@/types'
+
+import '../../css/_timeline.scss'
 
 export default function About({ jobs }: { jobs: JobType[] }) {
-    const [activeJob, setActiveJob] = useState(jobs.length);
-    const startYear = 2011;
-    const currentYear = new Date().getFullYear();
+    const [activeJob, setActiveJob] = useState(jobs.length)
+    const startYear = 2011
+    const currentYear = new Date().getFullYear()
 
     // Years timeline
-    const years = [];
+    const years = []
     for (let i = startYear; i <= currentYear; i++) {
-        years.push(i);
+        years.push(i)
     }
 
     return (
@@ -90,7 +92,6 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                                 }
                             </div>
                         </div>
-
                     </motion.section>
 
                     <motion.section initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.3 }}>
@@ -113,5 +114,5 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                 </div>
             </Layout>
         </>
-    );
+    )
 }

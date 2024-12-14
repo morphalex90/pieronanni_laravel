@@ -1,6 +1,6 @@
-import { ProjectType } from "@/types";
-import { MouseEvent, useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import { ProjectType } from "@/types"
+import { MouseEvent, useEffect, useState } from "react"
+import ReactDOM from "react-dom"
 import Markdown from 'react-markdown'
 
 export default function Modal({ show, onClose, title, content }: { show: boolean, onClose: any, title?: string, content: ProjectType }) {
@@ -8,15 +8,15 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
 
     useEffect(() => {
         if (content != null) {
-            setIsBrowser(true);
+            setIsBrowser(true)
         }
-    }, [content]);
+    }, [content])
 
     const handleCloseClick = (e: MouseEvent<HTMLDivElement> | MouseEvent<HTMLButtonElement>) => {
         if (e.target === e.currentTarget) {
-            onClose();
+            onClose()
         }
-    };
+    }
 
     const modalContent = show ? (
         <div className="overlay" onClick={handleCloseClick}>
@@ -27,7 +27,6 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
                 </div>
                 <div className="modal__content">
                     <div className="d-flex --reverse">
-
                         <div>
                             <Markdown>{content.description}</Markdown>
 
@@ -46,19 +45,17 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
                         </div>
 
                     </div>
-
                 </div>
             </div>
         </div>
-
-    ) : null;
+    ) : null
 
     if (isBrowser && modalContent !== null) {
         return ReactDOM.createPortal(
             modalContent,
             document.getElementById("modal-root")!
-        );
+        )
     } else {
-        return null;
+        return null
     }
-};
+}

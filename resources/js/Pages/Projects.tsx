@@ -1,24 +1,28 @@
-import { Head } from '@inertiajs/react';
+import { Head } from '@inertiajs/react'
 import Layout from '@/Layouts/Layout'
-import { useState } from 'react';
+import { useState } from 'react'
 import Project from '@/Components/Project'
-import Icon from '@/Components/Icon';
-import { JobType, ProjectType, TechnologyType } from '@/types';
+import Icon from '@/Components/Icon'
+import { JobType, ProjectType, TechnologyType } from '@/types'
+
+import '../../css/_projects.scss'
+import '../../css/_technologies.scss'
+import '../../css/_modal.scss'
 
 export default function Projects({ technologies, allJobs }: { technologies: TechnologyType[], allJobs: JobType[] }) {
-    const [jobs, setJobs] = useState(allJobs);
-    const [activeTechnology, setActiveTechnology] = useState<string>('*');
+    const [jobs, setJobs] = useState(allJobs)
+    const [activeTechnology, setActiveTechnology] = useState<string>('*')
 
     function filterProjects(techKey: string) {
         setActiveTechnology(techKey)
 
         if (techKey === '*') { // if it's 'All', re load all
-            setJobs(allJobs);
+            setJobs(allJobs)
         } else { // filter by tech key
             const reducedJobs = allJobs.reduce((result: JobType[], job: JobType) => {
                 const filteredProjects = job.projects.filter((project: ProjectType) =>
                     project.technologies.some((tech: TechnologyType) => tech.key === techKey)
-                );
+                )
 
                 if (filteredProjects.length > 0) {
                     result.push({ ...job, projects: filteredProjects });
@@ -80,5 +84,5 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
                 }
             </Layout>
         </>
-    );
+    )
 }

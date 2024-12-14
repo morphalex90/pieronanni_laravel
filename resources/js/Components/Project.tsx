@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react'
+import { motion } from 'framer-motion'
 import Modal from '@/Components/Modal'
-import Icon from '@/Components/Icon';
+import Icon from '@/Components/Icon'
 
 import placeholder from '@/../img/placeholder.svg'
-import { ProjectType, TechnologyType } from '@/types';
+import { ProjectType, TechnologyType } from '@/types'
 
 export default function Project({ project, delay }: { project: ProjectType, delay: number }) {
-    const [modalShow, setModalShow] = useState(false);
+    const [modalShow, setModalShow] = useState(false)
     const [modalContent, setModalContent] = useState<ProjectType>({ id: 1, title: '', url: '', published_at: '', github: '', technologies: [] });
 
     return (
@@ -27,9 +27,9 @@ export default function Project({ project, delay }: { project: ProjectType, dela
                         })}
                     </div>
                 </div>
-            </motion.div >
+            </motion.div>
 
             <Modal onClose={() => setModalShow(false)} show={modalShow} content={modalContent} />
         </>
-    );
+    )
 }

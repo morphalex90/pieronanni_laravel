@@ -1,4 +1,4 @@
-import { LabelHTMLAttributes } from 'react';
+import { LabelHTMLAttributes } from 'react'
 
 export default function InputLabel({
     value,
@@ -7,11 +7,8 @@ export default function InputLabel({
     ...props
 }: LabelHTMLAttributes<HTMLLabelElement> & { value?: string }) {
     return (
-        <label
-            {...props}
-            className={className}
-        >
+        <label {...props} className={className}>
             {value ? value : children}
         </label>
-    );
+    )
 }

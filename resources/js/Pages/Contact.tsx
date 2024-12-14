@@ -1,31 +1,33 @@
-import { Head, useForm, usePage } from '@inertiajs/react';
-import { motion } from 'framer-motion';
-import Layout from '@/Layouts/Layout';
-import { FormEventHandler } from 'react';
-import InputError from '@/Components/InputError';
+import { Head, useForm, usePage } from '@inertiajs/react'
+import { motion } from 'framer-motion'
+import Layout from '@/Layouts/Layout'
+import { FormEventHandler } from 'react'
+import InputError from '@/Components/InputError'
+
+import '../../css/_form.scss'
 
 export interface FlashInterface {
-    success: string;
-    error: string;
+    success: string
+    error: string
 }
 
 export default function Contact() {
-    const flash = usePage().props.flash as FlashInterface;
+    const flash = usePage().props.flash as FlashInterface
 
     const { data, setData, post, errors, processing, recentlySuccessful, reset } = useForm({
         name: '',
         email: '',
         message: '',
         privacy: false,
-    });
+    })
 
     const submit: FormEventHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         post(route('contact.store'), {
-            onSuccess: () => reset()
-        });
-    };
+            onSuccess: () => reset(),
+        })
+    }
 
     return (
         <>
@@ -105,5 +107,5 @@ export default function Contact() {
                 </div>
             </Layout>
         </>
-    );
+    )
 }

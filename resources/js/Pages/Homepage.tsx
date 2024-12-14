@@ -1,9 +1,8 @@
-import { Head, Link } from '@inertiajs/react';
-import { motion } from 'framer-motion';
 import Layout from '@/Layouts/Layout'
+import { Head, Link } from '@inertiajs/react'
+import { motion } from 'framer-motion'
 
 export default function Homepage() {
-
     return (
         <>
             <Head>
@@ -34,5 +33,5 @@ export default function Homepage() {
                 </section>
             </Layout>
         </>
-    );
+    )
 }

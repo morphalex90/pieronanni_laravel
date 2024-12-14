@@ -1,18 +1,19 @@
+import '../../css/_synt.scss'
+
 export default function Synt() {
+    const firstStep = 8
 
-    const firstStep = 8;
-
-    const horizontalLines = [];
+    const horizontalLines = []
     for (let i = 4; i >= 0.5; (i = i - 0.5)) {
-        horizontalLines.push(i);
+        horizontalLines.push(i)
     }
 
     function translateAmount(n: number) {
-        let total = 0;
+        let total = 0
         for (let i = 1; i <= n; i++) {
             total = total + (firstStep * (0.975 ** n))
         }
-        return total * 8;
+        return total * 8
     }
 
     function turnAmount(n: number) {
@@ -22,11 +23,9 @@ export default function Synt() {
     return (
         <div className="synt">
             <div className="synt__container">
-
                 <div className="synt__background"></div>
 
                 <div className="synt__bottom">
-
                     <div className="line__vertical" style={{ transform: 'translate(-' + translateAmount(7) + 'px,0) rotate( ' + turnAmount(7) + 'turn)' }} />
                     <div className="line__vertical" style={{ transform: 'translate(-' + translateAmount(6) + 'px,0) rotate( ' + turnAmount(6) + 'turn)' }} />
                     <div className="line__vertical" style={{ transform: 'translate(-' + translateAmount(5) + 'px,0) rotate( ' + turnAmount(5) + 'turn)' }} />
@@ -52,5 +51,5 @@ export default function Synt() {
                 </div>
             </div>
         </div>
-    );
+    )
 }

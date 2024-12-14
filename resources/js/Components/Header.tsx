@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import MainMenu from '@/Components/MainMenu';
+import { useState } from 'react'
+import MainMenu from '@/Components/MainMenu'
+import '../../css/_header.scss'
+
 
 export default function Header() {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
 
     return (
         <header className="header">
@@ -19,8 +21,7 @@ export default function Header() {
                         <span></span>
                     </button>
                 </div>
-
             </div>
         </header>
-    );
+    )
 }

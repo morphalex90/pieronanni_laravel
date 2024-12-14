@@ -1,11 +1,11 @@
-import { createInertiaApp } from '@inertiajs/react';
-import createServer from '@inertiajs/react/server';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import ReactDOMServer from 'react-dom/server';
-import { RouteName } from 'ziggy-js';
-import { route } from '../../vendor/tightenco/ziggy';
+import { createInertiaApp } from '@inertiajs/react'
+import createServer from '@inertiajs/react/server'
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
+import ReactDOMServer from 'react-dom/server'
+import { RouteName } from 'ziggy-js'
+import { route } from '../../vendor/tightenco/ziggy'
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 createServer((page) =>
     createInertiaApp({
@@ -27,7 +27,7 @@ createServer((page) =>
                 });
             /* eslint-enable */
 
-            return <App {...props} />;
+            return <App {...props} />
         },
     }),
-);
+)
