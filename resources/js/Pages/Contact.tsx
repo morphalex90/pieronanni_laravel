@@ -1,10 +1,17 @@
-import { Head, useForm } from '@inertiajs/react';
+import { Head, useForm, usePage } from '@inertiajs/react';
 import { motion } from 'framer-motion';
-import Layout from '@/Layouts/Layout'
+import Layout from '@/Layouts/Layout';
 import { FormEventHandler } from 'react';
 import InputError from '@/Components/InputError';
 
-export default function Contact({ flash }: { flash: { success: false, error: false } }) {
+export interface FlashInterface {
+    success: string;
+    error: string;
+}
+
+export default function Contact() {
+    const flash = usePage().props.flash as FlashInterface;
+
     const { data, setData, post, errors, processing, recentlySuccessful, reset } = useForm({
         name: '',
         email: '',
