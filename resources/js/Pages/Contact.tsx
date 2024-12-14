@@ -1,8 +1,8 @@
+import InputError from '@/Components/InputError'
+import Layout from '@/Layouts/Layout'
 import { Head, useForm, usePage } from '@inertiajs/react'
 import { motion } from 'framer-motion'
-import Layout from '@/Layouts/Layout'
 import { FormEventHandler } from 'react'
-import InputError from '@/Components/InputError'
 
 import '../../css/_form.scss'
 
@@ -69,7 +69,6 @@ export default function Contact() {
                                     <label htmlFor="field_email">Email</label>
                                     <input name="email" id="field_email" type="email" onChange={(e) => setData('email', e.target.value)} value={data.email} placeholder="john@doe.com" required />
                                     <InputError className="mt-2" message={errors.email} />
-
                                 </div>
                             </div>
 
@@ -88,21 +87,27 @@ export default function Contact() {
                                     <InputError className="mt-2" message={errors.privacy} />
                                 </div>
 
-                                <button className="button" type="submit" disabled={processing}>{processing ? 'Sending' : 'Send'}</button>
+                                <button className="button" type="submit" disabled={processing}>
+                                    {processing ? 'Sending' : 'Send'}
+                                </button>
                             </div>
                         </form>
 
-                        {recentlySuccessful &&
+                        {recentlySuccessful && (
                             <>
-                                {flash.success &&
-                                    <p className="text-sm text-gray-600" style={{ marginTop: 20 }}>{flash.success}</p>
-                                }
+                                {flash.success && (
+                                    <p className="text-sm text-gray-600" style={{ marginTop: 20 }}>
+                                        {flash.success}
+                                    </p>
+                                )}
 
-                                {flash.error &&
-                                    <p className="text-sm text-gray-600" style={{ marginTop: 20 }}>{flash.error}</p>
-                                }
+                                {flash.error && (
+                                    <p className="text-sm text-gray-600" style={{ marginTop: 20 }}>
+                                        {flash.error}
+                                    </p>
+                                )}
                             </>
-                        }
+                        )}
                     </motion.div>
                 </div>
             </Layout>

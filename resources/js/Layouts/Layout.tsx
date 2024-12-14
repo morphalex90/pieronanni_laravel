@@ -1,9 +1,9 @@
-import { ReactNode, useEffect } from 'react'
-import Header from '@/Components/Header'
 import Footer from '@/Components/Footer'
+import Header from '@/Components/Header'
 import Synt from '@/Components/Synt'
+import { ReactNode, useEffect } from 'react'
 
-export default function Layout({ className = '', children }: { className: string, children: ReactNode }) {
+export default function Layout({ className = '', children }: { className: string; children: ReactNode }) {
     useEffect(() => {
         const body = document.body
         body.removeAttribute('class')

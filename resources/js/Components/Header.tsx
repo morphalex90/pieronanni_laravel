@@ -1,7 +1,6 @@
-import { useState } from 'react'
 import MainMenu from '@/Components/MainMenu'
+import { useState } from 'react'
 import '../../css/_header.scss'
-
 
 export default function Header() {
     const [isOpen, setIsOpen] = useState(false)
@@ -9,7 +8,6 @@ export default function Header() {
     return (
         <header className="header">
             <div className="header__container">
-
                 <div className="header__menu">
                     <MainMenu position="header" className={isOpen ? '--open' : ''} />
                 </div>

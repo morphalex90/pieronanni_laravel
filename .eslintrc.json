@@ -22,7 +22,8 @@
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/no-explicit-any": "warn",
         "@typescript-eslint/no-unused-vars": "warn",
-        "no-var": "warn"
+        "no-var": "warn",
+        "sort-imports": "off"
     },
     "settings": {
         "react": {

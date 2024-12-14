@@ -1,5 +1,5 @@
-import MainMenu from './MainMenu'
 import '../../css/_footer.scss'
+import MainMenu from './MainMenu'
 
 export default function Footer() {
     return (

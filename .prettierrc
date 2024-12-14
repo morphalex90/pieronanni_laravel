@@ -1,5 +1,9 @@
 {
+    "semi": false,
     "singleQuote": true,
+    "tabWidth": 4,
+    "singleAttributePerLine": false,
+    "printWidth": 400,
     "plugins": [
         "prettier-plugin-organize-imports",
         "prettier-plugin-tailwindcss"
