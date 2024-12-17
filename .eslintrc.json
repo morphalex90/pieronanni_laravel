@@ -23,7 +23,9 @@
         "@typescript-eslint/no-explicit-any": "warn",
         "@typescript-eslint/no-unused-vars": "warn",
         "no-var": "warn",
-        "sort-imports": "off"
+        "sort-imports": "off",
+        "semi": 0,
+        "singleAttributePerLine": 0
     },
     "settings": {
         "react": {
