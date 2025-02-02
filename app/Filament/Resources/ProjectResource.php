@@ -103,8 +103,10 @@ class ProjectResource extends Resource
         ];
     }
 
-    public static function getTableQuery()
+    public static function getEloquentQuery(): Builder
     {
-        parent::getTableQuery()->with('jobs');
+        return parent::getEloquentQuery()->with([
+            'jobs',
+        ]);
     }
 }
