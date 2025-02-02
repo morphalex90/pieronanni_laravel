@@ -18,7 +18,7 @@ export default function Contact() {
         name: '',
         email: '',
         message: '',
-        privacy: false,
+        privacy: false as boolean,
     })
 
     const submit: FormEventHandler = (e) => {
@@ -81,7 +81,7 @@ export default function Contact() {
                             <div className="d-flex">
                                 <div>
                                     <label htmlFor="privacy">
-                                        <input name="privacy" id="privacy" type="checkbox" onChange={(e) => setData('privacy', e.target.checked)} defaultChecked={data.privacy} required />
+                                        <input name="privacy" id="privacy" type="checkbox" onChange={(e) => setData('privacy', (e.target.checked || false) as false)} defaultChecked={data.privacy} required />
                                         <span> Privacy</span>
                                     </label>
                                     <InputError className="mt-2" message={errors.privacy} />
