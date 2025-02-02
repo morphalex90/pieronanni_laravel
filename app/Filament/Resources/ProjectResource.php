@@ -106,7 +106,7 @@ class ProjectResource extends Resource
     public static function getEloquentQuery(): Builder
     {
         return parent::getEloquentQuery()->with([
-            'jobs',
+            'job',
         ]);
     }
 }
