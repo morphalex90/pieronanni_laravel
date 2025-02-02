@@ -6,6 +6,7 @@ use App\Http\Requests\ContactStoreRequest;
 use App\Mail\Contact as MailContact;
 use App\Models\Contact;
 use Exception;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -16,7 +17,7 @@ class ContactController extends Controller
      */
     public function store(ContactStoreRequest $request)
     {
-        Contact::create($request->validated() + [
+        Contact::create(Arr::except($request->validated(), 'privacy') + [
             'ip_address' => $request->ip(),
             'user_agent' => Str::limit($request->userAgent(), 255),
         ]);
