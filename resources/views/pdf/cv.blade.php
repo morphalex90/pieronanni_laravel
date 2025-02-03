@@ -5,7 +5,7 @@
         <div class="col-6">
             <div style="margin-left:20px; margin-right:20px; padding-top: 15px;">
                 <div style="font-size:35px; font-weight:bold; line-height:1px; margin-bottom: 10px;">Piero Nanni</div>
-                <div><i>Full stack developer</i></div>
+                <div><i>Full-stack developer</i></div>
                 <div style="margin-bottom:10px"><a href="https://www.pieronanni.me">www.pieronanni.me</a></div>
                 {{-- <div><em>I don&rquo;t know, it&rquo;s something about web developing that calms me down, ya know?</em></div> --}}
             </div>

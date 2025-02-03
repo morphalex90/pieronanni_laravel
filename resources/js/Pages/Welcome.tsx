@@ -24,7 +24,7 @@ export default function Homepage() {
                     </motion.h1>
 
                     <motion.h2 initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.2 }} className="text-center" style={{ marginBottom: 20 }}>
-                        Full Stack Developer based in London
+                        Full-stack Developer based in London
                     </motion.h2>
 
                     <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.2 }} className="text-center">
