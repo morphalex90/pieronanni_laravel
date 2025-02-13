@@ -18,7 +18,7 @@
         "laravel/tinker": "^2.9",
         "league/flysystem-aws-s3-v3": "^3.29",
         "mpdf/mpdf": "^8.2",
-        "sentry/sentry-laravel": "^4.11",
+        "sentry/sentry-laravel": "^4.12",
         "spatie/laravel-google-fonts": "^1.4",
         "spatie/laravel-markdown": "^2.7",
         "tightenco/ziggy": "^2.0"
