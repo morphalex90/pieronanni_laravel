@@ -20,6 +20,7 @@ class Contact extends Model
         'name',
         'email',
         'message',
+        'country_id',
         'ip_address',
         'user_agent',
     ];

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Country;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->text('message');
+            $table->foreignIdFor(Country::class)->nullable();
             $table->ipAddress('ip_address');
             $table->text('user_agent');
             $table->timestamp('created_at');

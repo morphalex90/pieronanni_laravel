@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->morphs('fileable');
             $table->string('uri');
+            $table->string('filename');
+            $table->string('alt')->nullable();
+            $table->unsignedTinyInteger('delta')->default(1);
         });
     }
 

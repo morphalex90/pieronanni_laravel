@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Job::class);
+            $table->foreignIdFor(Job::class)->constrained();
             $table->string('title');
             $table->string('url');
             $table->string('github')->nullable();

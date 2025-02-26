@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ProjectResource\RelationManagers;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -16,8 +17,13 @@ class FilesRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                FileUpload::make('uri')->disk('backblaze')->directory('files/' . config('app.env'))->image()->optimize('webp')->visibility('private'),
-
+                FileUpload::make('uri')
+                    ->disk('backblaze')
+                    ->directory('files/' . config('app.env'))
+                    ->image()
+                    ->storeFileNamesIn('filename')
+                    ->visibility('public'),
+                TextInput::make('alt')->nullable(),
             ]);
     }
 
@@ -27,6 +33,7 @@ class FilesRelationManager extends RelationManager
             ->recordTitleAttribute('name')
             ->columns([
                 Tables\Columns\TextColumn::make('uri'),
+                Tables\Columns\TextColumn::make('alt'),
             ])
             ->filters([
                 //
@@ -42,6 +49,7 @@ class FilesRelationManager extends RelationManager
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->reorderable('delta');
     }
 }
