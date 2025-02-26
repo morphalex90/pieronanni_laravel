@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\Click;
+use App\Models\Contact;
 use App\Observers\ClickObserver;
+use App\Observers\ContactObserver;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Illuminate\Database\Eloquent\Model;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         Click::observe(ClickObserver::class);
+        Contact::observe(ContactObserver::class);
 
         Vite::prefetch(concurrency: 3);
 

@@ -31,7 +31,7 @@ class ContactResource extends Resource
                 TextColumn::make('name')->sortable(),
                 TextColumn::make('email')->sortable(),
                 TextColumn::make('message')->limit(50),
-                TextColumn::make('ip_address'),
+                TextColumn::make('country.name')->sortable(),
                 TextColumn::make('user_agent')->limit(50),
                 TextColumn::make('created_at')->since()->sortable()->dateTooltip(),
             ])
