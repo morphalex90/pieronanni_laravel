@@ -1,10 +1,10 @@
 import Layout from '@/layouts/layout'
+import InputError from '@/components/input-error'
 import { Head, useForm, usePage } from '@inertiajs/react'
 import { motion } from 'framer-motion'
 import { FormEventHandler } from 'react'
 
 import '../../css/_form.scss'
-import InputError from '@/components/input-error'
 
 export interface FlashInterface {
     success: string
