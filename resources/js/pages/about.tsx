@@ -8,6 +8,7 @@ import Markdown from 'react-markdown'
 import '../../css/_timeline.scss'
 
 export default function About({ jobs }: { jobs: JobType[] }) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [activeJob, setActiveJob] = useState(jobs.length)
     const startYear = 2011
     const currentYear = new Date().getFullYear()
