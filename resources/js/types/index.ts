@@ -1,8 +1,5 @@
-export interface User {
-    id: number
-    name: string
-    email: string
-    email_verified_at?: string
+export interface Auth {
+    user: User;
 }
 
 export interface CompanyType {
@@ -32,7 +29,7 @@ export interface JobType {
     id: number
     title: string
     projects: ProjectType[]
-    company: Company
+    company: CompanyType
     location: string
     description: string
     description_cv: string
@@ -46,8 +43,13 @@ export interface ImageType {
     url: string
 }
 
-export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
-    auth: {
-        user: User
-    }
+export interface User {
+    id: number;
+    name: string;
+    email: string;
+    avatar?: string;
+    email_verified_at: string | null;
+    created_at: string;
+    updated_at: string;
+    [key: string]: unknown; // This allows for additional properties...
 }

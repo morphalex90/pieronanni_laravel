@@ -1,4 +1,4 @@
-import MainMenu from '@/Components/MainMenu'
+import MainMenu from '@/components/main-menu'
 import { useState } from 'react'
 import '../../css/_header.scss'
 

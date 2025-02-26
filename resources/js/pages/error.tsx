@@ -1,8 +1,7 @@
-import Layout from '@/Layouts/Layout'
-import { PageProps } from '@/types'
+import Layout from '@/layouts/layout'
 import { Head } from '@inertiajs/react'
 
-export default function ErrorPage({ status }: PageProps<{ status: number }>) {
+export default function ErrorPage({ status }: { status: number }) {
     const title = {
         503: '503: Service Unavailable',
         500: '500: Server Error',

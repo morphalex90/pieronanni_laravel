@@ -1,6 +1,6 @@
-import Footer from '@/Components/Footer'
-import Header from '@/Components/Header'
-import Synt from '@/Components/Synt'
+import Footer from '@/components/footer'
+import Header from '@/components/header'
+import Synt from '@/components/synt'
 import { ReactNode, useEffect } from 'react'
 
 export default function Layout({ className = '', children }: { className: string; children: ReactNode }) {

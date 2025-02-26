@@ -1,5 +1,5 @@
-import InputError from '@/Components/InputError'
-import Layout from '@/Layouts/Layout'
+import Layout from '@/layouts/layout'
+import InputError from '@/components/input-error'
 import { Head, useForm, usePage } from '@inertiajs/react'
 import { motion } from 'framer-motion'
 import { FormEventHandler } from 'react'

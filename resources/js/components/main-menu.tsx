@@ -1,6 +1,6 @@
 import github from '@/../img/github.svg'
 import '../../css/_main-menu.scss'
-import NavLink from './NavLink'
+import NavLink from './nav-link'
 
 export default function MainMenu({ className, position = '' }: { className?: string; position: string }) {
     return (

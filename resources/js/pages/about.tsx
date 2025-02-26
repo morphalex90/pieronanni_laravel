@@ -1,4 +1,4 @@
-import Layout from '@/Layouts/Layout'
+import Layout from '@/layouts/layout'
 import { JobType } from '@/types'
 import { Head, Link } from '@inertiajs/react'
 import { motion } from 'framer-motion'
@@ -8,6 +8,7 @@ import Markdown from 'react-markdown'
 import '../../css/_timeline.scss'
 
 export default function About({ jobs }: { jobs: JobType[] }) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [activeJob, setActiveJob] = useState(jobs.length)
     const startYear = 2011
     const currentYear = new Date().getFullYear()
@@ -111,10 +112,10 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                                                     })}
                                                     {job.ended_at !== null
                                                         ? ' - ' +
-                                                          new Date(job.ended_at).toLocaleDateString('en-GB', {
-                                                              year: 'numeric',
-                                                              month: 'long',
-                                                          })
+                                                        new Date(job.ended_at).toLocaleDateString('en-GB', {
+                                                            year: 'numeric',
+                                                            month: 'long',
+                                                        })
                                                         : ''}
                                                     )
                                                 </i>

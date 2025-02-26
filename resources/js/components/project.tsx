@@ -1,5 +1,5 @@
-import Icon from '@/Components/Icon'
-import Modal from '@/Components/Modal'
+import Icon from '@/components/icon'
+import Modal from '@/components/modal'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 
