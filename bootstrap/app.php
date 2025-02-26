@@ -38,14 +38,14 @@ return Application::configure(basePath: dirname(__DIR__))
                             return $startSession->handle($request, function ($request) use ($errorsFromSession, $handleInertiaRequests, $response) {
                                 return $errorsFromSession->handle($request, function ($request) use ($handleInertiaRequests, $response) {
                                     return $handleInertiaRequests->handle($request, function ($request) use ($response) {
-                                        return Inertia::render('Error', ['status' => $response->getStatusCode()])->toResponse($request)->setStatusCode($response->getStatusCode());
+                                        return Inertia::render('error', ['status' => $response->getStatusCode()])->toResponse($request)->setStatusCode($response->getStatusCode());
                                     });
                                 });
                             });
                         });
                     });
                 } else {
-                    return Inertia::render('Error', ['status' => $response->getStatusCode()])->toResponse($request)->setStatusCode($response->getStatusCode());
+                    return Inertia::render('error', ['status' => $response->getStatusCode()])->toResponse($request)->setStatusCode($response->getStatusCode());
                 }
             } elseif ($response->getStatusCode() === 419) {
                 return back()->with([
