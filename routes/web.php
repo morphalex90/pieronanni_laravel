@@ -8,24 +8,24 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome');
+    return Inertia::render('welcome');
 })->name('homepage');
 
 Route::get('/about', function () {
     $jobs = Job::orderBy('started_at', 'DESC')->get();
 
-    return Inertia::render('About', ['jobs' => $jobs]);
+    return Inertia::render('about', ['jobs' => $jobs]);
 })->name('about');
 
 Route::get('/projects', function () {
     $technologies = Technology::orderBy('name')->get();
     $jobs = Job::with('projects.technologies', 'projects.files')->orderBy('started_at', 'DESC')->get();
 
-    return Inertia::render('Projects', ['technologies' => $technologies, 'allJobs' => $jobs]);
+    return Inertia::render('projects', ['technologies' => $technologies, 'allJobs' => $jobs]);
 })->name('projects');
 
 Route::get('/contact', function () {
-    return Inertia::render('Contact', []);
+    return Inertia::render('contact');
 })->name('contact');
 
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
