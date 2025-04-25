@@ -8,9 +8,6 @@
     php artisan storage:link
     composer run dev
 
-### Google fonts
-    php artisan google-fonts:fetch
-
 ## Pint
     ./vendor/bin/pint
 
