@@ -27,12 +27,12 @@ class ImageController extends Controller
         $path = Storage::disk('backblaze')->url('files/' . $environment . '/' . $path);
 
         try {
-            $image = file_get_contents($path);
+            $loaded_image = file_get_contents($path);
         } catch (Exception $e) {
             abort(404);
         }
 
-        $image = Image::read($image);
+        $image = Image::read($loaded_image);
 
         [$mime, $encoder] = match (strtolower($format)) {
             'png' => ['image/png', new PngEncoder],
@@ -41,8 +41,11 @@ class ImageController extends Controller
             default => ['image/jpeg', new JpegEncoder(quality: $quality, strip: true)],
         };
 
-        return response($image->encode($encoder), 200)
+        $output = $image->encode($encoder);
+
+        return response($output, 200)
             ->header('Content-Type', $mime)
+            ->header('Content-Length', strlen($output))
             ->header('Cache-Control', 'public, max-age=2592000, s-maxage=2592000, immutable');
     }
 
@@ -50,7 +53,7 @@ class ImageController extends Controller
     {
         $allowed = RateLimiter::attempt(
             key: 'img:' . $request->ip() . ':' . $path,
-            maxAttempts: 2,
+            maxAttempts: 10,
             callback: fn() => true
         );
 
