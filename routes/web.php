@@ -26,8 +26,8 @@ Route::get('/projects', function () {
         return Technology::orderBy('name')->get();
     });
 
-    $jobs = Cache::rememberForever('jobs_with_projects_technologies_and_files', function () {
-        return Job::with('projects.technologies', 'projects.files')->orderBy('started_at', 'DESC')->get();
+    $jobs = Cache::rememberForever('jobs_with_projects_technologies_and_media', function () {
+        return Job::with('projects.technologies', 'projects.media')->orderBy('started_at', 'DESC')->get();
     });
 
     return Inertia::render('projects', ['technologies' => $technologies, 'allJobs' => $jobs]);
@@ -49,6 +49,6 @@ Route::get('/login', function () {
     return redirect('admin/login');
 })->name('login');
 
-Route::get('/files/{environment}/{path}', [ImageController::class, 'show'])
+Route::get('/media/{path}', [ImageController::class, 'show'])
     ->where('path', '.*')
     ->name('image.show');

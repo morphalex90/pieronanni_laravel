@@ -68,6 +68,16 @@ return [
             'bucket' => env('B3_BUCKET'),
             'endpoint' => 'https://s3.eu-central-003.backblazeb2.com',
             'use_path_style_endpoint' => true,
+            'throw' => true,
+            // 'report' => false,
+            'visibility' => 'public',
+            'version' => 'latest',
+            'options' => [
+                'StorageClass' => 'STANDARD',
+            ],
+            'request_checksum_calculation' => 'when_required',
+            'response_checksum_validation' => 'when_required',
+            'root' => 'files/' . config('app.env'),
         ],
     ],
 
