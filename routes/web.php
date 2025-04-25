@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PDFController;
 use App\Models\Job;
 use App\Models\Technology;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -12,14 +14,21 @@ Route::get('/', function () {
 })->name('homepage');
 
 Route::get('/about', function () {
-    $jobs = Job::orderBy('started_at', 'DESC')->get();
+    $jobs = Cache::rememberForever('jobs', function () {
+        return Job::orderBy('started_at', 'DESC')->get();
+    });
 
     return Inertia::render('about', ['jobs' => $jobs]);
 })->name('about');
 
 Route::get('/projects', function () {
-    $technologies = Technology::orderBy('name')->get();
-    $jobs = Job::with('projects.technologies', 'projects.files')->orderBy('started_at', 'DESC')->get();
+    $technologies = Cache::rememberForever('technologies', function () {
+        return Technology::orderBy('name')->get();
+    });
+
+    $jobs = Cache::rememberForever('jobs_with_projects_technologies_and_files', function () {
+        return Job::with('projects.technologies', 'projects.files')->orderBy('started_at', 'DESC')->get();
+    });
 
     return Inertia::render('projects', ['technologies' => $technologies, 'allJobs' => $jobs]);
 })->name('projects');
@@ -39,3 +48,7 @@ Route::get('/cv.pdf', function () {
 Route::get('/login', function () {
     return redirect('admin/login');
 })->name('login');
+
+Route::get('/files/{environment}/{path}', [ImageController::class, 'show'])
+    ->where('path', '.*')
+    ->name('image.show');
