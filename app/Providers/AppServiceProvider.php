@@ -4,8 +4,12 @@ namespace App\Providers;
 
 use App\Models\Click;
 use App\Models\Contact;
+use App\Models\Job;
+use App\Models\Technology;
 use App\Observers\ClickObserver;
 use App\Observers\ContactObserver;
+use App\Observers\JobObserver;
+use App\Observers\TechnologyObserver;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Illuminate\Database\Eloquent\Model;
@@ -35,6 +39,8 @@ class AppServiceProvider extends ServiceProvider
 
         Click::observe(ClickObserver::class);
         Contact::observe(ContactObserver::class);
+        Job::observe(JobObserver::class);
+        Technology::observe(TechnologyObserver::class);
 
         Vite::prefetch(concurrency: 3);
 
