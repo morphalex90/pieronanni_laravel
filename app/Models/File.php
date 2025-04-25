@@ -47,7 +47,8 @@ class File extends Model
     public function getUrlAttribute()
     {
         if ($this->uri != null) {
-            return Storage::disk('backblaze')->url($this->uri);
+            // return Storage::disk('backblaze')->url($this->uri);
+            return $this->uri;
         }
 
         return $this->uri;
