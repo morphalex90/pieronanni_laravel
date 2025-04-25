@@ -18,11 +18,11 @@ use App\Observers\ProjectObserver;
 use App\Observers\TechnologyObserver;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
-use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Facades\Vite;
+// use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -59,6 +59,6 @@ class AppServiceProvider extends ServiceProvider
         }
 
         DB::prohibitDestructiveCommands(App::isProduction());
-        Model::shouldBeStrict();
+        // Model::shouldBeStrict();
     }
 }

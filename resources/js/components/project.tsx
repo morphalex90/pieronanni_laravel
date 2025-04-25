@@ -7,7 +7,6 @@ import placeholder from '@/../img/placeholder.svg'
 import { ProjectType, TechnologyType } from '@/types'
 
 export default function Project({ project, delay }: { project: ProjectType; delay: number }) {
-    console.log(project)
     const [modalShow, setModalShow] = useState(false)
     const [modalContent, setModalContent] = useState<ProjectType>({
         id: 1,
