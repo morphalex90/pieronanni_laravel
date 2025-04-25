@@ -2,22 +2,22 @@
 
 namespace App\Observers;
 
-use Illuminate\Support\Facades\Cache;
+use App\Actions\PurgeCache;
 
 class JobObserver
 {
     public function created(): void
     {
-        Cache::forget('jobs');
+        PurgeCache::handle();
     }
 
     public function updated(): void
     {
-        Cache::forget('jobs');
+        PurgeCache::handle();
     }
 
     public function deleted(): void
     {
-        Cache::forget('jobs');
+        PurgeCache::handle();
     }
 }

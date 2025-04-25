@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Actions\PurgeCache;
 
-class TechnologyObserver
+class FileObserver
 {
     public function created(): void
     {
