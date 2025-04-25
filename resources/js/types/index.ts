@@ -16,7 +16,7 @@ export interface ProjectType {
     description?: string
     description_cv?: string
     technologies: TechnologyType[]
-    files?: ImageType[]
+    media?: ImageType[]
 }
 
 export interface TechnologyType {

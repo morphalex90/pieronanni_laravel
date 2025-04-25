@@ -9,6 +9,7 @@ use App\Models\Project;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -56,6 +57,15 @@ class ProjectResource extends Resource
                         titleAttribute: 'name',
                         modifyQueryUsing: fn(Builder $query) => $query->where('key', '!=', '*'),
                     ),
+                SpatieMediaLibraryFileUpload::make('images')
+                    ->disk('backblaze')
+                    ->image()
+                    ->maxFiles(5)
+                    ->multiple()
+                    ->reorderable()
+                    ->panelLayout('grid')
+                    ->columnSpanFull()
+                    ->openable(),
             ]);
     }
 

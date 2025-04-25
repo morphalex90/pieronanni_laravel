@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Media;
 use Exception;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Encoders\GifEncoder;
 use Intervention\Image\Encoders\JpegEncoder;
 use Intervention\Image\Encoders\PngEncoder;
@@ -17,19 +17,22 @@ use Intervention\Image\Laravel\Facades\Image;
 
 class ImageController extends Controller
 {
-    public function show(Request $request, $environment, $path)
+    public function show(Request $request, $path)
     {
         if (App::isProduction()) {
-            $this->ratelimit($request, $environment, $path);
+            $this->ratelimit($request, $path);
         }
 
         $quality = 50;
         $format = 'webp';
 
-        $path = Storage::disk('backblaze')->url('files/' . $environment . '/' . $path);
+        $media = Media::where('file_name', $path)->first();
+        if ($media == null) {
+            abort(404);
+        }
 
         try {
-            $loaded_image = file_get_contents($path);
+            $loaded_image = file_get_contents($media->original_url);
         } catch (Exception $e) {
             abort(404);
         }
@@ -51,7 +54,7 @@ class ImageController extends Controller
             ->header('Cache-Control', 'public, max-age=31536000, s-maxage=31536000, immutable');
     }
 
-    protected function ratelimit(Request $request, $environment, $path): void
+    protected function ratelimit(Request $request, $path): void
     {
         $allowed = RateLimiter::attempt(
             key: 'img:' . $request->ip() . ':' . $path,
@@ -60,8 +63,8 @@ class ImageController extends Controller
         );
 
         if (! $allowed) {
-            $path = Storage::disk('backblaze')->url('files/' . $environment . '/' . $path);
-            throw new HttpResponseException(Redirect::to($path));
+            $path = Media::where('file_name', $path)->first();
+            throw new HttpResponseException(Redirect::to($path->original_url));
         }
     }
 }

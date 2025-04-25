@@ -6,12 +6,14 @@ use App\Models\Click;
 use App\Models\Contact;
 use App\Models\File;
 use App\Models\Job;
+use App\Models\Media;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Observers\ClickObserver;
 use App\Observers\ContactObserver;
 use App\Observers\FileObserver;
 use App\Observers\JobObserver;
+use App\Observers\MediaObserver;
 use App\Observers\ProjectObserver;
 use App\Observers\TechnologyObserver;
 use Filament\Support\Colors\Color;
@@ -42,14 +44,15 @@ class AppServiceProvider extends ServiceProvider
             'royal' => Color::hex('#ff1493'),
         ]);
 
-        Click::observe(ClickObserver::class);
-        Contact::observe(ContactObserver::class);
         Job::observe(JobObserver::class);
-        Technology::observe(TechnologyObserver::class);
         File::observe(FileObserver::class);
+        Click::observe(ClickObserver::class);
+        Media::observe(MediaObserver::class);
         Project::observe(ProjectObserver::class);
+        Contact::observe(ContactObserver::class);
+        Technology::observe(TechnologyObserver::class);
 
-        Vite::prefetch(concurrency: 3);
+        // Vite::prefetch(concurrency: 3);
 
         if (App::isProduction()) {
             URL::forceScheme('https');

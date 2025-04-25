@@ -44,7 +44,7 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
                             </div>
                         </div>
 
-                        <div>{content?.files?.map((image) => <img key={image.id} src={image.url} alt={title || content.title} title={title || content.title} loading="lazy" />)}</div>
+                        <div>{content?.media?.map((image) => <img key={image.id} src={image.url} alt={title || content.title} loading="lazy" />)}</div>
                     </div>
                 </div>
             </div>

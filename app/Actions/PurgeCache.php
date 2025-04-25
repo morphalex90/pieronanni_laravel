@@ -11,6 +11,6 @@ class PurgeCache
         Cache::forget('jobs');
         Cache::forget('technologies');
         Cache::forget('jobs_with_projects_technologies');
-        Cache::forget('jobs_with_projects_technologies_and_files');
+        Cache::forget('jobs_with_projects_technologies_and_media');
     }
 }
