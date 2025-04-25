@@ -48,7 +48,7 @@ class File extends Model
     {
         if ($this->uri != null) {
             // return Storage::disk('backblaze')->url($this->uri);
-            return $this->uri;
+            return '/' . $this->uri;
         }
 
         return $this->uri;
