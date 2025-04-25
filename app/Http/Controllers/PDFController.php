@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Click;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Mpdf\HTMLParserMode;
 use Mpdf\Mpdf;
 use Mpdf\Output\Destination;
@@ -22,7 +23,9 @@ class PDFController extends Controller
 
         $stylesheet = file_get_contents('css/cv.css');
 
-        $jobs = Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
+        $jobs = Cache::rememberForever('jobs_with_projects_technologies', function () {
+            return Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
+        });
 
         $html = view('pdf.cv', ['jobs' => $jobs]);
 
