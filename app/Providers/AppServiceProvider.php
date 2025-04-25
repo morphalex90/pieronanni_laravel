@@ -17,6 +17,7 @@ use App\Observers\TechnologyObserver;
 use Filament\Support\Colors\Color;
 use Filament\Support\Facades\FilamentColor;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Vite;
@@ -50,11 +51,11 @@ class AppServiceProvider extends ServiceProvider
 
         Vite::prefetch(concurrency: 3);
 
-        if ($this->app->isProduction()) {
+        if (App::isProduction()) {
             URL::forceScheme('https');
         }
 
-        DB::prohibitDestructiveCommands($this->app->isProduction());
+        DB::prohibitDestructiveCommands(App::isProduction());
         Model::shouldBeStrict();
     }
 }
