@@ -35,8 +35,8 @@ class ImageController extends Controller
         $image = Image::read($image);
 
         [$mime, $encoder] = match (strtolower($format)) {
-            'png' => ['image/png', new PngEncoder()],
-            'gif' => ['image/gif', new GifEncoder()],
+            'png' => ['image/png', new PngEncoder],
+            'gif' => ['image/gif', new GifEncoder],
             'webp' => ['image/webp', new WebpEncoder(quality: $quality, strip: true)],
             default => ['image/jpeg', new JpegEncoder(quality: $quality, strip: true)],
         };
@@ -54,7 +54,7 @@ class ImageController extends Controller
             callback: fn() => true
         );
 
-        if (!$allowed) {
+        if (! $allowed) {
             abort(403);
         }
     }
