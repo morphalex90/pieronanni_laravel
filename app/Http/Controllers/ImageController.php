@@ -15,9 +15,6 @@ use Intervention\Image\Laravel\Facades\Image;
 
 class ImageController extends Controller
 {
-    /**
-     * Display the specified resource.
-     */
     public function show(Request $request, $environment, $path)
     {
         if (App::isProduction()) {
@@ -43,7 +40,6 @@ class ImageController extends Controller
             'webp' => ['image/webp', new WebpEncoder(quality: $quality, strip: true)],
             default => ['image/jpeg', new JpegEncoder(quality: $quality, strip: true)],
         };
-
 
         return response($image->encode($encoder), 200)
             ->header('Content-Type', $mime)

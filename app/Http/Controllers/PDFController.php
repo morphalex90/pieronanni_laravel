@@ -27,8 +27,6 @@ class PDFController extends Controller
             return Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
         });
 
-        $jobs = Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
-
         $html = view('pdf.cv', ['jobs' => $jobs]);
 
         $mpdf = new Mpdf([
