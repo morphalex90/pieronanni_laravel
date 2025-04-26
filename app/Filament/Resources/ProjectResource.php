@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProjectResource\Pages;
-use App\Filament\Resources\ProjectResource\RelationManagers\FilesRelationManager;
 use App\Models\Job;
 use App\Models\Project;
 use Filament\Forms\Components\DatePicker;
@@ -79,7 +78,6 @@ class ProjectResource extends Resource
                 TextColumn::make('job.company.name')->sortable()->searchable(isIndividual: true, isGlobal: false),
                 TextColumn::make('description')->limit(50),
                 TextColumn::make('description_cv')->limit(50),
-                TextColumn::make('files_count')->counts('files')->label('Images')->sortable(),
                 TextColumn::make('technologies.name')->searchable(isIndividual: true, isGlobal: false),
                 TextColumn::make('published_at')->since()->sortable()->dateTooltip(),
             ])
@@ -99,9 +97,7 @@ class ProjectResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            FilesRelationManager::class,
-        ];
+        return [];
     }
 
     public static function getPages(): array

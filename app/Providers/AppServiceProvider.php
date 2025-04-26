@@ -4,14 +4,12 @@ namespace App\Providers;
 
 use App\Models\Click;
 use App\Models\Contact;
-use App\Models\File;
 use App\Models\Job;
 use App\Models\Media;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Observers\ClickObserver;
 use App\Observers\ContactObserver;
-use App\Observers\FileObserver;
 use App\Observers\JobObserver;
 use App\Observers\MediaObserver;
 use App\Observers\ProjectObserver;
@@ -45,7 +43,6 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         Job::observe(JobObserver::class);
-        File::observe(FileObserver::class);
         Click::observe(ClickObserver::class);
         Media::observe(MediaObserver::class);
         Project::observe(ProjectObserver::class);
