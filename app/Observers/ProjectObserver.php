@@ -20,7 +20,7 @@ class ProjectObserver
     public function deleting(Project $project)
     {
         $project->technologies()->detach();
-        $project->files()->delete();
+        $project->media()->delete();
     }
 
     public function deleted(): void
