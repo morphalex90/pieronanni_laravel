@@ -7,10 +7,6 @@
     "plugins": [
         "prettier-plugin-organize-imports"
     ],
-    "tailwindFunctions": [
-        "clsx",
-        "cn"
-    ],
     "tabWidth": 4,
     "overrides": [
         {
