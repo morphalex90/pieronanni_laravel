@@ -1,5 +1,5 @@
-import Layout from '@/layouts/layout'
 import InputError from '@/components/input-error'
+import Layout from '@/layouts/layout'
 import { Head, useForm, usePage } from '@inertiajs/react'
 import { motion } from 'framer-motion'
 import { FormEventHandler } from 'react'
@@ -49,11 +49,24 @@ export default function Contact() {
                     <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3 }}>
                         {/* <p>Thanks for wanting to get in touch! Do you have any questions? Don&#39;t esitate to contact me</p> */}
                         <p>While you&#39;ll be waiting for an answer, treat yourself with some good music from my personal playlist</p>
-                        <p>Looking forward to hearing from you and have a wonderful {new Date().toLocaleDateString('en-GB', { weekday: 'long' }).toLowerCase()}!</p>
+                        <p>
+                            Looking forward to hearing from you and have a wonderful{' '}
+                            {new Date().toLocaleDateString('en-GB', { weekday: 'long' }).toLowerCase()}!
+                        </p>
                     </motion.div>
 
                     <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.2 }}>
-                        <iframe style={{ borderRadius: 12 }} src="https://open.spotify.com/embed/playlist/3SjvhmS9oUWxUZehcyhYrT?utm_source=generator&theme=1" width="100%" height="380" frameBorder="0" allowFullScreen allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Spotify"></iframe>
+                        <iframe
+                            style={{ borderRadius: 12 }}
+                            src="https://open.spotify.com/embed/playlist/3SjvhmS9oUWxUZehcyhYrT?utm_source=generator&theme=1"
+                            width="100%"
+                            height="380"
+                            frameBorder="0"
+                            allowFullScreen
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                            loading="lazy"
+                            title="Spotify"
+                        ></iframe>
                     </motion.div>
 
                     <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.4 }}>
@@ -61,27 +74,57 @@ export default function Contact() {
                             <div className="d-flex">
                                 <div className="form__field">
                                     <label htmlFor="field_name">Name</label>
-                                    <input name="name" id="field_name" type="text" onChange={(e) => setData('name', e.target.value)} value={data.name} placeholder="John Doe" required />
+                                    <input
+                                        name="name"
+                                        id="field_name"
+                                        type="text"
+                                        onChange={(e) => setData('name', e.target.value)}
+                                        value={data.name}
+                                        placeholder="John Doe"
+                                        required
+                                    />
                                     <InputError className="mt-2" message={errors.name} />
                                 </div>
 
                                 <div className="form__field">
                                     <label htmlFor="field_email">Email</label>
-                                    <input name="email" id="field_email" type="email" onChange={(e) => setData('email', e.target.value)} value={data.email} placeholder="john@doe.com" required />
+                                    <input
+                                        name="email"
+                                        id="field_email"
+                                        type="email"
+                                        onChange={(e) => setData('email', e.target.value)}
+                                        value={data.email}
+                                        placeholder="john@doe.com"
+                                        required
+                                    />
                                     <InputError className="mt-2" message={errors.email} />
                                 </div>
                             </div>
 
                             <div className="form__field">
                                 <label htmlFor="field_message">Message</label>
-                                <textarea name="message" id="field_message" onChange={(e) => setData('message', e.target.value)} value={data.message} placeholder="Write me anything you want" required></textarea>
+                                <textarea
+                                    name="message"
+                                    id="field_message"
+                                    onChange={(e) => setData('message', e.target.value)}
+                                    value={data.message}
+                                    placeholder="Write me anything you want"
+                                    required
+                                ></textarea>
                                 <InputError className="mt-2" message={errors.message} />
                             </div>
 
                             <div className="d-flex">
                                 <div>
                                     <label htmlFor="privacy">
-                                        <input name="privacy" id="privacy" type="checkbox" onChange={(e) => setData('privacy', (e.target.checked || false) as false)} defaultChecked={data.privacy} required />
+                                        <input
+                                            name="privacy"
+                                            id="privacy"
+                                            type="checkbox"
+                                            onChange={(e) => setData('privacy', (e.target.checked || false) as false)}
+                                            defaultChecked={data.privacy}
+                                            required
+                                        />
                                         <span> Privacy</span>
                                     </label>
                                     <InputError className="mt-2" message={errors.privacy} />
