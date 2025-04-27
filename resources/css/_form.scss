@@ -9,8 +9,8 @@
             cursor: pointer;
         }
 
-        input[type="text"],
-        input[type="email"],
+        input[type='text'],
+        input[type='email'],
         textarea {
             width: 100%;
             padding: 7px 9px;
@@ -23,19 +23,19 @@
             }
 
             &::placeholder {
-                font-family: "Fira Mono", monospace;
+                font-family: 'Fira Mono', monospace;
                 color: #b4b4b4;
             }
             &::-moz-placeholder {
-                font-family: "Fira Mono", monospace;
+                font-family: 'Fira Mono', monospace;
                 color: #b4b4b4;
             }
             &:-moz-placeholder {
-                font-family: "Fira Mono", monospace;
+                font-family: 'Fira Mono', monospace;
                 color: #b4b4b4;
             }
             &:-ms-input-placeholder {
-                font-family: "Fira Mono", monospace;
+                font-family: 'Fira Mono', monospace;
                 color: #b4b4b4;
             }
         }
