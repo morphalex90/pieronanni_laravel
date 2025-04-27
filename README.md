@@ -1,20 +1,23 @@
-# Piero Nanni v3 - Laravel
+<div align="center">
+<h1><a href="https://www.pieronanni.me">Piero Nanni v3 - Laravel & React</a></h1>
+<img src="public/img/background.webp" >
+</div>
 
+[![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2Fdc181360-959d-46e9-b57e-80dec4611d0e%3Flabel%3D1&style=flat)](https://forge.laravel.com/servers/795161/sites/2438683)
 [![Laravel](https://github.com/morphalex90/pieronanni_laravel/actions/workflows/laravel.yml/badge.svg)](https://github.com/morphalex90/pieronanni_laravel/actions/workflows/laravel.yml)
 
-[![Laravel Forge Site Deployment Status](https://img.shields.io/endpoint?url=https%3A%2F%2Fforge.laravel.com%2Fsite-badges%2Fdc181360-959d-46e9-b57e-80dec4611d0e&style=for-the-badge)](https://forge.laravel.com/servers/795161/sites/2438683)
 
-## How to install & run
+## Locally install & run
+copy .env.example to .env and edit the necessary data
+
     composer install
     npm install
     php artisan storage:link
     composer run dev
-
+    
+then open http://localhost:8000
 ## Pint
     ./vendor/bin/pint
 
-## Generate it all
+## Create model with migration, controller, resource and factory
     php artisan make:model Post -mcrf
-
-## Do do list
-- convert Modal to native Dialog
