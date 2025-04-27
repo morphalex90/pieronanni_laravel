@@ -176,7 +176,7 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                             <a href="https://www.caci.co.uk/" className="t-underline" target="_blank" rel="noreferrer" title="Visit CACI">
                                 CACI
                             </a>
-                            ) as a backend developer and started working on Worcester Bosh, a gigantic Laravel project.
+                            ) as a backend developer and started working on Worcester Bosch, a gigantic Laravel project.
                         </p>
                     </motion.section>
                 </div>
