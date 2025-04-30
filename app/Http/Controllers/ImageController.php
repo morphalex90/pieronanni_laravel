@@ -63,8 +63,12 @@ class ImageController extends Controller
         );
 
         if (! $allowed) {
-            $path = Media::where('file_name', $path)->first();
-            throw new HttpResponseException(Redirect::to($path->original_url));
+            $media = Media::where('file_name', $path)->first();
+            if ($media == null) {
+                abort(404);
+            }
+
+            throw new HttpResponseException(Redirect::to($media->original_url));
         }
     }
 }
