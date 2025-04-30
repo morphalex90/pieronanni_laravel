@@ -30,7 +30,7 @@ class PDFController extends Controller
         $html = view('pdf.cv', ['jobs' => $jobs]);
 
         $mpdf = new Mpdf([
-            'tempDir' => '../storage/app/private',
+            'tempDir' => storage_path('app/private'),
             'margin_left' => 0,
             'margin_right' => 0,
             'margin_top' => 5,
