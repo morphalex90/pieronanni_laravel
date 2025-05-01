@@ -1,5 +1,5 @@
 <div align="center">
-<h1><a href="https://www.pieronanni.me">Piero Nanni v3 - Laravel & React</a></h1>
+<h1><a href="https://www.pieronanni.me">Piero Nanni v3 - Laravel + React</a></h1>
 <img src="public/img/background.webp" >
 </div>
 
@@ -7,8 +7,6 @@
 [![Laravel](https://github.com/morphalex90/pieronanni_laravel/actions/workflows/laravel.yml/badge.svg)](https://github.com/morphalex90/pieronanni_laravel/actions/workflows/laravel.yml)
 ![Static Badge](https://img.shields.io/badge/Laravel-v12.x-red?style=flat&logo=laravel&label=Laravel)
 ![Static Badge](https://img.shields.io/badge/PHP-8.3-4F5B93?style=flat&logo=php&php=8.3)
-
-
 
 ## Locally install & run
 copy .env.example to .env and edit the necessary data
@@ -19,8 +17,8 @@ copy .env.example to .env and edit the necessary data
     composer run dev
     
 then open http://localhost:8000
-## Pint
+### Pint
     ./vendor/bin/pint
 
-## Create model with migration, controller, resource and factory
+### Create model with migration, controller, resource and factory
     php artisan make:model Post -mcrf
