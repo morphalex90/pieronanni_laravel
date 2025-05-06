@@ -20,5 +20,8 @@ then open http://localhost:8000
 ### Pint
     ./vendor/bin/pint
 
+### Larastan
+    ./vendor/bin/phpstan analyse
+
 ### Create model with migration, controller, resource and factory
     php artisan make:model Post -mcrf
