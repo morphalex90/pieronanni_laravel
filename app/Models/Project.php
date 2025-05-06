@@ -19,7 +19,7 @@ class Project extends Model implements HasMedia
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'job_id',
@@ -39,13 +39,5 @@ class Project extends Model implements HasMedia
     public function job(): BelongsTo
     {
         return $this->belongsTo(Job::class);
-    }
-
-    /**
-     * Get all of the project's files.
-     */
-    public function files(): MorphMany
-    {
-        return $this->morphMany(File::class, 'fileable')->orderBy('delta');
     }
 }
