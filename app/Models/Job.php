@@ -16,7 +16,7 @@ class Job extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'title',
@@ -43,7 +43,7 @@ class Job extends Model
     /**
      * The calculated fields.
      *
-     * @var array
+     * @var list<string>
      */
     protected $appends = [
         'duration',
