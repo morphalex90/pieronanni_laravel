@@ -21,7 +21,7 @@ class PDFController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        $stylesheet = file_get_contents('css/cv.css');
+        $stylesheet = file_get_contents(public_path('css/cv.css'));
 
         $jobs = Cache::rememberForever('jobs_with_projects_technologies', function () {
             return Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
