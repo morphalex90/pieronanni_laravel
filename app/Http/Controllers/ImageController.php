@@ -17,7 +17,7 @@ use Intervention\Image\Laravel\Facades\Image;
 
 class ImageController extends Controller
 {
-    public function show(Request $request, $path)
+    public function show(Request $request, string $path)
     {
         if (App::isProduction()) {
             $this->ratelimit($request, $path);

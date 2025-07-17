@@ -8,7 +8,6 @@ import Markdown from 'react-markdown'
 import '../../css/_timeline.scss'
 
 export default function About({ jobs }: { jobs: JobType[] }) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [activeJob, setActiveJob] = useState(jobs.length)
     const startYear = 2011
     const currentYear = new Date().getFullYear()
@@ -37,7 +36,12 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                 <h1>About</h1>
 
                 <div className="d-flex">
-                    <motion.section initial={{ x: -50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.1 }} className="about__jobs">
+                    <motion.section
+                        initial={{ x: -50, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.3, delay: 0.1 }}
+                        className="about__jobs"
+                    >
                         <p>London</p>
                         {/* <p><a href="tel:+447724146851" title="Phone me">+44 7724146851</a></p> */}
                         <p>
@@ -112,10 +116,10 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                                                     })}
                                                     {job.ended_at !== null
                                                         ? ' - ' +
-                                                        new Date(job.ended_at).toLocaleDateString('en-GB', {
-                                                            year: 'numeric',
-                                                            month: 'long',
-                                                        })
+                                                          new Date(job.ended_at).toLocaleDateString('en-GB', {
+                                                              year: 'numeric',
+                                                              month: 'long',
+                                                          })
                                                         : ''}
                                                     )
                                                 </i>
@@ -133,16 +137,28 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                     <motion.section initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.3 }}>
                         <p>When I think on my early years, I have always been passionate about technology and curious about how things work.</p>
 
-                        <p>During high school I discovered the programming world. I started with basic HTML, then continued expanding my information in technology experience through the years. During these years I learned to create entire websites not only for myself, but for others.</p>
+                        <p>
+                            During high school I discovered the programming world. I started with basic HTML, then continued expanding my information
+                            in technology experience through the years. During these years I learned to create entire websites not only for myself,
+                            but for others.
+                        </p>
 
                         <p>
                             From 2011 to 2015, I was part of an indie team based in Bologna, Italy (
-                            <a href="https://www.blackravenproduction.com/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Black Raven">
+                            <a
+                                href="https://www.blackravenproduction.com/"
+                                className="t-underline"
+                                target="_blank"
+                                rel="noreferrer"
+                                title="Visit Black Raven"
+                            >
                                 Black Raven
                             </a>
-                            ). We developed small games and programs for iOS and PC. I was responsible for the design and development of the website and methods of database connection of the apps. As a secondary role, I also worked as a 3D modeler.
+                            ). We developed small games and programs for iOS and PC. I was responsible for the design and development of the website
+                            and methods of database connection of the apps. As a secondary role, I also worked as a 3D modeler.
                             <br />
-                            The years spent as part of this team enhanced my programming skills and developed the dynamics of working with a team. Thanks to this experience, I have become the programmer I am today.
+                            The years spent as part of this team enhanced my programming skills and developed the dynamics of working with a team.
+                            Thanks to this experience, I have become the programmer I am today.
                         </p>
 
                         <p>
@@ -150,13 +166,15 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                             <a href="https://www.magicnet.it/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Magic">
                                 Magic
                             </a>
-                            ), where I was trained on how companies develop websites and e-commerce platforms. During my three years with the company, I expanded my knowledge of WordPress, Drupal, and Magento.
+                            ), where I was trained on how companies develop websites and e-commerce platforms. During my three years with the company,
+                            I expanded my knowledge of WordPress, Drupal, and Magento.
                         </p>
 
                         <p>
                             In June 2018, I moved to London to expand my knowledge and increase my English language skills.
                             <br />
-                            After a couple of months I joined Purr, a web agency based in central London. Since starting, there have been many interesting projects and new ways of building websites that I had never previously explored.
+                            After a couple of months I joined Purr, a web agency based in central London. Since starting, there have been many
+                            interesting projects and new ways of building websites that I had never previously explored.
                         </p>
 
                         <p>
@@ -164,7 +182,8 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                             <a href="https://www.soundpickr.com/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Soundpickr">
                                 Soundpickr
                             </a>{' '}
-                            and started working with Laravel and React to build a music streaming service. Sadly this startup shut down at the end of 2023 because of lack of foundings.
+                            and started working with Laravel and React to build a music streaming service. Sadly this startup shut down at the end of
+                            2023 because of lack of foundings.
                         </p>
 
                         <p>

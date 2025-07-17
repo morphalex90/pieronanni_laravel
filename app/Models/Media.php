@@ -19,7 +19,7 @@ class Media extends BaseMedia
         'url',
     ];
 
-    public function getUrlAttribute()
+    public function getUrlAttribute(): string
     {
         return '/media/' . $this->file_name;
     }
