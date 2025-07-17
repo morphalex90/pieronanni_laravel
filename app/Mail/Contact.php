@@ -30,7 +30,7 @@ class Contact extends Mailable
         return new Envelope(
             subject: 'Contact from pieronanni.me',
             replyTo: $this->data['email'],
-            to: 'piero.nanni@gmail.com',
+            to: ['piero.nanni@gmail.com'],
         );
     }
 

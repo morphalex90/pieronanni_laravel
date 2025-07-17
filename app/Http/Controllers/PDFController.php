@@ -15,7 +15,7 @@ class PDFController extends Controller
     /**
      * Display PDF CV.
      */
-    public function cv(Request $request)
+    public function cv(Request $request): void
     {
         Click::create([
             'user_agent' => $request->userAgent(),

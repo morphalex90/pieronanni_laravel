@@ -17,7 +17,7 @@ class ProjectObserver
         PurgeCache::handle();
     }
 
-    public function deleting(Project $project)
+    public function deleting(Project $project): void
     {
         $project->technologies()->detach();
         $project->media()->delete();
