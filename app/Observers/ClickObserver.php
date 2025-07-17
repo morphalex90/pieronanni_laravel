@@ -43,7 +43,7 @@ class ClickObserver
             $message .= '- ' . $click->country->name . "\n\n";
         }
 
-        $message .= print_r($info,1);
+        $message .= print_r($info, 1);
 
         $apiToken = config('services.telegram.key');
 
