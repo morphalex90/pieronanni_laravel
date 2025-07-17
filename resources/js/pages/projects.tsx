@@ -22,7 +22,9 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
         } else {
             // filter by tech key
             const reducedJobs = allJobs.reduce((result: JobType[], job: JobType) => {
-                const filteredProjects = job.projects.filter((project: ProjectType) => project.technologies.some((tech: TechnologyType) => tech.key === techKey))
+                const filteredProjects = job.projects.filter((project: ProjectType) =>
+                    project.technologies.some((tech: TechnologyType) => tech.key === techKey),
+                )
 
                 if (filteredProjects.length > 0) {
                     result.push({ ...job, projects: filteredProjects })
@@ -55,7 +57,11 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
                 {technologies.length > 0 && (
                     <div className="technologies">
                         {technologies.map((tech, id) => (
-                            <div key={id} className={'technologies__single' + (activeTechnology === tech.key ? ' is-active' : '')} onClick={() => filterProjects(tech.key)}>
+                            <div
+                                key={id}
+                                className={'technologies__single' + (activeTechnology === tech.key ? ' is-active' : '')}
+                                onClick={() => filterProjects(tech.key)}
+                            >
                                 {tech.key !== '*' && <Icon technology={tech.key} />}
                                 <span>{tech.name}</span>
                             </div>
@@ -74,7 +80,11 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
                                         </a>
                                     </h3>
 
-                                    <div className="projects">{job.projects?.map((project: ProjectType, projectId: number) => <Project key={projectId} project={project} delay={(projectId + 1) / 12} />)}</div>
+                                    <div className="projects">
+                                        {job.projects?.map((project: ProjectType, projectId: number) => (
+                                            <Project key={projectId} project={project} delay={(projectId + 1) / 12} />
+                                        ))}
+                                    </div>
                                 </>
                             )}
                         </div>

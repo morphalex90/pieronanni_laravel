@@ -30,7 +30,14 @@ export default function Project({ project, delay }: { project: ProjectType; dela
                 }}
             >
                 <div className="projects__single__image">
-                    <img src={project?.media?.[0] ? project.media[0].url : placeholder} alt={project.title} title={project.title} width={333} height={200} loading="lazy" />
+                    <img
+                        src={project?.media?.[0] ? project.media[0].url : placeholder}
+                        alt={project.title}
+                        title={project.title}
+                        width={333}
+                        height={200}
+                        loading="lazy"
+                    />
                 </div>
 
                 <div className="projects__single__content">
