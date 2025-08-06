@@ -116,10 +116,10 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                                                     })}
                                                     {job.ended_at !== null
                                                         ? ' - ' +
-                                                          new Date(job.ended_at).toLocaleDateString('en-GB', {
-                                                              year: 'numeric',
-                                                              month: 'long',
-                                                          })
+                                                        new Date(job.ended_at).toLocaleDateString('en-GB', {
+                                                            year: 'numeric',
+                                                            month: 'long',
+                                                        })
                                                         : ''}
                                                     )
                                                 </i>
@@ -135,13 +135,13 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                     </motion.section>
 
                     <motion.section initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.3 }}>
-                        <p>When I think on my early years, I have always been passionate about technology and curious about how things work.</p>
+                        {/* <p>When I think on my early years, I have always been passionate about technology and curious about how things work.</p> */}
 
-                        <p>
+                        {/* <p>
                             During high school I discovered the programming world. I started with basic HTML, then continued expanding my information
                             in technology experience through the years. During these years I learned to create entire websites not only for myself,
                             but for others.
-                        </p>
+                        </p> */}
 
                         <p>
                             From 2011 to 2015, I was part of an indie team based in Bologna, Italy (
