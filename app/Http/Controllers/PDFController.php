@@ -6,15 +6,14 @@ use App\Models\Click;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Response;
 use Mpdf\HTMLParserMode;
 use Mpdf\Mpdf;
 use Mpdf\Output\Destination;
+use Spatie\Browsershot\Browsershot;
 
 class PDFController extends Controller
 {
-    /**
-     * Display PDF CV.
-     */
     public function cv(Request $request): void
     {
         Click::create([
@@ -53,5 +52,32 @@ class PDFController extends Controller
         $mpdf->WriteHTML($html, HTMLParserMode::HTML_BODY);
 
         $mpdf->Output('cv_piero_nanni.pdf', Destination::INLINE);
+    }
+
+    public function cv2(Request $request)
+    {
+        // Click::create([
+        //     'user_agent' => $request->userAgent(),
+        // ]);
+
+        $jobs = Cache::rememberForever('jobs_with_projects_technologies', function () {
+            return Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
+        });
+
+        $html = view('pdf.cv-tailwind', ['jobs' => $jobs]);
+
+        $pdf = Browsershot::html($html->render())
+            ->noSandbox()
+            // ->setOption('pdf.info.Author', 'Piero Nanni')
+            ->showBrowserHeaderAndFooter()
+            ->headerHtml(" ")
+            ->format('A4')
+            ->showBackground()
+            ->footerHtml('<div style="text-align: center;"><span class="pageNumber">blabla</span> / <span class="date"></span></div>'); // https://github.com/spatie/browsershot/discussions/617
+            
+        return Response::make($pdf->pdf(), headers: [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="cv_piero_nanni.pdf"',
+        ]);
     }
 }
