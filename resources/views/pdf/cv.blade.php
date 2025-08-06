@@ -1,21 +1,23 @@
-{{-- <link rel="stylesheet" href="{{ URL::asset('css/cv.css') }}" /> --}}
+{{--
+<link rel="stylesheet" href="{{ URL::asset('css/cv.css') }}" /> --}}
 
 <div>
     <div style="border-bottom: 2px solid #000;">
         <div class="col-6">
             <div style="margin-left:20px; margin-right:20px; padding-top: 15px;">
                 <div style="font-size:35px; font-weight:bold; line-height:1px; margin-bottom: 10px;">Piero Nanni</div>
-                <div><i>Full-stack developer</i></div>
+                <div><i>Full-stack developer specialised in Laravel and React</i></div>
                 <div style="margin-bottom:10px"><a href="https://www.pieronanni.me">www.pieronanni.me</a></div>
-                {{-- <div><em>I don&rquo;t know, it&rquo;s something about web developing that calms me down, ya know?</em></div> --}}
             </div>
         </div>
 
         <div class="col-6 text-right">
             <div>London, UK {!! file_get_contents('svg/location.svg') !!}</div>
             <div>+44 7724 146851 {!! file_get_contents('svg/call.svg') !!}</div>
-            <div><a href="mailto:piero.nanni@gmail.com">piero.nanni@gmail.com</a> {!! file_get_contents('svg/mail.svg') !!}</div>
-            <div><a href="https://github.com/morphalex90">github.com/morphalex90</a> {!! file_get_contents('svg/github.svg') !!}</div>
+            <div><a href="mailto:piero.nanni@gmail.com">piero.nanni@gmail.com</a>
+                {!! file_get_contents('svg/mail.svg') !!}</div>
+            <div><a href="https://github.com/morphalex90">github.com/morphalex90</a>
+                {!! file_get_contents('svg/github.svg') !!}</div>
         </div>
     </div>
 
@@ -64,7 +66,7 @@
                                     </div> --}}
                                 @endif
 
-                                <span style="float:right:">
+                                <span style="float:right">
                                     <a href={{ $project->url }}>{{ $project->title }}</a> -
                                     {{ $project->description_cv }}
                                 </span>
@@ -114,7 +116,7 @@
                     </ul>
                 </li>
 
-                {{-- <li>Gulp</li> --}}
+                <li>Inertia.js</li>
                 <li>Git</li>
                 <li>Linux shell</li>
                 {{-- <li>Linux terminal (Linux Command line)</li> --}}
@@ -127,8 +129,6 @@
                 <li>Multi tasking</li>
                 <li>Adaptive to change</li>
                 <li>Tech and code news nerd</li>
-                {{-- <li>Enthusiastic about web development</li> --}}
-                {{-- <li>Willing to learn new skills every day</li> --}}
             </ul>
 
             <div class="section"><strong>EDUCATION</strong></div>
@@ -142,7 +142,7 @@
             <div class="section"><strong>INTERESTS</strong></div>
 
             <ul>
-                <li>Synthwave enthusiast</li>
+                <li>3d printing world</li>
                 <li>Desktop PC builder</li>
             </ul>
 
