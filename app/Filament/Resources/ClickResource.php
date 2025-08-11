@@ -7,6 +7,7 @@ use App\Models\Click;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -30,6 +31,7 @@ class ClickResource extends Resource
             ->columns([
                 TextColumn::make('country.name')->sortable(),
                 TextColumn::make('user_agent')->limit(50),
+                IconColumn::make('is_bot')->boolean(),
                 TextColumn::make('created_at')->since()->sortable()->dateTimeTooltip(),
             ])
             ->filters([
