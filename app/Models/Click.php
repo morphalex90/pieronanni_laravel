@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DeviceDetector\DeviceDetector;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,6 +22,18 @@ class Click extends Model
         'country_id',
         'user_agent',
     ];
+
+    protected $appends = [
+        'is_bot',
+    ];
+
+    public function getIsBotAttribute(): bool
+    {
+        $dd = new DeviceDetector($this->user_agent);
+        $dd->parse();
+
+        return $dd->isBot();
+    }
 
     public function country(): BelongsTo
     {
