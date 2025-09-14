@@ -20,26 +20,26 @@
 
                     <div class="flex flex-wrap justify-center gap-6 text-gray-600 mb-8">
                         <div class="flex items-center gap-2">
-                            <x-lucide-pin class="w-5 h-5" />
+                            {{-- <x-lucide-pin class="w-5 h-5" /> --}}
                             <span>London, UK</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <x-lucide-calendar class="h-5 w-5 text-gray-500" />
+                            {{-- <x-lucide-calendar class="h-5 w-5 text-gray-500" /> --}}
                             <span>+44 7724 146851</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <x-lucide-mail class="w-5 h-5" />
+                            {{-- <x-lucide-mail class="w-5 h-5" /> --}}
                             <span>piero.nanni@gmail.com</span>
                         </div>
                     </div>
 
                     <div class="flex justify-center gap-4">
                         <Button variant="default" class="flex items-center gap-2">
-                            <x-lucide-globe class="w-4 h-4" />
+                            {{-- <x-lucide-globe class="w-4 h-4" /> --}}
                             www.pieronanni.me
                         </Button>
                         <Button variant="outline" class="flex items-center gap-2">
-                            <x-lucide-github class="w-4 h-4" />
+                            {{-- <x-lucide-github class="w-4 h-4" /> --}}
                             GitHub Profile
                         </Button>
                     </div>
@@ -63,11 +63,11 @@
                                 </div>
                                 <div class="text-right text-sm text-gray-500">
                                     <div class="flex items-center gap-1 mb-1">
-                                        <x-lucide-pin class="w-4 h-4" />
+                                        {{-- <x-lucide-pin class="w-4 h-4" /> --}}
                                         {exp.location}
                                     </div>
                                     <div class="flex items-center gap-1">
-                                        <x-lucide-calendar class="w-4 h-4" />
+                                        {{-- <x-lucide-calendar class="w-4 h-4" /> --}}
                                         {exp.period}
                                     </div>
                                 </div>
@@ -197,15 +197,15 @@
                     <CardContent>
                         <div class="flex flex-wrap justify-center gap-4">
                             <Button size="lg" class="flex items-center gap-2">
-                                <x-lucide-mail class="w-5 h-5" />
+                                {{-- <x-lucide-mail class="w-5 h-5" /> --}}
                                 Send Email
                             </Button>
                             <Button variant="outline" size="lg" class="flex items-center gap-2">
-                                <Phone class="w-5 h-5" />
+                                {{-- <x-lucide-phone class="w-5 h-5" /> --}}
                                 Call Me
                             </Button>
                             <Button variant="outline" size="lg" class="flex items-center gap-2">
-                                <x-lucide-globe class="w-5 h-5" />
+                                {{-- <x-lucide-globe class="w-5 h-5" /> --}}
                                 Visit Website
                             </Button>
                         </div>
