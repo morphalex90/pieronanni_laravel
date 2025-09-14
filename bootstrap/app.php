@@ -8,6 +8,7 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use MallardDuck\LucideIcons\BladeLucideIconsServiceProvider;
 use Sentry\Laravel\Integration;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -38,7 +39,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     $errorsFromSession = app(\Illuminate\View\Middleware\ShareErrorsFromSession::class);
                     $encryptCookies = app(\Illuminate\Cookie\Middleware\EncryptCookies::class);
                     $addQueuedCookiesToResponse = app(\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class);
-                    $handleInertiaRequests = app(\App\Http\Middleware\HandleInertiaRequests::class);
+                    $handleInertiaRequests = app(HandleInertiaRequests::class);
                     $addQueuedCookiesToResponse = app(\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class);
 
                     return $encryptCookies->handle($request, function ($request) use ($addQueuedCookiesToResponse, $startSession, $errorsFromSession, $handleInertiaRequests, $response) {
@@ -65,4 +66,8 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         Integration::handles($exceptions);
-    })->create();
+    })
+    ->withProviders([
+        BladeLucideIconsServiceProvider::class,
+    ])
+    ->create();
