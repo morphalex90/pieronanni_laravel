@@ -33,7 +33,7 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
                             <Markdown>{content.description}</Markdown>
 
                             <div style={{ display: 'flex', gap: 10 }}>
-                                <a href={content.url} className="button" target="_blank" rel="noreferrer">
+                                <a href={content.url} className="button" target="_blank">
                                     Visit site
                                 </a>
                                 {content.github && (
