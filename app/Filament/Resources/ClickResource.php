@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use App\Filament\Resources\ClickResource\Pages\ListClicks;
 use App\Filament\Resources\ClickResource\Pages;
 use App\Models\Click;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
@@ -15,12 +16,12 @@ class ClickResource extends Resource
 {
     protected static ?string $model = Click::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 //
             ]);
     }
@@ -37,10 +38,10 @@ class ClickResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
+            ->recordActions([
                 // Tables\Actions\EditAction::make(),
             ])
-            ->bulkActions([
+            ->toolbarActions([
                 // Tables\Actions\BulkActionGroup::make([
                 //     Tables\Actions\DeleteBulkAction::make(),
                 // ]),
@@ -57,7 +58,7 @@ class ClickResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListClicks::route('/'),
+            'index' => ListClicks::route('/'),
         ];
     }
 }

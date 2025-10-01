@@ -2,9 +2,12 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Schemas\Schema;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use App\Filament\Resources\ContactResource\Pages\ListContacts;
 use App\Filament\Resources\ContactResource\Pages;
 use App\Models\Contact;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -14,12 +17,12 @@ class ContactResource extends Resource
 {
     protected static ?string $model = Contact::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-inbox-arrow-down';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-inbox-arrow-down';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 //
             ]);
     }
@@ -38,12 +41,12 @@ class ContactResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
+            ->recordActions([
                 // Tables\Actions\EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ])
             ->defaultSort('id', 'DESC');
@@ -59,7 +62,7 @@ class ContactResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListContacts::route('/'),
+            'index' => ListContacts::route('/'),
             // 'create' => Pages\CreateContact::route('/create'),
             // 'edit' => Pages\EditContact::route('/{record}/edit'),
         ];
