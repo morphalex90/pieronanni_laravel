@@ -35,28 +35,28 @@ class ClickObserver
             $info['device'] = $dd->getDeviceName();
             $info['brand'] = $dd->getBrandName();
             $info['model'] = $dd->getModel();
-        }
 
-        $message = "PieroNanni - CV\n\n";
+            $message = "PieroNanni - CV\n\n";
 
-        if ($click->country != null) {
-            $message .= '- ' . $click->country->name . "\n\n";
-        }
+            if ($click->country != null) {
+                $message .= '- ' . $click->country->name . "\n\n";
+            }
 
-        $message .= print_r($info, 1);
+            $message .= print_r($info, 1);
 
-        $apiToken = config('services.telegram.key');
+            $apiToken = config('services.telegram.key');
 
-        $data = [
-            'chat_id' => '-1002351275552',
-            'text' => $message,
-        ];
+            $data = [
+                'chat_id' => '-1002351275552',
+                'text' => $message,
+            ];
 
-        try {
-            $response = Http::get('https://api.telegram.org/bot' . $apiToken . '/sendMessage?' . http_build_query($data));
-            // dd($response->body());
-        } catch (Exception $e) {
-            // dd($e);
+            try {
+                $response = Http::get('https://api.telegram.org/bot' . $apiToken . '/sendMessage?' . http_build_query($data));
+                // dd($response->body());
+            } catch (Exception $e) {
+                // dd($e);
+            }
         }
     }
 }
