@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "670ab1add419da279d58767f3eb074b0",
+    "content-hash": "2d429ddf4fd47887bbc471915f234e1f",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -4911,6 +4911,84 @@
                 "source": "https://github.com/nette/utils/tree/v4.0.8"
             },
             "time": "2025-08-06T21:43:34+00:00"
+        },
+        {
+            "name": "nunomaduro/essentials",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nunomaduro/essentials.git",
+                "reference": "75665a7c067bbf8f0556d7e924249e9a58f9a6d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nunomaduro/essentials/zipball/75665a7c067bbf8f0556d7e924249e9a58f9a6d9",
+                "reference": "75665a7c067bbf8f0556d7e924249e9a58f9a6d9",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^11.44.2|^12.29.0",
+                "php": "^8.3.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.25.0",
+                "orchestra/testbench": "^10.6.0",
+                "pestphp/pest": "^3.8.4",
+                "pestphp/pest-plugin-type-coverage": "^3.6.1",
+                "phpstan/phpstan": "^2.1.27",
+                "rector/rector": "^2.1.7",
+                "symfony/var-dumper": "^7.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NunoMaduro\\Essentials\\EssentialsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NunoMaduro\\Essentials\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nuno Maduro",
+                    "email": "enunomaduro@gmail.com"
+                }
+            ],
+            "description": "Just better defaults for your Laravel projects.",
+            "keywords": [
+                "essentials",
+                "laravel",
+                "laravel-essentials",
+                "package",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/nunomaduro/essentials/issues",
+                "source": "https://github.com/nunomaduro/essentials/tree/v1.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://www.paypal.com/paypalme/enunomaduro",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/nunomaduro",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/nunomaduro",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2025-09-18T08:52:39+00:00"
         },
         {
             "name": "nunomaduro/termwind",
@@ -10527,6 +10605,41 @@
             "time": "2025-04-07T20:06:18+00:00"
         },
         {
+            "name": "driftingly/rector-laravel",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/driftingly/rector-laravel.git",
+                "reference": "efb636a08dfddfa2a3f4527b1dd970a898a075a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/driftingly/rector-laravel/zipball/efb636a08dfddfa2a3f4527b1dd970a898a075a4",
+                "reference": "efb636a08dfddfa2a3f4527b1dd970a898a075a4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0",
+                "rector/rector": "^2.0"
+            },
+            "type": "rector-extension",
+            "autoload": {
+                "psr-4": {
+                    "RectorLaravel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Rector upgrades rules for Laravel Framework",
+            "support": {
+                "issues": "https://github.com/driftingly/rector-laravel/issues",
+                "source": "https://github.com/driftingly/rector-laravel/tree/2.1.0"
+            },
+            "time": "2025-10-12T21:51:39+00:00"
+        },
+        {
             "name": "fakerphp/faker",
             "version": "v1.24.1",
             "source": {
@@ -12526,6 +12639,66 @@
                 }
             ],
             "time": "2025-08-16T05:19:02+00:00"
+        },
+        {
+            "name": "rector/rector",
+            "version": "2.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rectorphp/rector.git",
+                "reference": "d27f976a332a87b5d03553c2e6f04adbe5da034f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/d27f976a332a87b5d03553c2e6f04adbe5da034f",
+                "reference": "d27f976a332a87b5d03553c2e6f04adbe5da034f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0",
+                "phpstan/phpstan": "^2.1.26"
+            },
+            "conflict": {
+                "rector/rector-doctrine": "*",
+                "rector/rector-downgrade-php": "*",
+                "rector/rector-phpunit": "*",
+                "rector/rector-symfony": "*"
+            },
+            "suggest": {
+                "ext-dom": "To manipulate phpunit.xml via the custom-rule command"
+            },
+            "bin": [
+                "bin/rector"
+            ],
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Instant Upgrade and Automated Refactoring of any PHP code",
+            "homepage": "https://getrector.com/",
+            "keywords": [
+                "automation",
+                "dev",
+                "migration",
+                "refactoring"
+            ],
+            "support": {
+                "issues": "https://github.com/rectorphp/rector/issues",
+                "source": "https://github.com/rectorphp/rector/tree/2.2.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/tomasvotruba",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-10-11T21:50:23+00:00"
         },
         {
             "name": "sebastian/cli-parser",
