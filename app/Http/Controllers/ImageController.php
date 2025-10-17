@@ -27,7 +27,7 @@ class ImageController extends Controller
         $format = 'webp';
 
         $media = Media::where('file_name', $path)->first();
-        if ($media == null) {
+        if ($media === null) {
             abort(404);
         }
 
@@ -39,7 +39,7 @@ class ImageController extends Controller
 
         $image = Image::read($loaded_image);
 
-        [$mime, $encoder] = match (strtolower($format)) {
+        [$mime, $encoder] = match (mb_strtolower($format)) {
             // 'png' => ['image/png', new PngEncoder],
             // 'gif' => ['image/gif', new GifEncoder],
             'webp' => ['image/webp', new WebpEncoder(quality: $quality, strip: true)],
@@ -50,7 +50,7 @@ class ImageController extends Controller
 
         return response($output, 200)
             ->header('Content-Type', $mime)
-            ->header('Content-Length', strlen($output))
+            ->header('Content-Length', mb_strlen($output))
             ->header('Cache-Control', 'public, max-age=31536000, s-maxage=31536000, immutable');
     }
 
@@ -59,12 +59,12 @@ class ImageController extends Controller
         $allowed = RateLimiter::attempt(
             key: 'img:' . $request->ip() . ':' . $path,
             maxAttempts: 2,
-            callback: fn() => true
+            callback: fn () => true
         );
 
         if (! $allowed) {
             $media = Media::where('file_name', $path)->first();
-            if ($media == null) {
+            if ($media === null) {
                 abort(404);
             }
 

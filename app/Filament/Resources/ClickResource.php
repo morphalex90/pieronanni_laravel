@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Schemas\Schema;
 use App\Filament\Resources\ClickResource\Pages\ListClicks;
-use App\Filament\Resources\ClickResource\Pages;
 use App\Models\Click;
+use BackedEnum;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -16,7 +16,7 @@ class ClickResource extends Resource
 {
     protected static ?string $model = Click::class;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Schema $schema): Schema
     {

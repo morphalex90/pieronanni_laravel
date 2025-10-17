@@ -2,21 +2,20 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Schemas\Schema;
-use Filament\Actions\EditAction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use App\Filament\Resources\JobResource\Pages\ListJobs;
 use App\Filament\Resources\JobResource\Pages\CreateJob;
 use App\Filament\Resources\JobResource\Pages\EditJob;
-use App\Filament\Resources\JobResource\Pages;
+use App\Filament\Resources\JobResource\Pages\ListJobs;
 use App\Filament\Resources\JobResource\RelationManagers\ProjectsRelationManager;
 use App\Models\Job;
+use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -24,7 +23,7 @@ class JobResource extends Resource
 {
     protected static ?string $model = Job::class;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-briefcase';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-briefcase';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -38,13 +37,13 @@ class JobResource extends Resource
                 MarkdownEditor::make('description')
                     ->maxLength(1000)
                     ->required()
-                    ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->hint(fn ($state, $component) => mb_strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 MarkdownEditor::make('description_cv')
                     ->maxLength(1000)
                     ->required()
-                    ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->hint(fn ($state, $component) => mb_strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 DatePicker::make('started_at')->required(),

@@ -2,9 +2,8 @@
 
 namespace App\Filament\Resources\JobResource\Pages;
 
-use Filament\Actions\CreateAction;
 use App\Filament\Resources\JobResource;
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListJobs extends ListRecords

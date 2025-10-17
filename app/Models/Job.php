@@ -29,18 +29,6 @@ class Job extends Model
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'company' => 'array',
-        ];
-    }
-
-    /**
      * The calculated fields.
      *
      * @var list<string>
@@ -62,7 +50,7 @@ class Job extends Model
      */
     public function getDurationAttribute()
     {
-        if ($this->ended_at == null) {
+        if ($this->ended_at === null) {
             return null;
         }
 
@@ -72,5 +60,17 @@ class Job extends Model
         $format = (int) $date_start->diffInYears($date_end) > 0 ? '%y years, %m months' : '%m months';
 
         return $date_start->diff($date_end)->format($format);
+    }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'company' => 'array',
+        ];
     }
 }

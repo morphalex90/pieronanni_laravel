@@ -70,11 +70,11 @@ class PDFController extends Controller
             ->noSandbox()
             // ->setOption('pdf.info.Author', 'Piero Nanni')
             ->showBrowserHeaderAndFooter()
-            ->headerHtml(" ")
+            ->headerHtml(' ')
             ->format('A4')
             ->showBackground()
             ->footerHtml('<div style="text-align: center;"><span class="pageNumber">blabla</span> / <span class="date"></span></div>'); // https://github.com/spatie/browsershot/discussions/617
-            
+
         return Response::make($pdf->pdf(), headers: [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'inline; filename="cv_piero_nanni.pdf"',

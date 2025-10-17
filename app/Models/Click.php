@@ -11,7 +11,7 @@ class Click extends Model
 {
     use HasFactory;
 
-    const UPDATED_AT = null;
+    public const UPDATED_AT = null;
 
     /**
      * The attributes that are mass assignable.

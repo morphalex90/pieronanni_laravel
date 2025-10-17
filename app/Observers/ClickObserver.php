@@ -14,7 +14,7 @@ class ClickObserver
     {
         if (! app()->environment('local') && request()->headers->has('CF-IPCountry')) {
             $country = Country::where('code', request()->header('CF-IPCountry'))->first();
-            if ($country != null) {
+            if ($country !== null) {
                 $click->country_id = $country->id;
             }
         }
@@ -38,7 +38,7 @@ class ClickObserver
 
             $message = "PieroNanni - CV\n\n";
 
-            if ($click->country != null) {
+            if ($click->country !== null) {
                 $message .= '- ' . $click->country->name . "\n\n";
             }
 

@@ -2,9 +2,8 @@
 
 namespace App\Filament\Resources\JobResource\Pages;
 
-use Filament\Actions\DeleteAction;
 use App\Filament\Resources\JobResource;
-use Filament\Actions;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditJob extends EditRecord

@@ -2,23 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Schemas\Schema;
-use Filament\Actions\EditAction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use App\Filament\Resources\ProjectResource\Pages\ListProjects;
 use App\Filament\Resources\ProjectResource\Pages\CreateProject;
 use App\Filament\Resources\ProjectResource\Pages\EditProject;
-use App\Filament\Resources\ProjectResource\Pages;
+use App\Filament\Resources\ProjectResource\Pages\ListProjects;
 use App\Models\Job;
 use App\Models\Project;
+use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -27,7 +26,7 @@ class ProjectResource extends Resource
 {
     protected static ?string $model = Project::class;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-book-open';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-book-open';
 
     protected static ?string $recordTitleAttribute = 'title';
 
@@ -41,7 +40,7 @@ class ProjectResource extends Resource
                 MarkdownEditor::make('description')
                     ->maxLength(2000)
                     ->required()
-                    ->hint(fn($state, $component) => strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->hint(fn ($state, $component) => mb_strlen($state) . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 TextInput::make('description_cv')->required()->maxLength(255),
@@ -50,9 +49,9 @@ class ProjectResource extends Resource
                     ->relationship(
                         name: 'job',
                         titleAttribute: 'title',
-                        modifyQueryUsing: fn(Builder $query) => $query->orderBy('company'),
+                        modifyQueryUsing: fn (Builder $query) => $query->orderBy('company'),
                     )
-                    ->getOptionLabelFromRecordUsing(fn(Job $user) => "{$user->company['name']} [{$user->title}]")
+                    ->getOptionLabelFromRecordUsing(fn (Job $user) => "{$user->company['name']} [{$user->title}]")
                     ->required()->searchable()->preload(),
                 Select::make('technologies')
                     ->multiple()
@@ -60,7 +59,7 @@ class ProjectResource extends Resource
                     ->relationship(
                         name: 'technologies',
                         titleAttribute: 'name',
-                        modifyQueryUsing: fn(Builder $query) => $query->where('key', '!=', '*'),
+                        modifyQueryUsing: fn (Builder $query) => $query->where('key', '!=', '*'),
                     ),
                 SpatieMediaLibraryFileUpload::make('images')
                     ->disk('backblaze')
