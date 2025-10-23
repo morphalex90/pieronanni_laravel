@@ -20,7 +20,7 @@
 
                 <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-gray-600 mb-5">
                     <div class="flex items-center gap-1">
-                        <x-lucide-pin class="w-4 h-4" />
+                        <x-lucide-gem class="w-4 h-4" />
                         <span>London, UK</span>
                     </div>
                     <div class="flex items-center gap-1">
