@@ -42,20 +42,20 @@ class Job extends Model
      */
     public function projects(): HasMany
     {
-        return $this->hasMany(Project::class)->orderBy('published_at', 'DESC');
+        return $this->hasMany(Project::class)->latest('published_at');
     }
 
     /**
      *  Duration
      */
-    public function getDurationAttribute()
+    protected function getDurationAttribute(): ?string
     {
         if ($this->ended_at === null) {
             return null;
         }
 
-        $date_end = Carbon::parse($this->ended_at);
-        $date_start = Carbon::parse($this->started_at);
+        $date_end = \Illuminate\Support\Facades\Date::parse($this->ended_at);
+        $date_start = \Illuminate\Support\Facades\Date::parse($this->started_at);
 
         $format = (int) $date_start->diffInYears($date_end) > 0 ? '%y years, %m months' : '%m months';
 

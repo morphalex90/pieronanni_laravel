@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('clicks', function (Blueprint $table) {
+        Schema::create('clicks', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(Country::class)->nullable();
             $table->string('user_agent')->nullable();

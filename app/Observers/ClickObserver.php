@@ -54,7 +54,7 @@ class ClickObserver
             try {
                 $response = Http::get('https://api.telegram.org/bot' . $apiToken . '/sendMessage?' . http_build_query($data));
                 // dd($response->body());
-            } catch (Exception $e) {
+            } catch (Exception) {
                 // dd($e);
             }
         }

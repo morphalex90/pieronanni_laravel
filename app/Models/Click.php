@@ -27,7 +27,7 @@ class Click extends Model
         'is_bot',
     ];
 
-    public function getIsBotAttribute(): bool
+    protected function getIsBotAttribute(): bool
     {
         $dd = new DeviceDetector($this->user_agent);
         $dd->parse();
