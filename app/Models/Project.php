@@ -27,8 +27,21 @@ class Project extends Model implements HasMedia
         'github',
         'description',
         'description_cv',
+        'is_visible_in_cv',
         'published_at',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'is_visible_in_cv' => 'boolean',
+        ];
+    }
 
     public function technologies(): BelongsToMany
     {
