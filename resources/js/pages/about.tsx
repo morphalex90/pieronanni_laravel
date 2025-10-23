@@ -116,10 +116,10 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                                                     })}
                                                     {job.ended_at !== null
                                                         ? ' - ' +
-                                                        new Date(job.ended_at).toLocaleDateString('en-GB', {
-                                                            year: 'numeric',
-                                                            month: 'long',
-                                                        })
+                                                          new Date(job.ended_at).toLocaleDateString('en-GB', {
+                                                              year: 'numeric',
+                                                              month: 'long',
+                                                          })
                                                         : ''}
                                                     )
                                                 </i>
