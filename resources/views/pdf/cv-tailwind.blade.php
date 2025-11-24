@@ -20,24 +20,24 @@
 
                 <div class="flex flex-wrap justify-center gap-x-3 gap-y-2 text-gray-600 mb-5">
                     <div class="flex items-center gap-1">
-                        <x-lucide-gem class="w-4 h-4" />
+                        {{-- <x-lucide-gem class="w-4 h-4" /> --}}
                         <span>London, UK</span>
                     </div>
                     <div class="flex items-center gap-1">
-                        <x-lucide-phone class="w-4 h-4" />
+                        {{-- <x-lucide-phone class="w-4 h-4" /> --}}
                         <span><a href="tel:+447724146851">+44 7724 146851</a></span>
                     </div>
                     <div class="flex items-center gap-1">
-                        <x-lucide-mail class="w-4 h-4" />
+                        {{-- <x-lucide-mail class="w-4 h-4" /> --}}
                         <span><a href="mailto:piero.nanni@gmail.com">piero.nanni@gmail.com</a></span>
                     </div>
 
                     <Button variant="default" class="flex items-center gap-1">
-                        <x-lucide-globe class="w-4 h-4" />
+                        {{-- <x-lucide-globe class="w-4 h-4" /> --}}
                         <a href="https://www.pieronanni.me">pieronanni.me</a>
                     </Button>
                     <Button variant="outline" class="flex items-center gap-1">
-                        <x-lucide-github class="w-4 h-4" />
+                        {{-- <x-lucide-github class="w-4 h-4" /> --}}
                         <a href="https://github.com/morphalex90">@morphalex90</a>
                     </Button>
                 </div>
