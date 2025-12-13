@@ -16,9 +16,11 @@ use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -61,6 +63,7 @@ class ProjectResource extends Resource
                         titleAttribute: 'name',
                         modifyQueryUsing: fn (Builder $query) => $query->where('key', '!=', '*'),
                     ),
+                Toggle::make('is_visible_cv'),
                 SpatieMediaLibraryFileUpload::make('images')
                     ->disk('backblaze')
                     ->image()
@@ -77,6 +80,7 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
+                ToggleColumn::make('is_visible_cv')->sortable(),
                 TextColumn::make('title')->sortable()->searchable(isIndividual: true, isGlobal: false),
                 TextColumn::make('url')->sortable()->limit(50)->searchable(isIndividual: true, isGlobal: false),
                 TextColumn::make('github')->sortable()->limit(50)->label('GitHub')->searchable(isIndividual: true, isGlobal: false),
