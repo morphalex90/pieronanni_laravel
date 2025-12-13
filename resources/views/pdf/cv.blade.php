@@ -55,7 +55,7 @@
 
                     <ul class="project-list">
                         @foreach ($job->projects as $project)
-                            @if($project->is_visible_cv)
+                            @if($project->is_visible_in_cv)
                                 <li>
                                     @if (count($project->technologies) > 0)
                                         @foreach ($project->technologies as $tech)

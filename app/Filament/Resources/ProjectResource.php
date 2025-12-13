@@ -63,7 +63,7 @@ class ProjectResource extends Resource
                         titleAttribute: 'name',
                         modifyQueryUsing: fn (Builder $query) => $query->where('key', '!=', '*'),
                     ),
-                Toggle::make('is_visible_cv'),
+                Toggle::make('is_visible_in_cv'),
                 SpatieMediaLibraryFileUpload::make('images')
                     ->disk('backblaze')
                     ->image()
@@ -80,7 +80,7 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                ToggleColumn::make('is_visible_cv')->sortable(),
+                ToggleColumn::make('is_visible_in_cv')->sortable(),
                 TextColumn::make('title')->sortable()->searchable(isIndividual: true, isGlobal: false),
                 TextColumn::make('url')->sortable()->limit(50)->searchable(isIndividual: true, isGlobal: false),
                 TextColumn::make('github')->sortable()->limit(50)->label('GitHub')->searchable(isIndividual: true, isGlobal: false),
