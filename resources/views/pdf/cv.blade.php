@@ -30,7 +30,7 @@
                 <div class="job">
                     <div style="margin-top: 20px;">
                         <strong style="font-size: 19px;">{{ $job->title }}</strong>
-                        <a href={{ $job->company['url'] }}>{{ $job->company['name'] }}</a>
+                        [<a href={{ $job->company['url'] }}>{{ $job->company['name'] }}</a>]
                     </div>
 
                     <div class="col-5">
