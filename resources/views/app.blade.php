@@ -21,7 +21,6 @@
         plausible.init()
     </script>
 
-    <!-- Fonts -->
     @googlefonts
 
     @routes
