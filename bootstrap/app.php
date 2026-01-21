@@ -34,12 +34,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->respond(function (Response $response, Throwable $exception, Request $request) {
             if (! app()->environment(['local', 'testing']) && in_array($response->getStatusCode(), [500, 503, 404, 403])) {
                 if (! $request->hasSession()) {
-                    $startSession = app(\Illuminate\Session\Middleware\StartSession::class);
-                    $errorsFromSession = app(\Illuminate\View\Middleware\ShareErrorsFromSession::class);
-                    $encryptCookies = app(\Illuminate\Cookie\Middleware\EncryptCookies::class);
-                    $addQueuedCookiesToResponse = app(\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class);
-                    $handleInertiaRequests = app(\App\Http\Middleware\HandleInertiaRequests::class);
-                    $addQueuedCookiesToResponse = app(\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class);
+                    $startSession = app(Illuminate\Session\Middleware\StartSession::class);
+                    $errorsFromSession = app(Illuminate\View\Middleware\ShareErrorsFromSession::class);
+                    $encryptCookies = app(Illuminate\Cookie\Middleware\EncryptCookies::class);
+                    $addQueuedCookiesToResponse = app(Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class);
+                    $handleInertiaRequests = app(HandleInertiaRequests::class);
+                    $addQueuedCookiesToResponse = app(Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class);
 
                     return $encryptCookies->handle($request, function ($request) use ($addQueuedCookiesToResponse, $startSession, $errorsFromSession, $handleInertiaRequests, $response) {
                         return $addQueuedCookiesToResponse->handle($request, function ($request) use ($startSession, $errorsFromSession, $handleInertiaRequests, $response) {

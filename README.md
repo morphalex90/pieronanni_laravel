@@ -25,5 +25,8 @@ then open http://localhost:8000
 ### Larastan
     ./vendor/bin/phpstan analyse
 
+### Rector
+    ./vendor/bin/rector
+
 ### Create model with migration, controller, resource and factory
     php artisan make:model Post -mcrf

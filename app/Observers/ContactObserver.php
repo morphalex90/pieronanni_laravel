@@ -11,7 +11,7 @@ class ContactObserver
     {
         if (! app()->environment('local') && request()->headers->has('CF-IPCountry')) {
             $country = Country::where('code', request()->header('CF-IPCountry'))->first();
-            if ($country != null) {
+            if ($country !== null) {
                 $contact->country_id = $country->id;
             }
         }

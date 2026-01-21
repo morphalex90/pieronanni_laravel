@@ -27,19 +27,17 @@ class ImageController extends Controller
         $format = 'webp';
 
         $media = Media::where('file_name', $path)->first();
-        if ($media == null) {
-            abort(404);
-        }
+        abort_if($media === null, 404);
 
         try {
             $loaded_image = file_get_contents($media->original_url);
-        } catch (Exception $e) {
+        } catch (Exception) {
             abort(404);
         }
 
         $image = Image::read($loaded_image);
 
-        [$mime, $encoder] = match (strtolower($format)) {
+        [$mime, $encoder] = match (mb_strtolower($format)) {
             // 'png' => ['image/png', new PngEncoder],
             // 'gif' => ['image/gif', new GifEncoder],
             'webp' => ['image/webp', new WebpEncoder(quality: $quality, strip: true)],
@@ -50,23 +48,21 @@ class ImageController extends Controller
 
         return response($output, 200)
             ->header('Content-Type', $mime)
-            ->header('Content-Length', strlen($output))
+            ->header('Content-Length', mb_strlen($output))
             ->header('Cache-Control', 'public, max-age=31536000, s-maxage=31536000, immutable');
     }
 
-    protected function ratelimit(Request $request, $path): void
+    protected function ratelimit(Request $request, string $path): void
     {
         $allowed = RateLimiter::attempt(
             key: 'img:' . $request->ip() . ':' . $path,
             maxAttempts: 2,
-            callback: fn() => true
+            callback: fn (): true => true
         );
 
         if (! $allowed) {
             $media = Media::where('file_name', $path)->first();
-            if ($media == null) {
-                abort(404);
-            }
+            abort_if($media === null, 404);
 
             throw new HttpResponseException(Redirect::to($media->original_url));
         }

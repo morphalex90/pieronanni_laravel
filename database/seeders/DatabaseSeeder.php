@@ -37,9 +37,9 @@ class DatabaseSeeder extends Seeder
         Project::factory(20)->create();
 
         $technologies = Technology::where('key', '!=', '*')->get();
-        Project::all()->each(function ($user) use ($technologies) {
+        Project::all()->each(function ($user) use ($technologies): void {
             $user->technologies()->attach(
-                $technologies->random(rand(1, 3))->pluck('id')->toArray()
+                $technologies->random(random_int(1, 3))->pluck('id')->toArray()
             );
         });
 

@@ -2,12 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TechnologyResource\Pages;
+use App\Filament\Resources\TechnologyResource\Pages\CreateTechnology;
+use App\Filament\Resources\TechnologyResource\Pages\EditTechnology;
+use App\Filament\Resources\TechnologyResource\Pages\ListTechnologies;
 use App\Models\Technology;
+use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -15,14 +20,14 @@ class TechnologyResource extends Resource
 {
     protected static ?string $model = Technology::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-cpu-chip';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-cpu-chip';
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 TextInput::make('name')->required()->maxLength(255),
                 TextInput::make('key')->required()->maxLength(255),
             ]);
@@ -38,12 +43,12 @@ class TechnologyResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Tables\Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -58,9 +63,9 @@ class TechnologyResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTechnologies::route('/'),
-            'create' => Pages\CreateTechnology::route('/create'),
-            'edit' => Pages\EditTechnology::route('/{record}/edit'),
+            'index' => ListTechnologies::route('/'),
+            'create' => CreateTechnology::route('/create'),
+            'edit' => EditTechnology::route('/{record}/edit'),
         ];
     }
 }

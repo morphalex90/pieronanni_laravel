@@ -15,14 +15,12 @@
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-    <script defer data-domain="pieronanni.me"
-        src="https://plausible.morpheus90.com/js/script.file-downloads.hash.outbound-links.js"></script>
-    <script>window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+    <script async src="https://plausible.morpheus90.com/js/pa-zW8hPuhYuN-kmHicH0vbo.js"></script>
+    <script>
+        window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments) }, plausible.init = plausible.init || function (i) { plausible.o = i || {} };
+        plausible.init()
+    </script>
 
-    <script defer src="https://umami.morpheus90.com/script.js"
-        data-website-id="8ed0d585-a2f4-4def-980a-12822cfa4856"></script>
-
-    <!-- Fonts -->
     @googlefonts
 
     @routes

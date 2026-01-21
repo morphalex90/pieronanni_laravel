@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         FilamentColor::register([
-            'royal' => Color::hex('#ff1493'),
+            'royal' => Color::generateV3Palette('#ff1493'),
         ]);
 
         Job::observe(JobObserver::class);

@@ -7,6 +7,11 @@ use App\Models\Project;
 
 class ProjectObserver
 {
+    public function creating(Project $project): void
+    {
+        $project->is_visible_in_cv = true;
+    }
+
     public function created(): void
     {
         PurgeCache::handle();

@@ -30,7 +30,7 @@
                 <div class="job">
                     <div style="margin-top: 20px;">
                         <strong style="font-size: 19px;">{{ $job->title }}</strong>
-                        <a href={{ $job->company['url'] }}>{{ $job->company['name'] }}</a>
+                        [<a href={{ $job->company['url'] }}>{{ $job->company['name'] }}</a>]
                     </div>
 
                     <div class="col-5">
@@ -55,22 +55,24 @@
 
                     <ul class="project-list">
                         @foreach ($job->projects as $project)
-                            <li>
-                                @if (count($project->technologies) > 0)
-                                    @foreach ($project->technologies as $tech)
-                                        {!! file_get_contents('svg/' . $tech->key . '.svg') !!}
-                                    @endforeach
-                                    {{-- @else
-                                    <div style="height:10px; width:5%; float:left;">
-                                        {!! file_get_contents('svg/placeholder.svg') !!}
-                                    </div> --}}
-                                @endif
+                            @if($project->is_visible_in_cv)
+                                <li>
+                                    @if (count($project->technologies) > 0)
+                                        @foreach ($project->technologies as $tech)
+                                            {!! file_get_contents('svg/' . $tech->key . '.svg') !!}
+                                        @endforeach
+                                        {{-- @else
+                                        <div style="height:10px; width:5%; float:left;">
+                                            {!! file_get_contents('svg/placeholder.svg') !!}
+                                        </div> --}}
+                                    @endif
 
-                                <span style="float:right">
-                                    <a href={{ $project->url }}>{{ $project->title }}</a> -
-                                    {{ $project->description_cv }}
-                                </span>
-                            </li>
+                                    <span style="float:right">
+                                        <a href={{ $project->url }}>{{ $project->title }}</a> -
+                                        {{ $project->description_cv }}
+                                    </span>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 </div>
