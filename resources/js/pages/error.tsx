@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react'
+import { Meta } from '@/components/meta'
 import Layout from '@/layouts/layout'
 
 export default function ErrorPage({ status }: { status: number }) {
@@ -18,12 +18,11 @@ export default function ErrorPage({ status }: { status: number }) {
 
     return (
         <>
-            <Head>
-                <title>{title}</title>
-                <meta name="description" content={description} />
-                <meta property="og:title" content={title + ' | Piero Nanni'} />
-                <meta property="og:description" content={description} />
-            </Head>
+            <Meta
+                url={''}
+                description={description || ''}
+                title={title || ''}
+            />
 
             <Layout className="error">
                 <section className="section --centered">

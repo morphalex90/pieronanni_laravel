@@ -1,22 +1,17 @@
-import { Head, Link } from '@inertiajs/react'
+import { Link } from '@inertiajs/react'
 import { motion } from 'framer-motion'
+import { Meta } from '@/components/meta'
 import Layout from '@/layouts/layout'
 import { about, home } from '@/routes'
 
 export default function Homepage() {
     return (
         <>
-            <Head>
-                <link rel="canonical" href={home().url} />
-                <title>Piero Nanni</title>
-                <meta name="description" content="PHP / Js Developer in love with Laravel and Next.js, London based" />
-
-                <meta property="og:type" content="profile" />
-                <meta property="og:title" content="Piero Nanni" />
-                <meta property="og:description" content="PHP / Js Developer in love with Laravel and Next.js, London based" />
-                {/* <meta property="og:image" content="" /> */}
-                <meta property="og:url" content={home().url} />
-            </Head>
+            <Meta
+                url={home().url}
+                description="PHP / Js Developer in love with Laravel and Next.js, London based"
+                title="Welcome"
+            />
 
             <Layout className="homepage">
                 <section className="section --centered">
