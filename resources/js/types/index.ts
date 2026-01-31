@@ -1,5 +1,15 @@
-export interface Auth {
-    user: User
+export type * from './navigation'
+export type * from './ui'
+
+export type SharedData = {
+    flash: Flash
+    [key: string]: unknown
+}
+
+export interface Flash {
+    success: string
+    warning: string
+    error: string
 }
 
 export interface CompanyType {
@@ -25,6 +35,12 @@ export interface TechnologyType {
     name: string
 }
 
+export interface ImageType {
+    id: number
+    uri: string
+    url: string
+}
+
 export interface JobType {
     id: number
     title: string
@@ -35,21 +51,4 @@ export interface JobType {
     description_cv: string
     started_at: Date
     ended_at: Date
-}
-
-export interface ImageType {
-    id: number
-    uri: string
-    url: string
-}
-
-export interface User {
-    id: number
-    name: string
-    email: string
-    avatar?: string
-    email_verified_at: string | null
-    created_at: string
-    updated_at: string
-    [key: string]: unknown // This allows for additional properties...
 }

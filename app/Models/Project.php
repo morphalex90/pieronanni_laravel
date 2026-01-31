@@ -31,6 +31,16 @@ class Project extends Model implements HasMedia
         'published_at',
     ];
 
+    public function technologies(): BelongsToMany
+    {
+        return $this->belongsToMany(Technology::class);
+    }
+
+    public function job(): BelongsTo
+    {
+        return $this->belongsTo(Job::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -41,15 +51,5 @@ class Project extends Model implements HasMedia
         return [
             'is_visible_in_cv' => 'boolean',
         ];
-    }
-
-    public function technologies(): BelongsToMany
-    {
-        return $this->belongsToMany(Technology::class);
-    }
-
-    public function job(): BelongsTo
-    {
-        return $this->belongsTo(Job::class);
     }
 }

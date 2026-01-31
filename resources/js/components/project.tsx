@@ -1,10 +1,10 @@
-import Icon from '@/components/icon'
-import Modal from '@/components/modal'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 import placeholder from '@/../img/placeholder.svg'
-import { ProjectType, TechnologyType } from '@/types'
+import Icon from '@/components/icon'
+import Modal from '@/components/modal'
+import { type ProjectType, type TechnologyType } from '@/types'
 
 export default function Project({ project, delay }: { project: ProjectType; delay: number }) {
     const [modalShow, setModalShow] = useState(false)

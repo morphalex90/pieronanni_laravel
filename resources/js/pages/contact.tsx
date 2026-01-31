@@ -1,10 +1,12 @@
-import InputError from '@/components/input-error'
-import Layout from '@/layouts/layout'
 import { Head, useForm, usePage } from '@inertiajs/react'
 import { motion } from 'framer-motion'
-import { FormEventHandler } from 'react'
+import { type FormEventHandler } from 'react'
+import InputError from '@/components/input-error'
+import Layout from '@/layouts/layout'
 
 import '../../css/_form.scss'
+import { contact } from '@/routes'
+import { store } from '@/routes/contact'
 
 export interface FlashInterface {
     success: string
@@ -24,7 +26,7 @@ export default function Contact() {
     const submit: FormEventHandler = (e) => {
         e.preventDefault()
 
-        post(route('contact.store'), {
+        post(store().url, {
             onSuccess: () => reset(),
         })
     }
@@ -32,14 +34,14 @@ export default function Contact() {
     return (
         <>
             <Head>
-                <link rel="canonical" href={route('contact')} />
+                <link rel="canonical" href={contact().url} />
                 <title>Contact</title>
                 <meta name="description" content="Have some questions? Need help? Feel free to ask me everything you need" />
 
                 <meta property="og:type" content="profile" />
                 <meta property="og:title" content="Contact | Piero Nanni" />
                 <meta property="og:description" content="Have some questions? Need help? Feel free to ask me everything you need" />
-                <meta property="og:url" content={route('contact')} />
+                <meta property="og:url" content={contact().url} />
             </Head>
 
             <Layout className="contact">

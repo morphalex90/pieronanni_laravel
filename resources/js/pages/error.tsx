@@ -1,5 +1,5 @@
-import Layout from '@/layouts/layout'
 import { Head } from '@inertiajs/react'
+import Layout from '@/layouts/layout'
 
 export default function ErrorPage({ status }: { status: number }) {
     const title = {

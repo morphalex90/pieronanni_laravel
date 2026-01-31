@@ -1,12 +1,13 @@
-import Layout from '@/layouts/layout'
 import { Head, Link } from '@inertiajs/react'
 import { motion } from 'framer-motion'
+import Layout from '@/layouts/layout'
+import { about, home } from '@/routes'
 
 export default function Homepage() {
     return (
         <>
             <Head>
-                <link rel="canonical" href={route('homepage')} />
+                <link rel="canonical" href={home().url} />
                 <title>Piero Nanni</title>
                 <meta name="description" content="PHP / Js Developer in love with Laravel and Next.js, London based" />
 
@@ -14,7 +15,7 @@ export default function Homepage() {
                 <meta property="og:title" content="Piero Nanni" />
                 <meta property="og:description" content="PHP / Js Developer in love with Laravel and Next.js, London based" />
                 {/* <meta property="og:image" content="" /> */}
-                <meta property="og:url" content={route('homepage')} />
+                <meta property="og:url" content={home().url} />
             </Head>
 
             <Layout className="homepage">
@@ -39,7 +40,7 @@ export default function Homepage() {
                         transition={{ duration: 0.3, delay: 0.2 }}
                         className="text-center"
                     >
-                        <Link href={route('about')} className="button --hover-big" title="Explore more!">
+                        <Link href={about().url} className="button --hover-big" title="Explore more!">
                             Explore more!
                         </Link>
                     </motion.div>
