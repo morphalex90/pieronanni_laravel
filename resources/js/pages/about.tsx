@@ -1,9 +1,9 @@
-import { Head, Link } from '@inertiajs/react'
+import { Link } from '@inertiajs/react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import Markdown from 'react-markdown'
+import { Meta } from '@/components/meta'
 import Layout from '@/layouts/layout'
-
 import '../../css/_timeline.scss'
 import { about } from '@/routes'
 import { type JobType } from '@/types'
@@ -21,17 +21,11 @@ export default function About({ jobs }: { jobs: JobType[] }) {
 
     return (
         <>
-            <Head>
-                <link rel="canonical" href={about().url} />
-                <title>About</title>
-                <meta name="description" content="Discover who Piero Nanni is, his career path and what he is doing at the moment" />
-
-                <meta property="og:type" content="profile" />
-                <meta property="og:title" content="About | Piero Nanni" />
-                <meta property="og:description" content="Discover who Piero Nanni is, his career path and what he is doing at the moment" />
-                {/* <meta property="og:image" content="" /> */}
-                <meta property="og:url" content={about().url} />
-            </Head>
+            <Meta
+                url={about().url}
+                description="Discover who Piero Nanni is, his career path and what he is doing at the moment"
+                title="About"
+            />
 
             <Layout className="about">
                 <h1>About</h1>
@@ -117,10 +111,10 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                                                     })}
                                                     {job.ended_at !== null
                                                         ? ' - ' +
-                                                          new Date(job.ended_at).toLocaleDateString('en-GB', {
-                                                              year: 'numeric',
-                                                              month: 'long',
-                                                          })
+                                                        new Date(job.ended_at).toLocaleDateString('en-GB', {
+                                                            year: 'numeric',
+                                                            month: 'long',
+                                                        })
                                                         : ''}
                                                     )
                                                 </i>

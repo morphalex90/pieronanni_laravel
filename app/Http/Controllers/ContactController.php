@@ -7,7 +7,6 @@ use App\Mail\Contact as MailContact;
 use App\Models\Contact;
 use Exception;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
@@ -18,7 +17,7 @@ class ContactController extends Controller
      */
     public function store(ContactStoreRequest $request): RedirectResponse
     {
-        Contact::create(Arr::except($request->validated(), 'privacy') + [
+        Contact::create($request->validated() + [
             'ip_address' => $request->ip(),
             'user_agent' => Str::limit($request->userAgent(), 255),
         ]);
@@ -26,7 +25,7 @@ class ContactController extends Controller
         try {
             Mail::send(new MailContact($request->all()));
         } catch (Exception $e) {
-            return back()->with('error', $e);
+            return back()->with('error', $e->getMessage());
         }
 
         return back()->with('success', 'Thank you! I\'ll get back to you shortly');

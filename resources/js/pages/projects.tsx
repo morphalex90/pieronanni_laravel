@@ -1,6 +1,6 @@
-import { Head } from '@inertiajs/react'
 import { useState } from 'react'
 import Icon from '@/components/icon'
+import { Meta } from '@/components/meta'
 import Project from '@/components/project'
 import Layout from '@/layouts/layout'
 import { projects } from '@/routes'
@@ -40,17 +40,11 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
 
     return (
         <>
-            <Head>
-                <link rel="canonical" href={projects().url} />
-                <title>Projects</title>
-                <meta name="description" content="Check out the complete list of websites created by Piero Nanni during his career" />
-
-                <meta property="og:type" content="profile" />
-                <meta property="og:title" content="Projects | Piero Nanni" />
-                <meta property="og:description" content="Check out the complete list of websites created by Piero Nanni during his career" />
-                {/* <meta property="og:image" content="" /> */}
-                <meta property="og:url" content={projects().url} />
-            </Head>
+            <Meta
+                url={projects().url}
+                description="Check out the complete list of websites created by Piero Nanni during his career"
+                title="Projects"
+            />
 
             <Layout className="page-projects">
                 <h1>Projects</h1>

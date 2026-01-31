@@ -1,48 +1,23 @@
-import { Head, useForm, usePage } from '@inertiajs/react'
+import { Form, usePage } from '@inertiajs/react'
 import { motion } from 'framer-motion'
-import { type FormEventHandler } from 'react'
 import InputError from '@/components/input-error'
+import { Meta } from '@/components/meta'
 import Layout from '@/layouts/layout'
-
 import '../../css/_form.scss'
 import { contact } from '@/routes'
 import { store } from '@/routes/contact'
-
-export interface FlashInterface {
-    success: string
-    error: string
-}
+import { type SharedData } from '@/types'
 
 export default function Contact() {
-    const flash = usePage().props.flash as FlashInterface
-
-    const { data, setData, post, errors, processing, recentlySuccessful, reset } = useForm({
-        name: '',
-        email: '',
-        message: '',
-        privacy: false as boolean,
-    })
-
-    const submit: FormEventHandler = (e) => {
-        e.preventDefault()
-
-        post(store().url, {
-            onSuccess: () => reset(),
-        })
-    }
+    const { flash } = usePage<SharedData>().props
 
     return (
         <>
-            <Head>
-                <link rel="canonical" href={contact().url} />
-                <title>Contact</title>
-                <meta name="description" content="Have some questions? Need help? Feel free to ask me everything you need" />
-
-                <meta property="og:type" content="profile" />
-                <meta property="og:title" content="Contact | Piero Nanni" />
-                <meta property="og:description" content="Have some questions? Need help? Feel free to ask me everything you need" />
-                <meta property="og:url" content={contact().url} />
-            </Head>
+            <Meta
+                url={contact().url}
+                description="Have some questions? Need help? Feel free to ask me everything you need"
+                title="Contact"
+            />
 
             <Layout className="contact">
                 <h1>Contact</h1>
@@ -72,87 +47,85 @@ export default function Contact() {
                     </motion.div>
 
                     <motion.div initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.4 }}>
-                        <form className="form" onSubmit={submit}>
-                            <div className="d-flex">
-                                <div className="form__field">
-                                    <label htmlFor="field_name">Name</label>
-                                    <input
-                                        name="name"
-                                        id="field_name"
-                                        type="text"
-                                        onChange={(e) => setData('name', e.target.value)}
-                                        value={data.name}
-                                        placeholder="John Doe"
-                                        required
-                                    />
-                                    <InputError className="mt-2" message={errors.name} />
-                                </div>
 
-                                <div className="form__field">
-                                    <label htmlFor="field_email">Email</label>
-                                    <input
-                                        name="email"
-                                        id="field_email"
-                                        type="email"
-                                        onChange={(e) => setData('email', e.target.value)}
-                                        value={data.email}
-                                        placeholder="john@doe.com"
-                                        required
-                                    />
-                                    <InputError className="mt-2" message={errors.email} />
-                                </div>
-                            </div>
+                        <Form {...store.form()} resetOnSuccess options={{ preserveScroll: true }} className="form">
+                            {({ processing, errors, recentlySuccessful }) => (
+                                <>
+                                    <div className="d-flex">
+                                        <div className="form__field">
+                                            <label htmlFor="field_name">Name</label>
+                                            <input
+                                                name="name"
+                                                id="field_name"
+                                                type="text"
+                                                placeholder="John Doe"
+                                                required
+                                            />
+                                            <InputError className="mt-2" message={errors.name} />
+                                        </div>
 
-                            <div className="form__field">
-                                <label htmlFor="field_message">Message</label>
-                                <textarea
-                                    name="message"
-                                    id="field_message"
-                                    onChange={(e) => setData('message', e.target.value)}
-                                    value={data.message}
-                                    placeholder="Write me anything you want"
-                                    required
-                                ></textarea>
-                                <InputError className="mt-2" message={errors.message} />
-                            </div>
+                                        <div className="form__field">
+                                            <label htmlFor="field_email">Email</label>
+                                            <input
+                                                name="email"
+                                                id="field_email"
+                                                type="email"
+                                                placeholder="john@doe.com"
+                                                required
+                                            />
+                                            <InputError className="mt-2" message={errors.email} />
+                                        </div>
+                                    </div>
 
-                            <div className="d-flex">
-                                <div>
-                                    <label htmlFor="privacy">
-                                        <input
-                                            name="privacy"
-                                            id="privacy"
-                                            type="checkbox"
-                                            onChange={(e) => setData('privacy', (e.target.checked || false) as false)}
-                                            defaultChecked={data.privacy}
+                                    <div className="form__field">
+                                        <label htmlFor="field_message">Message</label>
+                                        <textarea
+                                            name="message"
+                                            id="field_message"
+                                            placeholder="Write me anything you want"
                                             required
-                                        />
-                                        <span> Privacy</span>
-                                    </label>
-                                    <InputError className="mt-2" message={errors.privacy} />
-                                </div>
+                                        ></textarea>
+                                        <InputError className="mt-2" message={errors.message} />
+                                    </div>
 
-                                <button className="button" type="submit" disabled={processing}>
-                                    {processing ? 'Sending' : 'Send'}
-                                </button>
-                            </div>
-                        </form>
+                                    <div className="d-flex">
+                                        <div>
+                                            <label htmlFor="privacy">
+                                                <input
+                                                    name="privacy"
+                                                    id="privacy"
+                                                    type="checkbox"
+                                                    required
+                                                />
+                                                <span> Privacy</span>
+                                            </label>
+                                            <InputError className="mt-2" message={errors.privacy} />
+                                        </div>
 
-                        {recentlySuccessful && (
-                            <>
-                                {flash.success && (
-                                    <p className="text-sm text-gray-600" style={{ marginTop: 20 }}>
-                                        {flash.success}
-                                    </p>
-                                )}
+                                        <button className="button" type="submit" disabled={processing}>
+                                            {processing ? 'Sending' : 'Send'}
+                                        </button>
+                                    </div>
 
-                                {flash.error && (
-                                    <p className="text-sm text-gray-600" style={{ marginTop: 20 }}>
-                                        {flash.error}
-                                    </p>
-                                )}
-                            </>
-                        )}
+                                    {recentlySuccessful && (
+                                        <>
+                                            {flash.success && (
+                                                <p className="text-sm text-gray-600" style={{ marginTop: 20 }}>
+                                                    {flash.success}
+                                                </p>
+                                            )}
+
+                                            {flash.error && (
+                                                <p className="text-sm text-gray-600" style={{ marginTop: 20 }}>
+                                                    {flash.error}
+                                                </p>
+                                            )}
+                                        </>
+                                    )}
+                                </>
+                            )}
+                        </Form>
+
                     </motion.div>
                 </div>
             </Layout>
