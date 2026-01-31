@@ -22,6 +22,7 @@ export default function ErrorPage({ status }: { status: number }) {
                 url={''}
                 description={description || ''}
                 title={title || ''}
+                noIndex
             />
 
             <Layout className="error">
