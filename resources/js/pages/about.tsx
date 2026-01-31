@@ -1,11 +1,12 @@
-import Layout from '@/layouts/layout'
-import { JobType } from '@/types'
 import { Head, Link } from '@inertiajs/react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import Markdown from 'react-markdown'
+import Layout from '@/layouts/layout'
 
 import '../../css/_timeline.scss'
+import { about } from '@/routes'
+import { type JobType } from '@/types'
 
 export default function About({ jobs }: { jobs: JobType[] }) {
     const [activeJob, setActiveJob] = useState(jobs.length)
@@ -21,7 +22,7 @@ export default function About({ jobs }: { jobs: JobType[] }) {
     return (
         <>
             <Head>
-                <link rel="canonical" href={route('about')} />
+                <link rel="canonical" href={about().url} />
                 <title>About</title>
                 <meta name="description" content="Discover who Piero Nanni is, his career path and what he is doing at the moment" />
 
@@ -29,7 +30,7 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                 <meta property="og:title" content="About | Piero Nanni" />
                 <meta property="og:description" content="Discover who Piero Nanni is, his career path and what he is doing at the moment" />
                 {/* <meta property="og:image" content="" /> */}
-                <meta property="og:url" content={route('about')} />
+                <meta property="og:url" content={about().url} />
             </Head>
 
             <Layout className="about">

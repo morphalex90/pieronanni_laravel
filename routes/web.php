@@ -11,7 +11,7 @@ use Inertia\Inertia;
 
 Route::get('/', function () {
     return Inertia::render('welcome');
-})->name('homepage');
+})->name('home');
 
 Route::get('/about', function () {
     $jobs = Cache::rememberForever('jobs', function () {

@@ -1,5 +1,5 @@
-import MainMenu from '@/components/main-menu'
 import { useState } from 'react'
+import MainMenu from '@/components/main-menu'
 import '../../css/_header.scss'
 
 export default function Header() {

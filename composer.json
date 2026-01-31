@@ -3,40 +3,34 @@
     "name": "laravel/react-starter-kit",
     "type": "project",
     "description": "The skeleton application for the Laravel framework.",
-    "keywords": [
-        "laravel",
-        "framework"
-    ],
+    "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "filament/filament": "~4.0",
-        "filament/spatie-laravel-media-library-plugin": "^3.3",
+        "filament/filament": "^5.1",
+        "filament/spatie-laravel-media-library-plugin": "^5.1",
         "inertiajs/inertia-laravel": "^2.0",
         "intervention/image-laravel": "^1.5",
         "laravel/framework": "^12.0",
-        "league/flysystem-aws-s3-v3": "^3.29",
-        "matomo/device-detector": "^6.4",
+        "laravel/wayfinder": "^0.1.9",
+        "league/flysystem-aws-s3-v3": "^3.31",
+        "matomo/device-detector": "^6.5",
         "mpdf/mpdf": "^8.2",
-        "nunomaduro/essentials": "^1.0",
-        "sentry/sentry-laravel": "^4.15",
-        "spatie/browsershot": "^5.0",
+        "sentry/sentry-laravel": "^4.20",
+        "spatie/browsershot": "^5.2",
         "spatie/laravel-google-fonts": "^1.4",
         "spatie/laravel-markdown": "^2.7",
-        "technikermathe/blade-lucide-icons": "^3.126",
-        "tightenco/ziggy": "^2.4"
+        "technikermathe/blade-lucide-icons": "^3.137"
     },
     "require-dev": {
-        "driftingly/rector-laravel": "^2.1",
         "fakerphp/faker": "^1.23",
-        "larastan/larastan": "^3.6",
+        "larastan/larastan": "^3.9",
         "laravel/pail": "^1.2.2",
-        "laravel/pint": "^1.18",
+        "laravel/pint": "^1.24",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
-        "pestphp/pest": "^3.8",
-        "pestphp/pest-plugin-laravel": "^3.2",
-        "rector/rector": "^2.2"
+        "pestphp/pest": "^4.3",
+        "pestphp/pest-plugin-laravel": "^4.0"
     },
     "autoload": {
         "psr-4": {
@@ -51,6 +45,34 @@
         }
     },
     "scripts": {
+        "setup": [
+            "composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php artisan migrate --force",
+            "npm install",
+            "npm run build"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+        ],
+        "dev:ssr": [
+            "npm run build:ssr",
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"php artisan inertia:start-ssr\" --names=server,queue,logs,ssr --kill-others"
+        ],
+        "lint": [
+            "pint --parallel"
+        ],
+        "test:lint": [
+            "pint --parallel --test"
+        ],
+        "test": [
+            "@php artisan config:clear --ansi",
+            "@test:lint",
+            "@php artisan test"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",
@@ -66,22 +88,7 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
-        ],
-        "dev": [
-            "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
-        ],
-        "dev:ssr": [
-            "npm run build:ssr",
-            "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"php artisan inertia:start-ssr\" --names=server,queue,logs,ssr --kill-others"
-        ],
-        "test": [
-            "@php artisan config:clear --ansi",
-            "@php artisan test"
-        ],
-        "pint": "./vendor/bin/pint --parallel",
-        "larastan": "./vendor/bin/phpstan analyse"
+        ]
     },
     "extra": {
         "laravel": {

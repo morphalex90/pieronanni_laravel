@@ -27,16 +27,16 @@ class Click extends Model
         'is_bot',
     ];
 
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     protected function getIsBotAttribute(): bool
     {
         $dd = new DeviceDetector($this->user_agent);
         $dd->parse();
 
         return $dd->isBot();
-    }
-
-    public function country(): BelongsTo
-    {
-        return $this->belongsTo(Country::class);
     }
 }

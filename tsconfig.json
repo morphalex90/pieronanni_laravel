@@ -103,9 +103,6 @@
         "paths": {
             "@/*": [
                 "./resources/js/*"
-            ],
-            "ziggy-js": [
-                "./vendor/tightenco/ziggy"
             ]
         },
         "jsx": "react-jsx"
@@ -113,6 +110,6 @@
     "include": [
         "resources/js/**/*.ts",
         "resources/js/**/*.d.ts",
-        "resources/js/**/*.tsx",
+        "resources/js/**/*.tsx"
     ]
 }

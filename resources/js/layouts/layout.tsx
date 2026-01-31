@@ -1,7 +1,8 @@
+import type { ReactNode} from 'react';
+import { useEffect } from 'react'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import Synt from '@/components/synt'
-import { ReactNode, useEffect } from 'react'
 
 export default function Layout({ className = '', children }: { className: string; children: ReactNode }) {
     useEffect(() => {

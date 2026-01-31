@@ -1,5 +1,6 @@
 import github from '@/../img/github.svg'
 import '../../css/_main-menu.scss'
+import { about, contact, cv, home, projects } from '@/routes'
 import NavLink from './nav-link'
 
 export default function MainMenu({ className, position = '' }: { className?: string; position: string }) {
@@ -14,27 +15,27 @@ export default function MainMenu({ className, position = '' }: { className?: str
                     </li>
                 )}
                 <li>
-                    <NavLink href={route('homepage')} active={route().current('homepage')} title="Home">
+                    <NavLink href={home().url} title="Home">
                         Home
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink href={route('about')} active={route().current('about')} title="About">
+                    <NavLink href={about().url} title="About">
                         About
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink href={route('projects')} active={route().current('projects')} title="Projects">
+                    <NavLink href={projects().url} title="Projects">
                         Projects
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink href={route('contact')} active={route().current('contact')} title="Contact">
+                    <NavLink href={contact().url} title="Contact">
                         Contact
                     </NavLink>
                 </li>
                 <li>
-                    <a href={route('cv')} title="cv">
+                    <a href={cv().url} title="cv">
                         CV
                     </a>
                 </li>

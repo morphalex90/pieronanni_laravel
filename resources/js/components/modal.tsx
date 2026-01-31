@@ -1,17 +1,9 @@
-import { ProjectType } from '@/types'
-import { MouseEvent, useEffect, useState } from 'react'
+import { type MouseEvent } from 'react'
 import ReactDOM from 'react-dom'
 import Markdown from 'react-markdown'
+import { type ProjectType } from '@/types'
 
-export default function Modal({ show, onClose, title, content }: { show: boolean; onClose: any; title?: string; content: ProjectType }) {
-    const [isBrowser, setIsBrowser] = useState(false)
-
-    useEffect(() => {
-        if (content != null) {
-            setIsBrowser(true)
-        }
-    }, [content])
-
+export default function Modal({ show, onClose, title, content }: { show: boolean; onClose: () => void; title?: string; content: ProjectType }) {
     const handleCloseClick = (e: MouseEvent<HTMLDivElement> | MouseEvent<HTMLButtonElement>) => {
         if (e.target === e.currentTarget) {
             onClose()
@@ -55,7 +47,7 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
         </div>
     ) : null
 
-    if (isBrowser && modalContent !== null) {
+    if (content != null && modalContent !== null) {
         return ReactDOM.createPortal(modalContent, document.getElementById('modal-root')!)
     } else {
         return null
