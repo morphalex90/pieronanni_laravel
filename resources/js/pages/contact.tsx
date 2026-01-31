@@ -1,6 +1,5 @@
 import { Form, usePage } from '@inertiajs/react'
 import { motion } from 'framer-motion'
-import { LoaderCircle, Send } from 'lucide-react'
 import InputError from '@/components/input-error'
 import { Meta } from '@/components/meta'
 import Layout from '@/layouts/layout'
@@ -104,7 +103,6 @@ export default function Contact() {
                                         </div>
 
                                         <button className="button" type="submit" disabled={processing}>
-                                            {processing ? <LoaderCircle className="mr-2 h-5 w-5 animate-spin" /> : <Send className="mr-2 h-5 w-5" />}
                                             {processing ? 'Sending' : 'Send'}
                                         </button>
                                     </div>
