@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import Markdown from 'react-markdown'
 import { Meta } from '@/components/meta'
 import Layout from '@/layouts/layout'
@@ -8,193 +8,221 @@ import '../../css/_timeline.scss'
 import { about } from '@/routes'
 import { type JobType } from '@/types'
 
-export default function About({ jobs }: { jobs: JobType[] }) {
-    const [activeJob, setActiveJob] = useState(jobs.length)
-    const startYear = 2011
-    const currentYear = new Date().getFullYear()
+const START_YEAR = 2011
 
-    // Years timeline
-    const years = []
-    for (let i = startYear; i <= currentYear; i++) {
-        years.push(i)
-    }
+const generateYears = (from: number, to: number): number[] =>
+    Array.from({ length: to - from + 1 }, (_, i) => from + i)
+
+const getJobDateRange = (startDate: string, endDate: string | null, currentYear: number) => {
+    const startYear = parseInt(startDate.substring(0, 4))
+    const endYear = endDate ? parseInt(endDate.substring(0, 4)) : currentYear
+    return { startYear, endYear }
+}
+
+const formatJobDate = (date: string, endDate: string | null): string => {
+    const startFormatted = new Date(date).toLocaleDateString('en-GB', {
+        year: 'numeric',
+        month: 'long',
+    })
+
+    if (!endDate) return startFormatted
+
+    const endFormatted = new Date(endDate).toLocaleDateString('en-GB', {
+        year: 'numeric',
+        month: 'long',
+    })
+
+    return `${startFormatted} - ${endFormatted}`
+}
+
+interface TimelineJobItemProps {
+    job: JobType
+    isActive: boolean
+    startYear: number
+    totalYears: number
+    currentYear: number
+    onSelect: (jobId: number) => void
+}
+
+const TimelineJobItem = ({ job, isActive, startYear, totalYears, currentYear, onSelect }: TimelineJobItemProps) => {
+    const { startYear: jobStartYear, endYear } = getJobDateRange(job.started_at, job.ended_at, currentYear)
+    const marginLeft = jobStartYear - startYear
+    const width = endYear - jobStartYear + 1
+
+    const customProperties: React.CSSProperties = {
+        '--unit-margin-left': marginLeft,
+        '--unit-width': width,
+        '--tot-years': totalYears,
+    } as React.CSSProperties
 
     return (
-        <>
+        <div
+            className={isActive ? '--active' : ''}
+            style={customProperties}
+            onClick={() => onSelect(job.id)}
+            role="button"
+            tabIndex={0}
+        >
+            {job.company.name}
+        </div>
+    )
+}
+
+// Job description component
+interface JobDescriptionProps {
+    job: JobType
+    isActive: boolean
+}
+
+const JobDescription = ({ job, isActive }: JobDescriptionProps) => (
+    <div className={isActive ? '--active' : ''}>
+        <h3>{job.title}</h3>
+        <div>
+            <i>
+                <a href={job.company.url} target="_blank" rel="noreferrer">
+                    {job.company.name}
+                </a>{' '}
+                - {job.location} ({formatJobDate(job.started_at, job.ended_at)})
+            </i>
+        </div>
+        <br />
+        <div>
+            <Markdown>{job.description}</Markdown>
+        </div>
+    </div>
+)
+
+export default function About({ jobs }: { jobs: JobType[] }) {
+    const [activeJob, setActiveJob] = useState<number>(jobs.length > 0 ? jobs[0].id : 0)
+    const currentYear = useMemo(() => new Date().getFullYear(), [])
+
+    const years = useMemo(() => generateYears(START_YEAR, currentYear), [currentYear])
+
+    return (
+        <Layout className="about">
             <Meta
                 url={about().url}
                 description="Discover who Piero Nanni is, his career path and what he is doing at the moment"
                 title="About"
             />
 
-            <Layout className="about">
-                <h1>About</h1>
+            <h1>About</h1>
 
-                <div className="d-flex">
-                    <motion.section
-                        initial={{ x: -50, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ duration: 0.3, delay: 0.1 }}
-                        className="about__jobs"
-                    >
-                        <p>London</p>
-                        {/* <p><a href="tel:+447724146851" title="Phone me">+44 7724146851</a></p> */}
-                        <p>
-                            <Link href="/contact" title="Contact me">
-                                piero.nanni@gmail.com
-                            </Link>
-                        </p>
-                        <p>
-                            <a href="https://github.com/morphalex90" target="_blank" rel="noreferrer" title="GitHub">
-                                github.com/morphalex90
-                            </a>
-                        </p>
+            <div className="d-flex">
+                <motion.section
+                    initial={{ x: -50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.1 }}
+                    className="about__jobs"
+                >
+                    <p>London</p>
+                    <p>
+                        <Link href="/contact" title="Contact me">
+                            piero.nanni@gmail.com
+                        </Link>
+                    </p>
+                    <p>
+                        <a href="https://github.com/morphalex90" target="_blank" rel="noreferrer" title="GitHub">
+                            github.com/morphalex90
+                        </a>
+                    </p>
 
-                        <div className="timeline">
-                            <h3 className="text-center">Jobs timeline</h3>
+                    <div className="timeline">
+                        <h3 className="text-center">Jobs timeline</h3>
 
-                            {/* Jobs */}
-                            <div className="timeline__jobs">
-                                {jobs.length > 0 &&
-                                    jobs.map((job: any) => {
-                                        const marginLeft = job.started_at.substring(0, 4) - startYear
-                                        let endDate = null
-
-                                        if (job.ended_at === '' || job.ended_at === null) {
-                                            // no finish year
-                                            endDate = currentYear // save the current year
-                                        } else {
-                                            endDate = job.ended_at.substring(0, 4)
-                                        }
-
-                                        const width = endDate - job.started_at.substring(0, 4) + 1
-
-                                        const customProprieties = {
-                                            '--unit-margin-left': marginLeft,
-                                            '--unit-width': width,
-                                            '--tot-years': years.length,
-                                        } as React.CSSProperties
-
-                                        return (
-                                            <div
-                                                key={job.id}
-                                                className={job.id === activeJob ? '--active' : ''}
-                                                style={{ ...customProprieties }}
-                                                onClick={() => {
-                                                    setActiveJob(job.id)
-                                                }}
-                                            >
-                                                {job.company.name}
-                                            </div>
-                                        )
-                                    })}
-                            </div>
-
-                            {/* Years timeline */}
-                            <div className="timeline__years">{years.length !== 0 && years.map((year, key) => <div key={key}>{year}</div>)}</div>
-
-                            {/* Descriptions */}
-                            <div className="timeline__descriptions">
-                                {jobs.length > 0 &&
-                                    jobs.map((job: JobType) => (
-                                        <div key={job.id} className={job.id === activeJob ? '--active' : ''}>
-                                            <h3>{job.title}</h3>
-                                            <div>
-                                                <i>
-                                                    <a href={job.company.url} target="_blank" rel="noreferrer">
-                                                        {job.company.name}
-                                                    </a>{' '}
-                                                    - {job.location} (
-                                                    {new Date(job.started_at).toLocaleDateString('en-GB', {
-                                                        year: 'numeric',
-                                                        month: 'long',
-                                                    })}
-                                                    {job.ended_at !== null
-                                                        ? ' - ' +
-                                                        new Date(job.ended_at).toLocaleDateString('en-GB', {
-                                                            year: 'numeric',
-                                                            month: 'long',
-                                                        })
-                                                        : ''}
-                                                    )
-                                                </i>
-                                            </div>
-                                            <br />
-                                            <div>
-                                                <Markdown>{job.description}</Markdown>
-                                            </div>
-                                        </div>
-                                    ))}
-                            </div>
+                        <div className="timeline__jobs">
+                            {jobs.map((job) => (
+                                <TimelineJobItem
+                                    key={job.id}
+                                    job={job}
+                                    isActive={job.id === activeJob}
+                                    startYear={START_YEAR}
+                                    totalYears={years.length}
+                                    currentYear={currentYear}
+                                    onSelect={setActiveJob}
+                                />
+                            ))}
                         </div>
-                    </motion.section>
 
-                    <motion.section initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.3 }}>
-                        {/* <p>When I think on my early years, I have always been passionate about technology and curious about how things work.</p> */}
+                        <div className="timeline__years">
+                            {years.map((year) => (
+                                <div key={year}>{year}</div>
+                            ))}
+                        </div>
 
-                        {/* <p>
-                            During high school I discovered the programming world. I started with basic HTML, then continued expanding my information
-                            in technology experience through the years. During these years I learned to create entire websites not only for myself,
-                            but for others.
-                        </p> */}
+                        <div className="timeline__descriptions">
+                            {jobs.map((job) => (
+                                <JobDescription
+                                    key={job.id}
+                                    job={job}
+                                    isActive={job.id === activeJob}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                </motion.section>
 
-                        <p>
-                            From 2011 to 2015, I was part of an indie team based in Bologna, Italy (
-                            <a
-                                href="https://www.blackravenproduction.com/"
-                                className="t-underline"
-                                target="_blank"
-                                rel="noreferrer"
-                                title="Visit Black Raven"
-                            >
-                                Black Raven
-                            </a>
-                            ). We developed small games and programs for iOS and PC. I was responsible for the design and development of the website
-                            and methods of database connection of the apps. As a secondary role, I also worked as a 3D modeler.
-                            <br />
-                            The years spent as part of this team enhanced my programming skills and developed the dynamics of working with a team.
-                            Thanks to this experience, I have become the programmer I am today.
-                        </p>
+                <motion.section
+                    initial={{ x: 50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                >
+                    <p>
+                        From 2011 to 2015, I was part of an indie team based in Bologna, Italy (
+                        <a
+                            href="https://www.blackravenproduction.com/"
+                            className="t-underline"
+                            target="_blank"
+                            rel="noreferrer"
+                            title="Visit Black Raven"
+                        >
+                            Black Raven
+                        </a>
+                        ). We developed small games and programs for iOS and PC. I was responsible for the design and development of the website
+                        and methods of database connection of the apps. As a secondary role, I also worked as a 3D modeler.
+                        <br />
+                        The years spent as part of this team enhanced my programming skills and developed the dynamics of working with a team.
+                        Thanks to this experience, I have become the programmer I am today.
+                    </p>
 
-                        <p>
-                            In May 2015, I was offered the opportunity to work at a web agency (
-                            <a href="https://www.magicnet.it/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Magic">
-                                Magic
-                            </a>
-                            ), where I was trained on how companies develop websites and e-commerce platforms. During my three years with the company,
-                            I expanded my knowledge of WordPress, Drupal, and Magento.
-                        </p>
+                    <p>
+                        In May 2015, I was offered the opportunity to work at a web agency (
+                        <a href="https://www.magicnet.it/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Magic">
+                            Magic
+                        </a>
+                        ), where I was trained on how companies develop websites and e-commerce platforms. During my three years with the company,
+                        I expanded my knowledge of WordPress, Drupal, and Magento.
+                    </p>
 
-                        <p>
-                            In June 2018, I moved to London to expand my knowledge and increase my English language skills.
-                            <br />
-                            After a couple of months I joined Purr, a web agency based in central London. Since starting, there have been many
-                            interesting projects and new ways of building websites that I had never previously explored.
-                        </p>
+                    <p>
+                        In June 2018, I moved to London to expand my knowledge and increase my English language skills.
+                        <br />
+                        After a couple of months I joined Purr, a web agency based in central London. Since starting, there have been many
+                        interesting projects and new ways of building websites that I had never previously explored.
+                    </p>
 
-                        <p>
-                            In May 2022, I joined{' '}
-                            <a href="https://www.soundpickr.com/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Soundpickr">
-                                Soundpickr
-                            </a>{' '}
-                            and started working with Laravel and React to build a music streaming service. Sadly this startup shut down at the end of
-                            2023 because of lack of foundings.
-                        </p>
+                    <p>
+                        In May 2022, I joined{' '}
+                        <a href="https://www.soundpickr.com/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Soundpickr">
+                            Soundpickr
+                        </a>{' '}
+                        and started working with Laravel and React to build a music streaming service. Sadly this startup shut down at the end of
+                        2023 because of lack of foundings.
+                    </p>
 
-                        <p>
-                            In January 2024, I joined{' '}
-                            <a href="https://www.cyber-duck.co.uk/" className="t-underline" target="_blank" rel="noreferrer" title="Visit CyberDuck">
-                                CyberDuck
-                            </a>{' '}
-                            (recently acquired by{' '}
-                            <a href="https://www.caci.co.uk/" className="t-underline" target="_blank" rel="noreferrer" title="Visit CACI">
-                                CACI
-                            </a>
-                            ) as a backend developer and started working on Worcester Bosch, a gigantic Laravel project.
-                        </p>
-                    </motion.section>
-                </div>
-            </Layout>
-        </>
+                    <p>
+                        In January 2024, I joined{' '}
+                        <a href="https://www.cyber-duck.co.uk/" className="t-underline" target="_blank" rel="noreferrer" title="Visit CyberDuck">
+                            CyberDuck
+                        </a>{' '}
+                        (recently acquired by{' '}
+                        <a href="https://www.caci.co.uk/" className="t-underline" target="_blank" rel="noreferrer" title="Visit CACI">
+                            CACI
+                        </a>
+                        ) as a backend developer and started working on Worcester Bosch, a gigantic Laravel project.
+                    </p>
+                </motion.section>
+            </div>
+        </Layout>
     )
 }
