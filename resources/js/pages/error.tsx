@@ -17,7 +17,7 @@ export default function ErrorPage({ status }: { status: number }) {
     }[status]
 
     return (
-        <>
+        <Layout className="error">
             <Meta
                 url={''}
                 description={description || ''}
@@ -25,12 +25,10 @@ export default function ErrorPage({ status }: { status: number }) {
                 noIndex
             />
 
-            <Layout className="error">
-                <section className="section --centered">
-                    <h1>{title}</h1>
-                    <h2>{description}</h2>
-                </section>
-            </Layout>
-        </>
+            <section className="section --centered">
+                <h1>{title}</h1>
+                <h2>{description}</h2>
+            </section>
+        </Layout>
     )
 }

@@ -39,52 +39,50 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
     }
 
     return (
-        <>
+        <Layout className="page-projects">
             <Meta
                 url={projects().url}
                 description="Check out the complete list of websites created by Piero Nanni during his career"
                 title="Projects"
             />
 
-            <Layout className="page-projects">
-                <h1>Projects</h1>
+            <h1>Projects</h1>
 
-                {technologies.length > 0 && (
-                    <div className="technologies">
-                        {technologies.map((tech, id) => (
-                            <div
-                                key={id}
-                                className={'technologies__single' + (activeTechnology === tech.key ? ' is-active' : '')}
-                                onClick={() => filterProjects(tech.key)}
-                            >
-                                {tech.key !== '*' && <Icon technology={tech.key} />}
-                                <span>{tech.name}</span>
-                            </div>
-                        ))}
-                    </div>
-                )}
-
-                {jobs?.length > 0 &&
-                    jobs.map((job) => (
-                        <div key={job.id} className="jobs">
-                            {job.projects?.length > 0 && (
-                                <>
-                                    <h3 className="text-center">
-                                        <a href={job.company.url} target="_blank" rel="noreferrer">
-                                            {job.company.name}
-                                        </a>
-                                    </h3>
-
-                                    <div className="projects">
-                                        {job.projects?.map((project: ProjectType, projectId: number) => (
-                                            <Project key={projectId} project={project} delay={(projectId + 1) / 12} />
-                                        ))}
-                                    </div>
-                                </>
-                            )}
+            {technologies.length > 0 && (
+                <div className="technologies">
+                    {technologies.map((tech, id) => (
+                        <div
+                            key={id}
+                            className={'technologies__single' + (activeTechnology === tech.key ? ' is-active' : '')}
+                            onClick={() => filterProjects(tech.key)}
+                        >
+                            {tech.key !== '*' && <Icon technology={tech.key} />}
+                            <span>{tech.name}</span>
                         </div>
                     ))}
-            </Layout>
-        </>
+                </div>
+            )}
+
+            {jobs?.length > 0 &&
+                jobs.map((job) => (
+                    <div key={job.id} className="jobs">
+                        {job.projects?.length > 0 && (
+                            <>
+                                <h3 className="text-center">
+                                    <a href={job.company.url} target="_blank" rel="noreferrer">
+                                        {job.company.name}
+                                    </a>
+                                </h3>
+
+                                <div className="projects">
+                                    {job.projects?.map((project: ProjectType, projectId: number) => (
+                                        <Project key={projectId} project={project} delay={(projectId + 1) / 12} />
+                                    ))}
+                                </div>
+                            </>
+                        )}
+                    </div>
+                ))}
+        </Layout>
     )
 }
