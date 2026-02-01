@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import Icon from '@/components/icon'
 import { Meta } from '@/components/meta'
 import Project from '@/components/project'
@@ -10,33 +10,35 @@ import '../../css/_modal.scss'
 import '../../css/_projects.scss'
 import '../../css/_technologies.scss'
 
+const filterJobsByTechnology = (allJobs: JobType[], techKey: string): JobType[] => {
+    if (techKey === '*') {
+        return allJobs
+    }
+
+    return allJobs.reduce((result: JobType[], job: JobType) => {
+        const filteredProjects = job.projects.filter((project: ProjectType) =>
+            project.technologies.some((tech: TechnologyType) => tech.key === techKey),
+        )
+
+        if (filteredProjects.length > 0) {
+            result.push({ ...job, projects: filteredProjects })
+        }
+
+        return result
+    }, [])
+}
+
 export default function Projects({ technologies, allJobs }: { technologies: TechnologyType[]; allJobs: JobType[] }) {
-    const [jobs, setJobs] = useState(allJobs)
     const [activeTechnology, setActiveTechnology] = useState<string>('*')
 
-    function filterProjects(techKey: string) {
+    const jobs = useMemo(
+        () => filterJobsByTechnology(allJobs, activeTechnology),
+        [allJobs, activeTechnology],
+    )
+
+    const handleTechnologyFilter = useCallback((techKey: string) => {
         setActiveTechnology(techKey)
-
-        if (techKey === '*') {
-            // if it's 'All', re load all
-            setJobs(allJobs)
-        } else {
-            // filter by tech key
-            const reducedJobs = allJobs.reduce((result: JobType[], job: JobType) => {
-                const filteredProjects = job.projects.filter((project: ProjectType) =>
-                    project.technologies.some((tech: TechnologyType) => tech.key === techKey),
-                )
-
-                if (filteredProjects.length > 0) {
-                    result.push({ ...job, projects: filteredProjects })
-                }
-
-                return result
-            }, [])
-
-            setJobs(reducedJobs)
-        }
-    }
+    }, [])
 
     return (
         <Layout className="page-projects">
@@ -50,11 +52,11 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
 
             {technologies.length > 0 && (
                 <div className="technologies">
-                    {technologies.map((tech, id) => (
+                    {technologies.map((tech) => (
                         <div
-                            key={id}
+                            key={tech.key}
                             className={'technologies__single' + (activeTechnology === tech.key ? ' is-active' : '')}
-                            onClick={() => filterProjects(tech.key)}
+                            onClick={() => handleTechnologyFilter(tech.key)}
                         >
                             {tech.key !== '*' && <Icon technology={tech.key} />}
                             <span>{tech.name}</span>
@@ -63,10 +65,10 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
                 </div>
             )}
 
-            {jobs?.length > 0 &&
+            {jobs.length > 0 &&
                 jobs.map((job) => (
                     <div key={job.id} className="jobs">
-                        {job.projects?.length > 0 && (
+                        {job.projects.length > 0 && (
                             <>
                                 <h3 className="text-center">
                                     <a href={job.company.url} target="_blank" rel="noreferrer">
@@ -75,8 +77,8 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
                                 </h3>
 
                                 <div className="projects">
-                                    {job.projects?.map((project: ProjectType, projectId: number) => (
-                                        <Project key={projectId} project={project} delay={(projectId + 1) / 12} />
+                                    {job.projects.map((project: ProjectType, projectId: number) => (
+                                        <Project key={`${job.id}-${projectId}`} project={project} delay={(projectId + 1) / 12} />
                                     ))}
                                 </div>
                             </>
