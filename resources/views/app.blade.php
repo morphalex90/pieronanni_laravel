@@ -23,7 +23,7 @@
         </script>
     @endif
 
-    @googlefonts
+    @googlefonts(['nonce' => app('csp-nonce')])
 
     @viteReactRefresh
     @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
