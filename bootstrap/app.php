@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\StripImageTransformCookies;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -9,6 +10,7 @@ use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Sentry\Laravel\Integration;
+use Spatie\Csp\AddCspHeaders;
 use Symfony\Component\HttpFoundation\Response;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -24,6 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
             append: [
                 HandleInertiaRequests::class,
                 AddLinkHeadersForPreloadedAssets::class,
+                AddCspHeaders::class,
+                SecurityHeaders::class,
             ],
             prepend: [
                 StripImageTransformCookies::class,
