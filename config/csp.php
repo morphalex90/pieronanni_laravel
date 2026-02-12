@@ -24,13 +24,18 @@ return [
                 Keyword::UNSAFE_EVAL,
                 Keyword::UNSAFE_INLINE,
                 'https://plausible.morpheus90.com',
-                'https://open.spotify.com',
             ],
         ],
         [
             Directive::CONNECT,
             [
                 'https://plausible.morpheus90.com',
+            ],
+        ],
+        [
+            Directive::FRAME,
+            [
+                'https://open.spotify.com',
             ],
         ],
     ],
