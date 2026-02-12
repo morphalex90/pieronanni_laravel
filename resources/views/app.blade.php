@@ -15,11 +15,13 @@
 
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
-    <script async src="https://plausible.morpheus90.com/js/pa-zW8hPuhYuN-kmHicH0vbo.js"></script>
-    <script>
-        window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments) }, plausible.init = plausible.init || function (i) { plausible.o = i || {} };
-        plausible.init()
-    </script>
+    @if(app()->environment('production'))
+        <script async src="https://plausible.morpheus90.com/js/pa-zW8hPuhYuN-kmHicH0vbo.js"></script>
+        <script @cspNonce>
+            window.plausible = window.plausible || function () { (plausible.q = plausible.q || []).push(arguments) }, plausible.init = plausible.init || function (i) { plausible.o = i || {} };
+            plausible.init()
+        </script>
+    @endif
 
     @googlefonts
 
