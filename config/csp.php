@@ -38,6 +38,12 @@ return [
                 'https://open.spotify.com',
             ],
         ],
+        [
+            Directive::IMG,
+            [
+                'https://s3.eu-central-003.backblazeb2.com',
+            ],
+        ],
     ],
 
     /*
