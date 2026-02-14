@@ -21,6 +21,7 @@ class Media extends BaseMedia
 
     protected function getUrlAttribute(): string
     {
-        return '/media/' . $this->file_name;
+        return $this->original_url;
+        // return '/media/' . $this->file_name;
     }
 }
