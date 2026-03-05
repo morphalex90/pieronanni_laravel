@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Click;
@@ -12,7 +14,7 @@ use Mpdf\Mpdf;
 use Mpdf\Output\Destination;
 use Spatie\Browsershot\Browsershot;
 
-class PDFController extends Controller
+final class PDFController extends Controller
 {
     public function cv(Request $request): void
     {

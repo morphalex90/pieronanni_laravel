@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Observers;
 
 use App\Actions\PurgeCache;
 
-class JobObserver
+final class JobObserver
 {
     public function created(): void
     {

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Observers;
 
 use App\Actions\PurgeCache;
 use App\Models\Project;
 
-class ProjectObserver
+final class ProjectObserver
 {
     public function creating(Project $project): void
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\JobResource\RelationManagers;
 
 use Filament\Forms\Components\TextInput;
@@ -9,7 +11,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class ProjectsRelationManager extends RelationManager
+final class ProjectsRelationManager extends RelationManager
 {
     protected static string $relationship = 'projects';
 

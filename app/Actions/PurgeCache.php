@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Actions;
 
 use Illuminate\Support\Facades\Cache;
 
-class PurgeCache
+final class PurgeCache
 {
     public static function handle(): void
     {

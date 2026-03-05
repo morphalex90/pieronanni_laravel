@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Observers;
 
 use App\Actions\PurgeCache;
 
-class MediaObserver
+final class MediaObserver
 {
     public function created(): void
     {

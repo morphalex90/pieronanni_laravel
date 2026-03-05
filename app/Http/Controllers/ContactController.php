@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactStoreRequest;
@@ -10,7 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-class ContactController extends Controller
+final class ContactController extends Controller
 {
     /**
      * Store a newly created resource in storage.
