@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Observers;
 
 use App\Actions\PurgeCache;
 
-class TechnologyObserver
+final class TechnologyObserver
 {
     public function created(): void
     {

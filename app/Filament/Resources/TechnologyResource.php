@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TechnologyResource\Pages\CreateTechnology;
@@ -16,7 +18,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class TechnologyResource extends Resource
+final class TechnologyResource extends Resource
 {
     protected static ?string $model = Technology::class;
 

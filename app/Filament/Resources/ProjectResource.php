@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProjectResource\Pages\CreateProject;
@@ -24,7 +26,7 @@ use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 
-class ProjectResource extends Resource
+final class ProjectResource extends Resource
 {
     protected static ?string $model = Project::class;
 

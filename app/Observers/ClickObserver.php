@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Observers;
 
 use App\Models\Click;
@@ -8,7 +10,7 @@ use DeviceDetector\DeviceDetector;
 use Exception;
 use Illuminate\Support\Facades\Http;
 
-class ClickObserver
+final class ClickObserver
 {
     public function creating(Click $click): void
     {

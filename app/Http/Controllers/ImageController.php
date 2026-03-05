@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Media;
@@ -16,7 +18,7 @@ use Intervention\Image\Encoders\PngEncoder;
 use Intervention\Image\Encoders\WebpEncoder;
 use Intervention\Image\Laravel\Facades\Image;
 
-class ImageController extends Controller
+final class ImageController extends Controller
 {
     private const CACHE_DURATION = 31536000; // 1 year
 

@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Spatie\MediaLibrary\MediaCollections\Models\Media as BaseMedia;
 
 // https://github.com/spatie/laravel-medialibrary/issues/75
 
-class Media extends BaseMedia
+final class Media extends BaseMedia
 {
     /**
      * All the relationships to be touched.
