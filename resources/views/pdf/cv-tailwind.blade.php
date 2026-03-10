@@ -124,7 +124,7 @@
                     Summary</h2>
                 <p class="mt-3 text-sm text-[#1C1C1C] leading-relaxed font-light">
                     Full-stack developer with 10 years of experience building and optimising web applications,
-                    specialising in Laravel and React.
+                    specialising in Laravel, React, and modern web application architecture.
                     Comfortable owning projects end-to-end, from API design to front-end implementation and DevOps
                     deployment.
                 </p>
@@ -235,8 +235,7 @@
                         <div class="flex flex-wrap gap-2">
                             <span
                                 class="skill-chip bg-[#EAF2F8] text-[#1A5276] text-xs font-semibold px-3 py-1.5 rounded">WordPress
-                                / Gutenberg
-                                Blocks</span>
+                                Gutenberg Blocks</span>
                             <span
                                 class="skill-chip bg-[#EAF2F8] text-[#1A5276] text-xs font-semibold px-3 py-1.5 rounded">Drupal</span>
                             <span
