@@ -42,7 +42,7 @@ Route::get('/contact', function () {
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/cv', [PDFController::class, 'cv'])->name('cv');
-Route::get('/cv2', [PDFController::class, 'cv2'])->name('cv2');
+Route::get('/cv-old', [PDFController::class, 'cvOld'])->name('cv-old');
 
 Route::get('/cv.pdf', function () {
     return redirect('/cv');
