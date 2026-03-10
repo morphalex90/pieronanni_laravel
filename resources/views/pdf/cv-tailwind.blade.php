@@ -100,8 +100,8 @@
             class="bg-[#1A5276] flex flex-col sm:flex-row justify-between items-start sm:items-center px-8 py-6 gap-6">
             <div>
                 <h1 class="text-5xl text-white tracking-tight leading-tight">Piero Nanni</h1>
-                <p class="mt-2 text-[#BFD9F0] text-base font-light tracking-wide">Full-Stack Developer · Laravel &amp;
-                    React Specialist</p>
+                <p class="mt-2 text-[#BFD9F0] text-base font-light tracking-wide">Full-Stack Developer · PHP (Laravel) &
+                    React / Next.js</p>
             </div>
             <div class="text-right text-sm text-white/90 font-light space-y-1.5 shrink-0">
                 <div class="flex items-center justify-end gap-2"><span>📍</span><span>London, UK</span></div>
@@ -253,7 +253,7 @@
                                 / Shell</span>
                             <span
                                 class="skill-chip bg-[#EAF2F8] text-[#1A5276] text-xs font-semibold px-3 py-1.5 rounded">AWS
-                                S3</span>
+                                (S3)</span>
                             <span
                                 class="skill-chip bg-[#EAF2F8] text-[#1A5276] text-xs font-semibold px-3 py-1.5 rounded">CI/CD</span>
                             <span
