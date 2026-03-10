@@ -127,6 +127,7 @@
                     specialising in Laravel, React, and modern web application architecture.
                     Comfortable owning projects end-to-end, from API design to front-end implementation and DevOps
                     deployment.
+                    Tech stack: Laravel, PHP, React, Next.js, TypeScript, REST APIs, Docker, WordPress, Drupal
                 </p>
             </section>
 
