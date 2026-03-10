@@ -104,16 +104,12 @@
                     React / Next.js</p>
             </div>
             <div class="text-right text-sm text-white/90 font-light space-y-1.5 shrink-0">
-                <div class="flex items-center justify-end gap-2"><span>📍</span><span>London, UK</span></div>
-                <div class="flex items-center justify-end gap-2"><span>🌐</span><a href="https://pieronanni.me"
-                        target="_blank" class="hover:underline">pieronanni.me</a></div>
-                <div class="flex items-center justify-end gap-2"><span>📞</span><span>+44 7724 146851</span></div>
-                <div class="flex items-center justify-end gap-2"><span>📧</span><a href="mailto:piero.nanni@gmail.com"
-                        class="hover:underline">piero.nanni@gmail.com</a></div>
-
-
-                <div class="flex items-center justify-end gap-2"><span>💻</span><a href="https://github.com/morphalex90"
-                        target="_blank" class="hover:underline">github.com/morphalex90</a></div>
+                <div><span>London, UK</span></div>
+                <div><a href="https://pieronanni.me" target="_blank" class="hover:underline">pieronanni.me</a></div>
+                <div><span>+44 7724 146851</span></div>
+                <div><a href="mailto:piero.nanni@gmail.com" class="hover:underline">piero.nanni@gmail.com</a></div>
+                <div><a href="https://github.com/morphalex90" target="_blank"
+                        class="hover:underline">github.com/morphalex90</a></div>
             </div>
         </header>
 
@@ -154,7 +150,7 @@
                                     @endif
                                 </span>
                             </div>
-                            <div class="text-xs text-[#888888] mt-0.5 mb-2">📍 {{ $job->location }}</div>
+                            <div class="text-xs text-[#888888] mt-0.5 mb-2">{{ $job->location }}</div>
                             {!! parseMarkdownWithClasses($job->description_cv) !!}
                             <div class="mt-3">
                                 <p class="text-xs font-bold text-[#555555] uppercase tracking-wider mb-2">Key Projects</p>
@@ -163,13 +159,13 @@
                                         @if($project->is_visible_in_cv)
                                             <div class="project-item pl-3 py-0.5 flex items-start gap-2">
                                                 <div class="flex items-center gap-1 mt-0.5 shrink-0">
-                                                    @if (count($project->technologies) > 0)
-                                                        @foreach ($project->technologies as $tech)
-                                                            <span class="tech-icon"><img
-                                                                    src="https://cdn.simpleicons.org/{{ $tech->key }}/1A5276"
-                                                                    alt="{{ $tech->name }}" title="{{ $tech->name }}" /></span>
-                                                        @endforeach
-                                                    @endif
+                                                    {{-- @if (count($project->technologies) > 0)
+                                                    @foreach ($project->technologies as $tech)
+                                                    <span class="tech-icon"><img
+                                                            src="https://cdn.simpleicons.org/{{ $tech->key }}/1A5276"
+                                                            alt="{{ $tech->name }}" title="{{ $tech->name }}" /></span>
+                                                    @endforeach
+                                                    @endif --}}
                                                 </div>
                                                 <div>
                                                     <span class="text-sm font-bold text-[#1A5276]">
@@ -289,10 +285,10 @@
             <section>
                 <h2 class="section-title text-[#1A5276] text-xs font-bold uppercase tracking-[0.15em]">Languages</h2>
                 <div class="mt-3 flex gap-8 text-sm">
-                    <div><span class="font-bold text-[#1C1C1C]">Italian</span><span class="text-[#555555] font-light"> —
+                    <div><span class="font-bold text-[#1C1C1C]">Italian</span><span class="text-[#555555] font-light">:
                             Native</span></div>
-                    <div><span class="font-bold text-[#1C1C1C]">English</span><span class="text-[#555555] font-light"> —
-                            Fluent (C1+)</span></div>
+                    <div><span class="font-bold text-[#1C1C1C]">English</span><span class="text-[#555555] font-light">:
+                            Fluent</span></div>
                 </div>
             </section>
         </main>
