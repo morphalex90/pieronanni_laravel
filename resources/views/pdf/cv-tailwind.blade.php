@@ -126,7 +126,7 @@
                     Full-stack developer with 10 years of experience building and optimising web applications,
                     specialising in Laravel, React, and modern web application architecture.
                     Comfortable owning projects end-to-end, from API design to front-end implementation and DevOps
-                    deployment.
+                    deployment.<br />
                     Tech stack: Laravel, PHP, React, Next.js, TypeScript, REST APIs, Docker, WordPress, Drupal
                 </p>
             </section>
