@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-use DOMDocument;
 use Illuminate\Support\Str;
 
 if (! function_exists('parseMarkdownWithClasses')) {
