@@ -58,9 +58,19 @@ final class Job extends Model
         $date_end = \Illuminate\Support\Facades\Date::parse($this->ended_at);
         $date_start = \Illuminate\Support\Facades\Date::parse($this->started_at);
 
-        $format = (int) $date_start->diffInYears($date_end) > 0 ? '%y years, %m months' : '%m months';
+        $diff = $date_start->diff($date_end);
+        $years = $diff->y;
+        $months = $diff->m;
 
-        return $date_start->diff($date_end)->format($format);
+        if ($years > 0) {
+            $yearStr = $years === 1 ? '1 year' : $years . ' years';
+            $monthStr = $months === 1 ? '1 month' : $months . ' months';
+
+            return $yearStr . ', ' . $monthStr;
+        }
+
+        return $months === 1 ? '1 month' : $months . ' months';
+
     }
 
     /**
