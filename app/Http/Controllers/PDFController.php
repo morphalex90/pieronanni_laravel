@@ -16,19 +16,42 @@ use Spatie\Browsershot\Browsershot;
 
 final class PDFController extends Controller
 {
-    public function cv(Request $request): void
+    public function cv(Request $request)
     {
         Click::create([
             'user_agent' => $request->userAgent(),
         ]);
 
+        $jobs = Cache::rememberForever('jobs_with_projects_technologies', function () {
+            return Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
+        });
+
+        $html = view('pdf.cv-tailwind', ['jobs' => $jobs]);
+
+        $pdf = Browsershot::html($html->render())
+            ->noSandbox()
+            // ->setOption('pdf.info.Author', 'Piero Nanni')
+            ->showBrowserHeaderAndFooter()
+            ->headerHtml(' ')
+            ->format('A4')
+            ->showBackground();
+        // ->footerHtml('<div style="text-align: center;"><span class="pageNumber">blabla</span> / <span class="date"></span></div>'); // https://github.com/spatie/browsershot/discussions/617
+
+        return Response::make($pdf->pdf(), headers: [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="cv_piero_nanni.pdf"',
+        ]);
+    }
+
+    public function cvOld(): void
+    {
         $stylesheet = file_get_contents(public_path('css/cv.css'));
 
         $jobs = Cache::rememberForever('jobs_with_projects_technologies', function () {
             return Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
         });
 
-        $html = view('pdf.cv', ['jobs' => $jobs]);
+        $html = view('pdf.cv-old', ['jobs' => $jobs]);
 
         $mpdf = new Mpdf([
             'tempDir' => storage_path('app/private'),
@@ -54,32 +77,5 @@ final class PDFController extends Controller
         $mpdf->WriteHTML($html, HTMLParserMode::HTML_BODY);
 
         $mpdf->Output('cv_piero_nanni.pdf', Destination::INLINE);
-    }
-
-    public function cv2(Request $request)
-    {
-        // Click::create([
-        //     'user_agent' => $request->userAgent(),
-        // ]);
-
-        $jobs = Cache::rememberForever('jobs_with_projects_technologies', function () {
-            return Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
-        });
-
-        $html = view('pdf.cv-tailwind', ['jobs' => $jobs]);
-
-        $pdf = Browsershot::html($html->render())
-            ->noSandbox()
-            // ->setOption('pdf.info.Author', 'Piero Nanni')
-            ->showBrowserHeaderAndFooter()
-            ->headerHtml(' ')
-            ->format('A4')
-            ->showBackground()
-            ->footerHtml('<div style="text-align: center;"><span class="pageNumber">blabla</span> / <span class="date"></span></div>'); // https://github.com/spatie/browsershot/discussions/617
-
-        return Response::make($pdf->pdf(), headers: [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="cv_piero_nanni.pdf"',
-        ]);
     }
 }
