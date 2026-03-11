@@ -28,11 +28,11 @@ export default function Contact() {
         <Layout className="contact">
             <Meta
                 url={contact().url}
-                description="Have some questions? Need help? Feel free to ask me everything you need"
-                title="Contact"
+                description="Get in touch with Piero Nanni, a full-stack developer based in London specialising in Laravel, React and WordPress."
+                title="Contact Piero Nanni | Full-Stack Developer, London"
             />
 
-            <h1>Contact</h1>
+            <h1>Contact Piero Nanni — Full-Stack Developer in London</h1>
 
             <div className="d-flex">
                 <motion.div
