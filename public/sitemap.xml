@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.pieronanni.me</loc>
+    <changefreq>yearly</changefreq>
+    <priority>1.0</priority>
+    <lastmod>2026-03-10</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pieronanni.me/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-03-10</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pieronanni.me/projects</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-03-10</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pieronanni.me/contact</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-03-10</lastmod>
+  </url>
+  <url>
+    <loc>https://www.pieronanni.me/cv</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-03-10</lastmod>
+  </url>
+</urlset>
