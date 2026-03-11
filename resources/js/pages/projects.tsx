@@ -44,11 +44,11 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
         <Layout className="page-projects">
             <Meta
                 url={projects().url}
-                description="Check out the complete list of websites created by Piero Nanni during his career"
-                title="Projects"
+                description="Browse 30+ web projects by Piero Nanni: Laravel e-commerce, React apps, WordPress and Drupal sites built across London and Bologna."
+                title="Projects | Laravel, React & WordPress Portfolio"
             />
 
-            <h1>Projects</h1>
+            <h1>Web Development Projects | Laravel, React & WordPress</h1>
 
             {technologies.length > 0 && (
                 <div className="technologies">
@@ -57,6 +57,8 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
                             key={tech.key}
                             className={'technologies__single' + (activeTechnology === tech.key ? ' is-active' : '')}
                             onClick={() => handleTechnologyFilter(tech.key)}
+                            aria-label={'Filter projects by ' + tech.name}
+                            role="button"
                         >
                             {tech.key !== '*' && <Icon technology={tech.key} />}
                             <span>{tech.name}</span>

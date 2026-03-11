@@ -28,6 +28,8 @@ export default function Project({ project, delay }: { project: ProjectType; dela
                     setModalShow(true)
                     setModalContent(project)
                 }}
+                aria-label={'View project details for ' + project.title}
+                role="button"
             >
                 <div className="projects__single__image">
                     <img
