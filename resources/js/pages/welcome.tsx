@@ -11,7 +11,6 @@ export default function Homepage() {
                 title="Full-Stack Developer, London | Laravel & React"
                 description="Piero Nanni is a full-stack web developer based in London, specialising in Laravel and React. Explore my projects, skills, and get in touch."
                 url={home().url}
-                schemaType="Person"
             />
 
             <section className="section --centered">

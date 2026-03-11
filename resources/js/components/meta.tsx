@@ -8,7 +8,6 @@ export function Meta({
     image = APP_URL + '/img/background.webp',
     type = 'profile',
     noIndex,
-    schemaType = 'WebPage',
 }: {
     url?: string
     title: string
@@ -16,10 +15,9 @@ export function Meta({
     image?: string
     type?: string
     noIndex?: boolean
-    schemaType?: 'WebPage' | 'Person'
 }) {
     // Structured data for SEO
-    const structuredData = schemaType === 'Person' ? {
+    const structuredData = {
         '@context': 'https://schema.org',
         '@type': 'Person',
         name: 'Piero Nanni',
@@ -33,15 +31,14 @@ export function Meta({
             '@type': 'PostalAddress',
             addressLocality: 'London'
         },
+        worksFor: {
+            '@type': 'Organization',
+            name: 'CACI',
+            url: 'https://www.caci.co.uk/'
+        },
+        knowsAbout: ['Laravel', 'React', 'PHP', 'Next.js', 'WordPress', 'Drupal', 'AWS'],
         image: image ? image : undefined,
         description,
-    } : {
-        '@context': 'https://schema.org',
-        '@type': 'WebPage',
-        name: title,
-        description,
-        url: APP_URL + url,
-        image: image ? image : undefined,
     }
 
     return (
