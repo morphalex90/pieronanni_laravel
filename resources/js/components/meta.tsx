@@ -22,7 +22,7 @@ export function Meta({
         '@type': 'Person',
         name: 'Piero Nanni',
         jobTitle: 'Full-Stack Developer',
-        url: APP_URL + url,
+        url: APP_URL,
         sameAs: [
             'https://github.com/morphalex90',
             'https://www.linkedin.com/in/piero-nanni-87407193'
