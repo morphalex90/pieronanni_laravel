@@ -2,7 +2,7 @@ import { useState, useCallback, useMemo } from 'react'
 import Icon from '@/components/icon'
 import { Meta } from '@/components/meta'
 import Project from '@/components/project'
-import Layout from '@/layouts/layout'
+import { Layout } from '@/layouts/layout'
 import { projects } from '@/routes'
 import { type JobType, type ProjectType, type TechnologyType } from '@/types'
 
