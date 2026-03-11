@@ -35,7 +35,7 @@ export default function Icon({ technology }: { technology: string }) {
         )
     }
 
-    if (technology === 'nextjs') {
+    if (technology === 'next.js') {
         return (
             <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <title>Next.js</title>
@@ -53,7 +53,7 @@ export default function Icon({ technology }: { technology: string }) {
         )
     }
 
-    if (technology === 'wp') {
+    if (technology === 'wordpress') {
         return (
             <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <title>WordPress</title>
