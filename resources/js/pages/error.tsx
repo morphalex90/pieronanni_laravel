@@ -1,5 +1,5 @@
 import { Meta } from '@/components/meta'
-import Layout from '@/layouts/layout'
+import { Layout } from '@/layouts/layout'
 
 export default function ErrorPage({ status }: { status: number }) {
     const title = {
