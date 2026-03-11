@@ -102,11 +102,11 @@ export default function About({ jobs }: { jobs: JobType[] }) {
         <Layout className="about">
             <Meta
                 url={about().url}
-                description="Discover who Piero Nanni is, his career path and what he is doing at the moment"
-                title="About"
+                description="Piero Nanni is a full-stack developer with 10 years of experience across London and Bologna, specialising in Laravel, React, WordPress and Drupal."
+                title="About Piero Nanni: Full-Stack Developer, London"
             />
 
-            <h1>About</h1>
+            <h1>About Piero Nanni: Full-Stack Developer, London</h1>
 
             <div className="d-flex">
                 <motion.section
