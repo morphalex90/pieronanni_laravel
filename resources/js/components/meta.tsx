@@ -58,8 +58,8 @@ export function Meta({
             <meta property="twitter:title" content={title} />
             <meta property="twitter:description" content={description} />
 
-            {image !== '' && <meta property="og:image" content={APP_URL + image} />}
-            {image !== '' && <meta property="twitter:image" content={APP_URL + image} />}
+            {image !== '' && <meta property="og:image" content={image} />}
+            {image !== '' && <meta property="twitter:image" content={image} />}
 
             {noIndex && <meta name="robots" content="noindex" />}
 
