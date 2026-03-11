@@ -32,7 +32,7 @@ export default function Contact() {
                 title="Contact Piero Nanni | Full-Stack Developer, London"
             />
 
-            <h1>Contact Piero Nanni — Full-Stack Developer in London</h1>
+            <h1 className="text-center">Contact Piero Nanni — Full-Stack Developer in London</h1>
 
             <div className="d-flex">
                 <motion.div

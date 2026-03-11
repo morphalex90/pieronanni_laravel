@@ -48,7 +48,7 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
                 title="Projects | Laravel, React & WordPress Portfolio"
             />
 
-            <h1>Web Development Projects | Laravel, React & WordPress</h1>
+            <h1 className="text-center">Web Development Projects | Laravel, React & WordPress</h1>
 
             {technologies.length > 0 && (
                 <div className="technologies">
