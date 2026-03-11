@@ -6,7 +6,7 @@ export function Meta({
     title,
     description,
     image = APP_URL + '/img/background.webp',
-    type = 'profile',
+    type = 'website',
     noIndex,
 }: {
     url?: string
