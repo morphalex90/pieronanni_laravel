@@ -106,7 +106,7 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                 title="About Piero Nanni: Full-Stack Developer, London"
             />
 
-            <h1>About Piero Nanni: Full-Stack Developer, London</h1>
+            <h1 className="text-center">About Piero Nanni: Full-Stack Developer, London</h1>
 
             <div className="d-flex">
                 <motion.section
