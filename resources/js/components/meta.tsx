@@ -8,6 +8,7 @@ export function Meta({
     image = APP_URL + '/img/background.webp',
     type = 'profile',
     noIndex,
+    schemaType = 'WebPage',
 }: {
     url?: string
     title: string
@@ -15,14 +16,32 @@ export function Meta({
     image?: string
     type?: string
     noIndex?: boolean
+    schemaType?: 'WebPage' | 'Person'
 }) {
     // Structured data for SEO
-    const structuredData = {
+    const structuredData = schemaType === 'Person' ? {
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Piero Nanni',
+        jobTitle: 'Full-Stack Developer',
+        url: APP_URL + url,
+        sameAs: [
+            'https://github.com/morphalex90',
+            'https://www.linkedin.com/in/piero-nanni-87407193'
+        ],
+        address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'London'
+        },
+        image: image ? image : undefined,
+        description,
+    } : {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
         name: title,
-        description: description,
-        url: url,
+        description,
+        url: APP_URL + url,
+        image: image ? image : undefined,
     }
 
     return (
@@ -34,16 +53,17 @@ export function Meta({
             <meta property="og:type" content={type} />
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />
-            <meta property="og:image" content={image} />
 
             <meta name="twitter:card" content="summary" />
             <meta property="twitter:title" content={title} />
             <meta property="twitter:description" content={description} />
-            <meta property="twitter:image" content={image} />
+
+            {image !== '' && <meta property="og:image" content={APP_URL + image} />}
+            {image !== '' && <meta property="twitter:image" content={APP_URL + image} />}
 
             {noIndex && <meta name="robots" content="noindex" />}
 
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+            <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
         </Head>
     )
 }
