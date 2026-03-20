@@ -4,6 +4,9 @@
 /public/build
 /public/hot
 /public/storage
+/public/js/filament
+/public/fonts/filament
+/public/css/filament
 /storage/*.key
 /storage/pail
 /resources/js/actions
