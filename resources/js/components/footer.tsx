@@ -10,7 +10,7 @@ export default function Footer() {
                 </div>
 
                 <div className="footer__copy">
-                    <p>{new Date().getFullYear()} &copy; Piero Nanni. Made with 🍺 in London</p>
+                    <p suppressHydrationWarning>{new Date().getFullYear()} &copy; Piero Nanni. Made with 🍺 in London</p>
                 </div>
             </div>
         </footer>

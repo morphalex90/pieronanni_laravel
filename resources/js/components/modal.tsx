@@ -1,16 +1,24 @@
-import { type MouseEvent } from 'react'
+import { type MouseEvent, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import Markdown from 'react-markdown'
 import { type ProjectType } from '@/types'
 
 export default function Modal({ show, onClose, title, content }: { show: boolean; onClose: () => void; title?: string; content: ProjectType }) {
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
     const handleCloseClick = (e: MouseEvent<HTMLDivElement> | MouseEvent<HTMLButtonElement>) => {
         if (e.target === e.currentTarget) {
             onClose()
         }
     }
 
-    const modalContent = show ? (
+    if (!mounted || !show || content == null) return null
+
+    return ReactDOM.createPortal(
         <div className="overlay" onClick={handleCloseClick}>
             <div className="modal">
                 <div className="modal__header">
@@ -44,12 +52,7 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
                     </div>
                 </div>
             </div>
-        </div>
-    ) : null
-
-    if (content != null && modalContent !== null) {
-        return ReactDOM.createPortal(modalContent, document.getElementById('modal-root')!)
-    } else {
-        return null
-    }
+        </div>,
+        document.getElementById('modal-root')!,
+    )
 }
