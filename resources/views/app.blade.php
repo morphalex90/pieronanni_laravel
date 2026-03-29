@@ -13,6 +13,9 @@
     <meta name="theme-color" content="#000000" />
     <link rel="preload" fetchpriority="high" href="/img/background.webp" as="image" type="image/webp" />
 
+    <link rel="preconnect" href="https://plausible.morpheus90.com">
+    <link rel="dns-prefetch" href="https://plausible.morpheus90.com">
+
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
     @if(app()->environment('production'))
