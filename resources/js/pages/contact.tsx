@@ -1,5 +1,6 @@
 import { Form, usePage } from '@inertiajs/react'
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import InputError from '@/components/input-error'
 import { Meta } from '@/components/meta'
 import { Layout } from '@/layouts/layout'
@@ -22,7 +23,11 @@ const motionVariants = {
 
 export default function Contact() {
     const { flash } = usePage<SharedData>().props
-    const currentDay = new Date().toLocaleDateString('en-GB', { weekday: 'long' }).toLowerCase()
+    const [currentDay, setCurrentDay] = useState('')
+
+    useEffect(() => {
+        setCurrentDay(new Date().toLocaleDateString('en-GB', { weekday: 'long' }).toLowerCase())
+    }, [])
 
     return (
         <Layout className="contact">
