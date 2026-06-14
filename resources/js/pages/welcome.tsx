@@ -14,7 +14,12 @@ export default function Homepage() {
             />
 
             <section className="section --centered">
-                <motion.h1 initial={{ x: -50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.2 }} aria-label="Piero Nanni, Full-Stack Developer specialising in Laravel and React">
+                <motion.h1
+                    initial={{ x: -50, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.2 }}
+                    aria-label="Piero Nanni, Full-Stack Developer specialising in Laravel and React"
+                >
                     {'<PieroNanni/>'}
                 </motion.h1>
 

@@ -3,7 +3,19 @@
     "allow": [
       "Bash(wc -l /Users/pieronanni/Documents/GitHub/pieronanni_laravel/resources/js/pages/*.tsx)",
       "Bash(find /Users/pieronanni/Documents/GitHub/pieronanni_laravel/resources/js/pages -type f -exec wc -l {} +)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(grep -vE \"^\\\\s*\\\\*|^\\\\s*/|^\\\\s*$\")",
+      "Bash(php artisan *)",
+      "Bash(php -r ' *)",
+      "Bash(composer run *)",
+      "Bash(./vendor/bin/pint app/Helpers/GoogleFontsPreload.php)",
+      "Bash(php -r 'echo \"PHP \".PHP_VERSION.\"\\\\n\"; echo function_exists\\(\"mb_trim\"\\)?\"mb_trim ok\\\\n\":\"NO mb_trim\\\\n\";')",
+      "Bash(npm run *)",
+      "Bash(ls hooks *)",
+      "Bash(grep -rl \"useSyncExternalStore\\\\|useIsClient\" .)",
+      "Bash(cd \"/Users/pieronanni/Documents/GitHub/pieronanni_laravel/resources/js\" && ls components | head && echo \"---tsconfig paths---\" && grep -A8 '\"paths\"' ../../tsconfig.json)",
+      "Read(//Users/pieronanni/Documents/**)",
+      "Bash(git stash *)"
     ]
   }
 }

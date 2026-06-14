@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { ReactNode } from 'react'
 import { useEffect } from 'react'
 import Footer from '@/components/footer'
 import Header from '@/components/header'

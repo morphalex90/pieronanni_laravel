@@ -10,8 +10,7 @@ import { type JobType } from '@/types'
 
 const START_YEAR = 2011
 
-const generateYears = (from: number, to: number): number[] =>
-    Array.from({ length: to - from + 1 }, (_, i) => from + i)
+const generateYears = (from: number, to: number): number[] => Array.from({ length: to - from + 1 }, (_, i) => from + i)
 
 const getJobDateRange = (startDate: string, endDate: string | null, currentYear: number) => {
     const startYear = parseInt(startDate.substring(0, 4))
@@ -56,13 +55,7 @@ const TimelineJobItem = ({ job, isActive, startYear, totalYears, currentYear, on
     } as React.CSSProperties
 
     return (
-        <div
-            className={isActive ? '--active' : ''}
-            style={customProperties}
-            onClick={() => onSelect(job.id)}
-            role="button"
-            tabIndex={0}
-        >
+        <div className={isActive ? '--active' : ''} style={customProperties} onClick={() => onSelect(job.id)} role="button" tabIndex={0}>
             {job.company.name}
         </div>
     )
@@ -152,21 +145,13 @@ export default function About({ jobs }: { jobs: JobType[] }) {
 
                         <div className="timeline__descriptions">
                             {jobs.map((job) => (
-                                <JobDescription
-                                    key={job.id}
-                                    job={job}
-                                    isActive={job.id === activeJob}
-                                />
+                                <JobDescription key={job.id} job={job} isActive={job.id === activeJob} />
                             ))}
                         </div>
                     </div>
                 </motion.section>
 
-                <motion.section
-                    initial={{ x: 50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 0.3 }}
-                >
+                <motion.section initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.3 }}>
                     <p>
                         From 2011 to 2015, I was part of an indie team based in Bologna, Italy (
                         <a
@@ -178,11 +163,11 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                         >
                             Black Raven
                         </a>
-                        ). We developed small games and programs for iOS and PC. I was responsible for the design and development of the website
-                        and methods of database connection of the apps. As a secondary role, I also worked as a 3D modeler.
+                        ). We developed small games and programs for iOS and PC. I was responsible for the design and development of the website and
+                        methods of database connection of the apps. As a secondary role, I also worked as a 3D modeler.
                         <br />
-                        The years spent as part of this team enhanced my programming skills and developed the dynamics of working with a team.
-                        Thanks to this experience, I have become the programmer I am today.
+                        The years spent as part of this team enhanced my programming skills and developed the dynamics of working with a team. Thanks
+                        to this experience, I have become the programmer I am today.
                     </p>
 
                     <p>
@@ -190,15 +175,15 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                         <a href="https://www.magicnet.it/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Magic">
                             Magic
                         </a>
-                        ), where I was trained on how companies develop websites and e-commerce platforms. During my three years with the company,
-                        I expanded my knowledge of WordPress, Drupal, and Magento.
+                        ), where I was trained on how companies develop websites and e-commerce platforms. During my three years with the company, I
+                        expanded my knowledge of WordPress, Drupal, and Magento.
                     </p>
 
                     <p>
                         In June 2018, I moved to London to expand my knowledge and increase my English language skills.
                         <br />
-                        After a couple of months I joined Purr, a web agency based in central London. Since starting, there have been many
-                        interesting projects and new ways of building websites that I had never previously explored.
+                        After a couple of months I joined Purr, a web agency based in central London. Since starting, there have been many interesting
+                        projects and new ways of building websites that I had never previously explored.
                     </p>
 
                     <p>
@@ -206,8 +191,8 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                         <a href="https://www.soundpickr.com/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Soundpickr">
                             Soundpickr
                         </a>{' '}
-                        and started working with Laravel and React to build a music streaming service. Sadly this startup shut down at the end of
-                        2023 because of lack of foundings.
+                        and started working with Laravel and React to build a music streaming service. Sadly this startup shut down at the end of 2023
+                        because of lack of foundings.
                     </p>
 
                     <p>
