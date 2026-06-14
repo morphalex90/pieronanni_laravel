@@ -6,7 +6,10 @@
       "Bash(npm install:*)",
       "Bash(grep -vE \"^\\\\s*\\\\*|^\\\\s*/|^\\\\s*$\")",
       "Bash(php artisan *)",
-      "Bash(php -r ' *)"
+      "Bash(php -r ' *)",
+      "Bash(composer run *)",
+      "Bash(./vendor/bin/pint app/Helpers/GoogleFontsPreload.php)",
+      "Bash(php -r 'echo \"PHP \".PHP_VERSION.\"\\\\n\"; echo function_exists\\(\"mb_trim\"\\)?\"mb_trim ok\\\\n\":\"NO mb_trim\\\\n\";')"
     ]
   }
 }

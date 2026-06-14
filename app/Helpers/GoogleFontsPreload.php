@@ -32,7 +32,7 @@ final class GoogleFontsPreload
         }
 
         $disk = Storage::disk(config('google-fonts.disk'));
-        $cssPath = config('google-fonts.path') . '/' . substr(md5($url), 0, 10) . '/fonts.css';
+        $cssPath = config('google-fonts.path') . '/' . mb_substr(md5($url), 0, 10) . '/fonts.css';
 
         if (! $disk->exists($cssPath)) {
             return new HtmlString('');
@@ -72,7 +72,7 @@ final class GoogleFontsPreload
 
             // The CSS stores absolute URLs built from APP_URL at fetch time, so
             // reduce to a root-relative path to stay correct across environments.
-            $path = parse_url(trim($match[1], '\'"'), PHP_URL_PATH);
+            $path = parse_url(mb_trim($match[1], '\'"'), PHP_URL_PATH);
 
             if (! is_string($path)) {
                 continue;
