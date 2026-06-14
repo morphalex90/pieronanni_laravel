@@ -1,14 +1,11 @@
-import { type MouseEvent, useEffect, useState } from 'react'
+import { type MouseEvent } from 'react'
 import ReactDOM from 'react-dom'
 import Markdown from 'react-markdown'
+import { useIsClient } from '@/hooks/use-is-client'
 import { type ProjectType } from '@/types'
 
 export default function Modal({ show, onClose, title, content }: { show: boolean; onClose: () => void; title?: string; content: ProjectType }) {
-    const [mounted, setMounted] = useState(false)
-
-    useEffect(() => {
-        setMounted(true)
-    }, [])
+    const mounted = useIsClient()
 
     const handleCloseClick = (e: MouseEvent<HTMLDivElement> | MouseEvent<HTMLButtonElement>) => {
         if (e.target === e.currentTarget) {
