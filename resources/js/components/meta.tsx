@@ -23,18 +23,15 @@ export function Meta({
         name: 'Piero Nanni',
         jobTitle: 'Full-Stack Developer',
         url: APP_URL,
-        sameAs: [
-            'https://github.com/morphalex90',
-            'https://www.linkedin.com/in/piero-nanni-87407193'
-        ],
+        sameAs: ['https://github.com/morphalex90', 'https://www.linkedin.com/in/piero-nanni-87407193'],
         address: {
             '@type': 'PostalAddress',
-            addressLocality: 'London'
+            addressLocality: 'London',
         },
         worksFor: {
             '@type': 'Organization',
             name: 'CACI',
-            url: 'https://www.caci.co.uk/'
+            url: 'https://www.caci.co.uk/',
         },
         knowsAbout: ['Laravel', 'React', 'PHP', 'Next.js', 'WordPress', 'Drupal', 'AWS'],
         image: image ? image : undefined,

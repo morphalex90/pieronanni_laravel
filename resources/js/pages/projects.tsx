@@ -31,10 +31,7 @@ const filterJobsByTechnology = (allJobs: JobType[], techKey: string): JobType[] 
 export default function Projects({ technologies, allJobs }: { technologies: TechnologyType[]; allJobs: JobType[] }) {
     const [activeTechnology, setActiveTechnology] = useState<string>('*')
 
-    const jobs = useMemo(
-        () => filterJobsByTechnology(allJobs, activeTechnology),
-        [allJobs, activeTechnology],
-    )
+    const jobs = useMemo(() => filterJobsByTechnology(allJobs, activeTechnology), [allJobs, activeTechnology])
 
     const handleTechnologyFilter = useCallback((techKey: string) => {
         setActiveTechnology(techKey)

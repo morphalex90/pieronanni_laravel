@@ -1,8 +1,8 @@
 import { Form, usePage } from '@inertiajs/react'
 import { motion } from 'framer-motion'
-import { useEffect, useState } from 'react'
 import InputError from '@/components/input-error'
 import { Meta } from '@/components/meta'
+import { useIsClient } from '@/hooks/use-is-client'
 import { Layout } from '@/layouts/layout'
 import '../../css/_form.scss'
 import { contact } from '@/routes'
@@ -23,11 +23,9 @@ const motionVariants = {
 
 export default function Contact() {
     const { flash } = usePage<SharedData>().props
-    const [currentDay, setCurrentDay] = useState('')
-
-    useEffect(() => {
-        setCurrentDay(new Date().toLocaleDateString('en-GB', { weekday: 'long' }).toLowerCase())
-    }, [])
+    // Computed on the client only: the weekday depends on the visitor's clock,
+    // so rendering it during SSR would risk a hydration mismatch.
+    const currentDay = useIsClient() ? new Date().toLocaleDateString('en-GB', { weekday: 'long' }).toLowerCase() : ''
 
     return (
         <Layout className="contact">
@@ -78,49 +76,27 @@ export default function Contact() {
                                 <div className="d-flex">
                                     <div className="form__field">
                                         <label htmlFor="field_name">Name</label>
-                                        <input
-                                            name="name"
-                                            id="field_name"
-                                            type="text"
-                                            placeholder="John Doe"
-                                            required
-                                        />
+                                        <input name="name" id="field_name" type="text" placeholder="John Doe" required />
                                         <InputError className="mt-2" message={errors.name} />
                                     </div>
 
                                     <div className="form__field">
                                         <label htmlFor="field_email">Email</label>
-                                        <input
-                                            name="email"
-                                            id="field_email"
-                                            type="email"
-                                            placeholder="john@doe.com"
-                                            required
-                                        />
+                                        <input name="email" id="field_email" type="email" placeholder="john@doe.com" required />
                                         <InputError className="mt-2" message={errors.email} />
                                     </div>
                                 </div>
 
                                 <div className="form__field">
                                     <label htmlFor="field_message">Message</label>
-                                    <textarea
-                                        name="message"
-                                        id="field_message"
-                                        placeholder="Write me anything you want"
-                                        required
-                                    />
+                                    <textarea name="message" id="field_message" placeholder="Write me anything you want" required />
                                     <InputError className="mt-2" message={errors.message} />
                                 </div>
 
                                 <div className="d-flex">
                                     <div>
                                         <label htmlFor="privacy">
-                                            <input
-                                                name="privacy"
-                                                id="privacy"
-                                                type="checkbox"
-                                                required
-                                            />
+                                            <input name="privacy" id="privacy" type="checkbox" required />
                                             <span> Privacy</span>
                                         </label>
                                         <InputError className="mt-2" message={errors.privacy} />
@@ -144,4 +120,3 @@ export default function Contact() {
         </Layout>
     )
 }
-
