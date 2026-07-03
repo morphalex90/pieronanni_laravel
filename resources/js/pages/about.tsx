@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import Markdown from 'react-markdown'
 import { Meta } from '@/components/meta'
@@ -105,7 +105,7 @@ export default function About({ jobs }: { jobs: JobType[] }) {
             <h1 className="text-center">About Piero Nanni: Full-Stack Developer, London</h1>
 
             <div className="d-flex">
-                <motion.section
+                <m.section
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.3, delay: 0.1 }}
@@ -151,9 +151,9 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                             {jobs.length > 0 && jobs.map((job) => <JobDescription key={job.id} job={job} isActive={job.id === activeJob} />)}
                         </div>
                     </div>
-                </motion.section>
+                </m.section>
 
-                <motion.section initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.3 }}>
+                <m.section initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.3, delay: 0.3 }}>
                     <p>
                         From 2011 to 2015, I was part of an indie team based in Bologna, Italy (
                         <a
@@ -208,7 +208,7 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                         </a>
                         ) as a backend developer and started working on Worcester Bosch, a gigantic Laravel project.
                     </p>
-                </motion.section>
+                </m.section>
             </div>
         </Layout>
     )

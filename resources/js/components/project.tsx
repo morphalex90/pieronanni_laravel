@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import { useState } from 'react'
 
 import placeholder from '@/../img/placeholder.svg'
@@ -19,7 +19,7 @@ export default function Project({ project, delay }: { project: ProjectType; dela
 
     return (
         <>
-            <motion.div
+            <m.div
                 className="projects__single"
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -50,7 +50,7 @@ export default function Project({ project, delay }: { project: ProjectType; dela
                         })}
                     </div>
                 </div>
-            </motion.div>
+            </m.div>
 
             <Modal onClose={() => setModalShow(false)} show={modalShow} content={modalContent} />
         </>

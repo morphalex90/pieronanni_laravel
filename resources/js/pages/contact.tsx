@@ -1,5 +1,5 @@
 import { Form, usePage } from '@inertiajs/react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import InputError from '@/components/input-error'
 import { Meta } from '@/components/meta'
 import { useIsClient } from '@/hooks/use-is-client'
@@ -36,16 +36,16 @@ export default function Contact() {
             <h1 className="text-center">Contact Piero Nanni — Full-Stack Developer in London</h1>
 
             <div className="d-flex">
-                <motion.div
+                <m.div
                     initial={motionVariants.initial}
                     animate={motionVariants.animate}
                     transition={{ duration: ANIMATION_DURATION, delay: ANIMATION_DELAYS[0] }}
                 >
                     <p>While you&#39;ll be waiting for an answer, treat yourself with some good music from my personal playlist</p>
                     <p>Looking forward to hearing from you and have a wonderful {currentDay}!</p>
-                </motion.div>
+                </m.div>
 
-                <motion.div
+                <m.div
                     initial={motionVariants.initial}
                     animate={motionVariants.animate}
                     transition={{ duration: ANIMATION_DURATION, delay: ANIMATION_DELAYS[1] }}
@@ -61,9 +61,9 @@ export default function Contact() {
                         loading="lazy"
                         title="Spotify"
                     />
-                </motion.div>
+                </m.div>
 
-                <motion.div
+                <m.div
                     initial={motionVariants.initial}
                     animate={motionVariants.animate}
                     transition={{ duration: ANIMATION_DURATION, delay: ANIMATION_DELAYS[2] }}
@@ -113,7 +113,7 @@ export default function Contact() {
                             </>
                         )}
                     </Form>
-                </motion.div>
+                </m.div>
             </div>
         </Layout>
     )
