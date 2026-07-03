@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Observers\MediaObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Spatie\MediaLibrary\MediaCollections\Models\Media as BaseMedia;
 
 // https://github.com/spatie/laravel-medialibrary/issues/75
 
+#[ObservedBy(MediaObserver::class)]
 final class Media extends BaseMedia
 {
     /**
