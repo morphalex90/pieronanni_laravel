@@ -38,7 +38,12 @@
       "Bash(grep -rn 'mb_strlen\\($state\\)' /Users/pieronanni/Documents/GitHub/pieronanni_laravel/app)",
       "Bash(npx sass *)",
       "Bash(grep -A1 'nth-child\\(1\\)' __TRACKED_VAR__/synt-check.css)",
-      "Bash(grep animation-delay *)"
+      "Bash(grep animation-delay *)",
+      "Bash(curl -sS -o /tmp/prod.html -D - https://www.pieronanni.me/)",
+      "Read(//tmp/**)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -sSI \"https://www.pieronanni.me/img/background.webp\")",
+      "Bash(npx tsc *)"
     ]
   }
 }
