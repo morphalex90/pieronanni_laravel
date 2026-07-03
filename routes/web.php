@@ -17,7 +17,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/about', function () {
-    $jobs = Cache::rememberForever('jobs' . PurgeCache::VERSION, function () {
+    $jobs = Cache::remember('jobs' . PurgeCache::VERSION, PurgeCache::TTL, function () {
         return Job::orderBy('started_at', 'desc')->get();
     });
 
@@ -25,11 +25,11 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('/projects', function () {
-    $technologies = Cache::rememberForever('technologies' . PurgeCache::VERSION, function () {
+    $technologies = Cache::remember('technologies' . PurgeCache::VERSION, PurgeCache::TTL, function () {
         return Technology::orderBy('name')->get();
     });
 
-    $jobs = Cache::rememberForever('jobs_with_projects_technologies_and_media' . PurgeCache::VERSION, function () {
+    $jobs = Cache::remember('jobs_with_projects_technologies_and_media' . PurgeCache::VERSION, PurgeCache::TTL, function () {
         return Job::with('projects.technologies', 'projects.media')->orderBy('started_at', 'desc')->get();
     });
 

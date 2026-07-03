@@ -23,7 +23,7 @@ final class PDFController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        $jobs = Cache::rememberForever('jobs_with_projects_technologies' . PurgeCache::VERSION, function () {
+        $jobs = Cache::remember('jobs_with_projects_technologies' . PurgeCache::VERSION, PurgeCache::TTL, function () {
             return Job::with('projects.technologies')->orderBy('started_at', 'desc')->get();
         });
 
@@ -48,7 +48,7 @@ final class PDFController extends Controller
     {
         $stylesheet = (string) file_get_contents(public_path('css/cv.css'));
 
-        $jobs = Cache::rememberForever('jobs_with_projects_technologies' . PurgeCache::VERSION, function () {
+        $jobs = Cache::remember('jobs_with_projects_technologies' . PurgeCache::VERSION, PurgeCache::TTL, function () {
             return Job::with('projects.technologies')->orderBy('started_at', 'desc')->get();
         });
 
