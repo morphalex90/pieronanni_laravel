@@ -10,6 +10,8 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Storage;
@@ -22,6 +24,8 @@ use Intervention\Image\Laravel\Facades\Image;
 final class ImageController extends Controller
 {
     private const CACHE_DURATION = 31536000; // 1 year
+
+    private const QUALITY = 75;
 
     public function show(Request $request, string $path): Response
     {
@@ -36,59 +40,34 @@ final class ImageController extends Controller
             abort(404);
         }
 
-        try {
-            // Support both storage disk and direct URLs
-            if (Storage::exists($media->file_path ?? $media->file_name)) {
-                $image_content = Storage::get($media->file_path ?? $media->file_name);
-            } elseif (! empty($media->original_url)) {
-                $image_content = file_get_contents($media->original_url);
-            } else {
-                throw new Exception('No valid image source found');
-            }
+        $format = $this->determineFormat($request, $media);
 
-            if ($image_content === false || $image_content === null) {
-                throw new Exception('No valid image source found');
-            }
+        // Encoded output is immutable per (path, format) — cache it so we
+        // decode+re-encode once instead of on every request.
+        $cacheKey = "img:encoded:{$path}:{$format}";
 
+        [$output, $mime] = Cache::remember($cacheKey, self::CACHE_DURATION, function () use ($media, $path, $format) {
+            $image_content = $this->loadSource($media, $path);
             $image = Image::decode($image_content);
-        } catch (Exception $e) {
-            Log::error("Failed to load image: {$path}", ['exception' => $e->getMessage()]);
-            abort(404);
-        }
-
-        try {
-            $quality = 75; // Better quality
-            $format = $this->determineFormat($request, $media);
 
             [$mime, $encoder] = match ($format) {
                 'png' => ['image/png', new PngEncoder],
                 'gif' => ['image/gif', new GifEncoder],
-                'jpeg' => ['image/jpeg', new JpegEncoder(quality: $quality, strip: true)],
-                default => ['image/webp', new WebpEncoder(quality: $quality, strip: true)],
+                'jpeg' => ['image/jpeg', new JpegEncoder(quality: self::QUALITY, strip: true)],
+                default => ['image/webp', new WebpEncoder(quality: self::QUALITY, strip: true)],
             };
 
-            $output = (string) $image->encode($encoder);
-
-            return response($output, 200)
-                ->header('Content-Type', $mime)
-                ->header('Content-Length', (string) mb_strlen($output))
-                ->header('Cache-Control', 'public, max-age=' . self::CACHE_DURATION . ', immutable')
-                ->header('X-Content-Type-Options', 'nosniff');
-        } catch (Exception $e) {
-            Log::error("Failed to encode image: {$path}", ['exception' => $e->getMessage()]);
-
-            // Fallback to original image if encoding fails
             try {
-                return response($image_content, 200)
-                    ->header('Content-Type', $media->mime_type ?? 'application/octet-stream')
-                    ->header('Content-Length', (string) mb_strlen($image_content))
-                    ->header('Cache-Control', 'public, max-age=' . self::CACHE_DURATION . ', immutable')
-                    ->header('X-Content-Type-Options', 'nosniff');
-            } catch (Exception $fallbackError) {
-                Log::error("Fallback to original image failed: {$path}", ['exception' => $fallbackError->getMessage()]);
-                abort(500);
+                return [(string) $image->encode($encoder), $mime];
+            } catch (Exception $e) {
+                Log::error("Failed to encode image: {$path}", ['exception' => $e->getMessage()]);
+
+                // Fallback to original bytes if re-encoding fails.
+                return [$image_content, $media->mime_type ?? 'application/octet-stream'];
             }
-        }
+        });
+
+        return $this->imageResponse($output, $mime);
     }
 
     protected function ratelimit(Request $request, string $path): void
@@ -108,6 +87,42 @@ final class ImageController extends Controller
         }
     }
 
+    /**
+     * Load raw image bytes from the storage disk or the original URL.
+     */
+    private function loadSource(Media $media, string $path): string
+    {
+        $diskPath = $media->file_path ?? $media->file_name;
+
+        try {
+            if (Storage::exists($diskPath)) {
+                $content = Storage::get($diskPath);
+            } elseif (! empty($media->original_url)) {
+                $content = Http::timeout(5)->get($media->original_url)->throw()->body();
+            } else {
+                throw new Exception('No valid image source found');
+            }
+
+            if (empty($content)) {
+                throw new Exception('Empty image source');
+            }
+
+            return $content;
+        } catch (Exception $e) {
+            Log::error("Failed to load image: {$path}", ['exception' => $e->getMessage()]);
+            abort(404);
+        }
+    }
+
+    private function imageResponse(string $output, string $mime): Response
+    {
+        return response($output, 200)
+            ->header('Content-Type', $mime)
+            ->header('Content-Length', (string) mb_strlen($output, '8bit'))
+            ->header('Cache-Control', 'public, max-age=' . self::CACHE_DURATION . ', immutable')
+            ->header('X-Content-Type-Options', 'nosniff');
+    }
+
     private function determineFormat(Request $request, Media $media): string
     {
         // Check Accept header for WebP support
@@ -118,8 +133,9 @@ final class ImageController extends Controller
         // Fall back to original format if available
         if (! empty($media->mime_type)) {
             $ext = explode('/', $media->mime_type)[1] ?? '';
+            $ext = $ext === 'jpg' ? 'jpeg' : $ext; // normalize to encoder key
 
-            return in_array($ext, ['png', 'gif', 'jpeg', 'jpg', 'webp']) ? $ext : 'webp';
+            return in_array($ext, ['png', 'gif', 'jpeg', 'webp'], true) ? $ext : 'webp';
         }
 
         return 'webp';
