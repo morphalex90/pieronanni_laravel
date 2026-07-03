@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Actions\PurgeCache;
 use App\Models\Click;
 use App\Models\Job;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ final class PDFController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        $jobs = Cache::rememberForever('jobs_with_projects_technologies', function () {
+        $jobs = Cache::rememberForever('jobs_with_projects_technologies' . PurgeCache::VERSION, function () {
             return Job::with('projects.technologies')->orderBy('started_at', 'desc')->get();
         });
 
@@ -47,7 +48,7 @@ final class PDFController extends Controller
     {
         $stylesheet = (string) file_get_contents(public_path('css/cv.css'));
 
-        $jobs = Cache::rememberForever('jobs_with_projects_technologies', function () {
+        $jobs = Cache::rememberForever('jobs_with_projects_technologies' . PurgeCache::VERSION, function () {
             return Job::with('projects.technologies')->orderBy('started_at', 'desc')->get();
         });
 
@@ -74,7 +75,7 @@ final class PDFController extends Controller
         $mpdf->setFooter('{PAGENO}{nbpg}');
 
         $mpdf->WriteHTML($stylesheet, HTMLParserMode::HEADER_CSS);
-        $mpdf->WriteHTML($html, HTMLParserMode::HTML_BODY);
+        $mpdf->WriteHTML($html->render(), HTMLParserMode::HTML_BODY);
 
         $mpdf->Output('cv_piero_nanni.pdf', Destination::INLINE);
     }
