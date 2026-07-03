@@ -1,8 +1,8 @@
-import { type MouseEvent } from 'react'
+import type { MouseEvent } from 'react'
 import ReactDOM from 'react-dom'
 import Markdown from 'react-markdown'
 import { useIsClient } from '@/hooks/use-is-client'
-import { type ProjectType } from '@/types'
+import type { ProjectType } from '@/types'
 
 export default function Modal({ show, onClose, title, content }: { show: boolean; onClose: () => void; title?: string; content: ProjectType }) {
     const mounted = useIsClient()
@@ -13,7 +13,9 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
         }
     }
 
-    if (!mounted || !show || content == null) return null
+    if (!mounted || !show || content == null) {
+        return null
+    }
 
     return ReactDOM.createPortal(
         <div className="overlay" onClick={handleCloseClick}>

@@ -13,8 +13,6 @@
     <meta name="theme-color" content="#000000" />
     <link rel="preload" fetchpriority="high" href="/img/background.webp" as="image" type="image/webp" />
 
-    <title inertia>{{ config('app.name', 'Laravel') }}</title>
-
     @if(app()->environment('production'))
         <link rel="preconnect" href="https://plausible.morpheus90.com">
         <link rel="dns-prefetch" href="https://plausible.morpheus90.com">
@@ -30,11 +28,13 @@
 
     @viteReactRefresh
     @vite(['resources/js/app.tsx', "resources/js/pages/{$page['component']}.tsx"])
-    @inertiaHead
+    <x-inertia::head>
+        <title>{{ config('app.name', 'Laravel') }}</title>
+    </x-inertia::head>
 </head>
 
 <body class="font-sans antialiased">
-    @inertia
+    <x-inertia::app />
     <div id="modal-root"></div>
 </body>
 

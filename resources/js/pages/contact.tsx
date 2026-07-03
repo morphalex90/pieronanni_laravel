@@ -7,7 +7,7 @@ import { Layout } from '@/layouts/layout'
 import '../../css/_form.scss'
 import { contact } from '@/routes'
 import { store } from '@/routes/contact'
-import { type SharedData } from '@/types'
+import type { SharedData } from '@/types'
 
 const ANIMATION_DURATION = 0.3
 const ANIMATION_DELAYS = [0, 0.2, 0.4] as const

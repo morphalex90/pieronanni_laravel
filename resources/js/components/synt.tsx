@@ -4,15 +4,18 @@ export default function Synt() {
     const firstStep = 8
 
     const horizontalLines = []
+
     for (let i = 4; i >= 0.5; i = i - 0.5) {
         horizontalLines.push(i)
     }
 
     function translateAmount(n: number) {
         let total = 0
+
         for (let i = 1; i <= n; i++) {
             total = total + firstStep * 0.975 ** n
         }
+
         return total * 8
     }
 

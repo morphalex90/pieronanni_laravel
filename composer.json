@@ -10,31 +10,34 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
-        "filament/filament": "^5.1",
-        "filament/spatie-laravel-media-library-plugin": "^5.1",
-        "inertiajs/inertia-laravel": "^2.0",
-        "intervention/image-laravel": "^1.5",
-        "laravel/framework": "^12.0",
-        "laravel/wayfinder": "^0.1.9",
-        "league/flysystem-aws-s3-v3": "^3.31",
+        "filament/filament": "^5.6",
+        "filament/spatie-laravel-media-library-plugin": "^5.6",
+        "inertiajs/inertia-laravel": "^3.0",
+        "intervention/image-laravel": "^4.0",
+        "laravel/chisel": "^0.1.0",
+        "laravel/framework": "^13.17",
+        "laravel/tinker": "^3.0",
+        "laravel/wayfinder": "^0.1.14",
+        "league/flysystem-aws-s3-v3": "^3.35",
         "matomo/device-detector": "^6.5",
-        "mpdf/mpdf": "^8.2",
-        "sentry/sentry-laravel": "^4.20",
-        "spatie/browsershot": "^5.2",
-        "spatie/laravel-csp": "^3.22",
-        "spatie/laravel-google-fonts": "^1.4",
-        "spatie/laravel-markdown": "^2.7",
-        "technikermathe/blade-lucide-icons": "^3.137"
+        "mpdf/mpdf": "^8.3",
+        "sentry/sentry-laravel": "^4.26",
+        "spatie/browsershot": "^5.4",
+        "spatie/laravel-csp": "^3.26",
+        "spatie/laravel-google-fonts": "^1.6",
+        "spatie/laravel-markdown": "^2.8",
+        "technikermathe/blade-lucide-icons": "^3.158"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
+        "fakerphp/faker": "^1.24",
         "larastan/larastan": "^3.9",
-        "laravel/pail": "^1.2.2",
-        "laravel/pint": "^1.24",
+        "laravel/pail": "^1.2.5",
+        "laravel/pao": "^1.0.6",
+        "laravel/pint": "^1.27",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.6",
-        "pestphp/pest": "^4.3",
-        "pestphp/pest-plugin-laravel": "^4.0"
+        "nunomaduro/collision": "^8.9.3",
+        "pestphp/pest": "^4.7",
+        "pestphp/pest-plugin-laravel": "^4.1"
     },
     "autoload": {
         "psr-4": {
@@ -62,28 +65,33 @@
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
-        ],
-        "dev:ssr": [
-            "npm run build:ssr",
-            "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"php artisan inertia:start-ssr\" --names=server,queue,logs,ssr --kill-others"
+            "@php artisan dev"
         ],
         "lint": [
             "pint --parallel"
         ],
-        "test:lint": [
+        "lint:check": [
             "pint --parallel --test"
+        ],
+        "ci:check": [
+            "Composer\\Config::disableProcessTimeout",
+            "npm run lint:check",
+            "npm run format:check",
+            "npm run types:check",
+            "@test"
+        ],
+        "types:check": [
+            "phpstan analyse"
         ],
         "test": [
             "@php artisan config:clear --ansi",
-            "@test:lint",
+            "@lint:check",
+            "@types:check",
             "@php artisan test"
         ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi",
-            "@php artisan filament:upgrade"
+            "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
@@ -99,7 +107,10 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [],
+            "installer": {
+                "post-create-project": []
+            }
         }
     },
     "config": {

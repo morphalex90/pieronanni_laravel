@@ -1,25 +1,23 @@
 import { createInertiaApp } from '@inertiajs/react'
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
 import '../css/index.scss'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
-    resolve: (name) => resolvePageComponent(`./pages/${name}.tsx`, import.meta.glob('./pages/**/*.tsx')),
-    setup({ el, App, props }) {
-        const root = createRoot(el)
-
-        root.render(
-            <StrictMode>
-                <App {...props} />
-            </StrictMode>,
-        )
+    layout: (name) => {
+        switch (true) {
+            case name === 'welcome':
+                return null
+            default:
+                return null
+        }
+    },
+    strictMode: true,
+    withApp(app) {
+        return <>{app}</>
     },
     progress: {
         color: '#4B5563',
-        includeCSS: false,
     },
 })

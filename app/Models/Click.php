@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Observers\ClickObserver;
+use Database\Factories\ClickFactory;
 use DeviceDetector\DeviceDetector;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[ObservedBy(ClickObserver::class)]
 final class Click extends Model
 {
+    /** @use HasFactory<ClickFactory> */
     use HasFactory;
 
     public const UPDATED_AT = null;
@@ -29,6 +34,9 @@ final class Click extends Model
         'is_bot',
     ];
 
+    /**
+     * @return BelongsTo<Country, $this>
+     */
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
