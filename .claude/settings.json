@@ -29,7 +29,8 @@
       "Bash(php -r \"var_dump\\(function_exists\\('imagewebp'\\), function_exists\\('imagepng'\\), extension_loaded\\('gd'\\), extension_loaded\\('imagick'\\)\\);\")",
       "Bash(./vendor/bin/pest tests/Feature/ImageControllerTest.php)",
       "Bash(./vendor/bin/pint tests/Feature/ImageControllerTest.php)",
-      "Bash(./vendor/bin/pest)"
+      "Bash(./vendor/bin/pest)",
+      "Bash(./vendor/bin/pint --dirty -q)"
     ]
   }
 }

@@ -16,6 +16,13 @@ final class PurgeCache
     public const VERSION = ':v2';
 
     /**
+     * TTL (seconds) for cached model payloads. A bounded lifetime lets a bad
+     * fill (e.g. an empty collection cached during a deploy/replica-lag race)
+     * self-heal instead of being stuck forever, as it was under rememberForever.
+     */
+    public const TTL = 21600; // 6 hours
+
+    /**
      * @var list<string>
      */
     private const KEYS = [

@@ -17,20 +17,20 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/about', function () {
-    $jobs = Cache::rememberForever('jobs' . PurgeCache::VERSION, function () {
-        return Job::orderBy('started_at', 'desc')->get();
+    $jobs = Cache::remember('jobs' . PurgeCache::VERSION, PurgeCache::TTL, function () {
+        return Job::query()->orderBy('started_at', 'desc')->get();
     });
 
     return Inertia::render('about', ['jobs' => $jobs]);
 })->name('about');
 
 Route::get('/projects', function () {
-    $technologies = Cache::rememberForever('technologies' . PurgeCache::VERSION, function () {
-        return Technology::orderBy('name')->get();
+    $technologies = Cache::remember('technologies' . PurgeCache::VERSION, PurgeCache::TTL, function () {
+        return Technology::query()->orderBy('name')->get();
     });
 
-    $jobs = Cache::rememberForever('jobs_with_projects_technologies_and_media' . PurgeCache::VERSION, function () {
-        return Job::with('projects.technologies', 'projects.media')->orderBy('started_at', 'desc')->get();
+    $jobs = Cache::remember('jobs_with_projects_technologies_and_media' . PurgeCache::VERSION, PurgeCache::TTL, function () {
+        return Job::query()->with('projects.technologies', 'projects.media')->orderBy('started_at', 'desc')->get();
     });
 
     return Inertia::render('projects', ['technologies' => $technologies, 'allJobs' => $jobs]);
