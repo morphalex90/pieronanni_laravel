@@ -133,6 +133,14 @@ return [
     |
     */
 
-    'serializable_classes' => false,
+    'serializable_classes' => [
+        Illuminate\Database\Eloquent\Collection::class,
+        Illuminate\Database\Eloquent\Relations\Pivot::class,
+        Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection::class,
+        App\Models\Job::class,
+        App\Models\Project::class,
+        App\Models\Technology::class,
+        App\Models\Media::class,
+    ],
 
 ];

@@ -30,7 +30,11 @@
       "Bash(./vendor/bin/pest tests/Feature/ImageControllerTest.php)",
       "Bash(./vendor/bin/pint tests/Feature/ImageControllerTest.php)",
       "Bash(./vendor/bin/pest)",
-      "Bash(./vendor/bin/pint --dirty -q)"
+      "Bash(./vendor/bin/pint --dirty -q)",
+      "Bash(redis-cli ping *)",
+      "Bash(php -m)",
+      "Bash(grep -nA8 \"'redis'\")",
+      "Bash(php -i)"
     ]
   }
 }
