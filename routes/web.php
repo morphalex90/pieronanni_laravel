@@ -18,7 +18,7 @@ Route::get('/', function () {
 
 Route::get('/about', function () {
     $jobs = Cache::remember('jobs' . PurgeCache::VERSION, PurgeCache::TTL, function () {
-        return Job::orderBy('started_at', 'desc')->get();
+        return Job::query()->orderBy('started_at', 'desc')->get();
     });
 
     return Inertia::render('about', ['jobs' => $jobs]);
@@ -26,11 +26,11 @@ Route::get('/about', function () {
 
 Route::get('/projects', function () {
     $technologies = Cache::remember('technologies' . PurgeCache::VERSION, PurgeCache::TTL, function () {
-        return Technology::orderBy('name')->get();
+        return Technology::query()->orderBy('name')->get();
     });
 
     $jobs = Cache::remember('jobs_with_projects_technologies_and_media' . PurgeCache::VERSION, PurgeCache::TTL, function () {
-        return Job::with('projects.technologies', 'projects.media')->orderBy('started_at', 'desc')->get();
+        return Job::query()->with('projects.technologies', 'projects.media')->orderBy('started_at', 'desc')->get();
     });
 
     return Inertia::render('projects', ['technologies' => $technologies, 'allJobs' => $jobs]);
