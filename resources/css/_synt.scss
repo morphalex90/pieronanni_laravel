@@ -1,3 +1,16 @@
+@use 'sass:math';
+
+// Mirror of the old JS helpers, kept deterministic so transforms live in CSS.
+$first-step: 8;
+
+@function translate-amount($n) {
+    @return $first-step * math.pow(0.975, $n) * $n * 8;
+}
+
+@function turn-amount($n) {
+    @return -(0.25 * math.pow(0.65, $n) - 0.25);
+}
+
 .synt {
     position: fixed;
     top: 0;
@@ -45,6 +58,17 @@
 
                 height: 800px;
                 width: 0;
+
+                // 1..7 = left mirror (child 7..1), 8 = center, 9..15 = right mirror.
+                @for $n from 1 through 7 {
+                    &:nth-child(#{8 - $n}) {
+                        transform: translate(-#{translate-amount($n)}px, 0) rotate(#{turn-amount($n)}turn);
+                    }
+
+                    &:nth-child(#{8 + $n}) {
+                        transform: translate(#{translate-amount($n)}px, 0) rotate(-#{turn-amount($n)}turn);
+                    }
+                }
             }
 
             &__horizontal {
@@ -63,6 +87,13 @@
                 .homepage &,
                 .page-404 & {
                     animation-iteration-count: infinite;
+                }
+
+                // Delays 4s..0.5s down the stack (was style={{ animationDelay }}).
+                @for $i from 1 through 8 {
+                    &:nth-child(#{15 + $i}) {
+                        animation-delay: -#{4.5 - $i * 0.5}s;
+                    }
                 }
             }
         }
