@@ -19,7 +19,10 @@
       "Bash(./vendor/bin/phpstan analyse *)",
       "Bash(python3 -c ' *)",
       "Bash(composer show *)",
-      "Bash(composer dump-autoload *)"
+      "Bash(composer dump-autoload *)",
+      "Bash(grep -n \"title\\\\|->company\\\\|as \\\\$\" resources/views/pdf/cv-tailwind.blade.php)",
+      "Bash(git log *)",
+      "Bash(php artisan tinker '--execute= *)"
     ]
   }
 }

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Actions\PurgeCache;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PDFController;
@@ -16,7 +17,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/about', function () {
-    $jobs = Cache::rememberForever('jobs', function () {
+    $jobs = Cache::rememberForever('jobs' . PurgeCache::VERSION, function () {
         return Job::orderBy('started_at', 'desc')->get();
     });
 
@@ -24,11 +25,11 @@ Route::get('/about', function () {
 })->name('about');
 
 Route::get('/projects', function () {
-    $technologies = Cache::rememberForever('technologies', function () {
+    $technologies = Cache::rememberForever('technologies' . PurgeCache::VERSION, function () {
         return Technology::orderBy('name')->get();
     });
 
-    $jobs = Cache::rememberForever('jobs_with_projects_technologies_and_media', function () {
+    $jobs = Cache::rememberForever('jobs_with_projects_technologies_and_media' . PurgeCache::VERSION, function () {
         return Job::with('projects.technologies', 'projects.media')->orderBy('started_at', 'desc')->get();
     });
 
