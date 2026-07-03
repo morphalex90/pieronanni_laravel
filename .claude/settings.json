@@ -22,7 +22,14 @@
       "Bash(composer dump-autoload *)",
       "Bash(grep -n \"title\\\\|->company\\\\|as \\\\$\" resources/views/pdf/cv-tailwind.blade.php)",
       "Bash(git log *)",
-      "Bash(php artisan tinker '--execute= *)"
+      "Bash(php artisan tinker '--execute= *)",
+      "Bash(./vendor/bin/pint app/Http/Controllers/ImageController.php --test)",
+      "Bash(php -l app/Http/Controllers/ImageController.php)",
+      "Bash(./vendor/bin/pint app/Http/Controllers/ImageController.php)",
+      "Bash(php -r \"var_dump\\(function_exists\\('imagewebp'\\), function_exists\\('imagepng'\\), extension_loaded\\('gd'\\), extension_loaded\\('imagick'\\)\\);\")",
+      "Bash(./vendor/bin/pest tests/Feature/ImageControllerTest.php)",
+      "Bash(./vendor/bin/pint tests/Feature/ImageControllerTest.php)",
+      "Bash(./vendor/bin/pest)"
     ]
   }
 }
