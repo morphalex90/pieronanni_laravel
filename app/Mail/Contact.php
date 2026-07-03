@@ -17,8 +17,10 @@ final class Contact extends Mailable
 
     /**
      * Create a new message instance.
+     *
+     * @param  array<string, mixed>  $data
      */
-    public function __construct(public $data) {}
+    public function __construct(public array $data) {}
 
     /**
      * Get the message envelope.

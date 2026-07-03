@@ -24,6 +24,6 @@ if (! function_exists('parseMarkdownWithClasses')) {
             $li->setAttribute('class', $existing . ' text-sm text-[#1C1C1C] font-light');
         }
 
-        return $dom->saveHTML($dom->getElementsByTagName('div')->item(0));
+        return (string) $dom->saveHTML($dom->getElementsByTagName('div')->item(0));
     }
 }

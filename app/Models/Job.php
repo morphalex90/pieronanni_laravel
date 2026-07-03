@@ -5,14 +5,19 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Observers\JobObserver;
+use Database\Factories\JobFactory;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property array<string, mixed> $company
+ */
 #[ObservedBy(JobObserver::class)]
 final class Job extends Model
 {
+    /** @use HasFactory<JobFactory> */
     use HasFactory;
 
     public $timestamps = false;
@@ -43,6 +48,8 @@ final class Job extends Model
 
     /**
      * Get the projects associated with the job.
+     *
+     * @return HasMany<Project, $this>
      */
     public function projects(): HasMany
     {

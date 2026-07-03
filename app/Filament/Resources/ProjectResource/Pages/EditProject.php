@@ -17,7 +17,7 @@ final class EditProject extends EditRecord
         return true;
     }
 
-    public function getContentTabIcon(): ?string
+    public function getContentTabIcon(): string
     {
         return 'heroicon-m-cog';
     }

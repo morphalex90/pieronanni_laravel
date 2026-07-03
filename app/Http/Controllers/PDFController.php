@@ -16,14 +16,14 @@ use Spatie\Browsershot\Browsershot;
 
 final class PDFController extends Controller
 {
-    public function cv(Request $request)
+    public function cv(Request $request): \Illuminate\Http\Response
     {
         Click::create([
             'user_agent' => $request->userAgent(),
         ]);
 
         $jobs = Cache::rememberForever('jobs_with_projects_technologies', function () {
-            return Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
+            return Job::with('projects.technologies')->orderBy('started_at', 'desc')->get();
         });
 
         $html = view('pdf.cv-tailwind', ['jobs' => $jobs]);
@@ -45,10 +45,10 @@ final class PDFController extends Controller
 
     public function cvOld(): void
     {
-        $stylesheet = file_get_contents(public_path('css/cv.css'));
+        $stylesheet = (string) file_get_contents(public_path('css/cv.css'));
 
         $jobs = Cache::rememberForever('jobs_with_projects_technologies', function () {
-            return Job::with('projects.technologies')->orderBy('started_at', 'DESC')->get();
+            return Job::with('projects.technologies')->orderBy('started_at', 'desc')->get();
         });
 
         $html = view('pdf.cv-old', ['jobs' => $jobs]);
@@ -74,7 +74,7 @@ final class PDFController extends Controller
         $mpdf->setFooter('{PAGENO}{nbpg}');
 
         $mpdf->WriteHTML($stylesheet, HTMLParserMode::HEADER_CSS);
-        $mpdf->WriteHTML($html, HTMLParserMode::HTML_BODY);
+        $mpdf->WriteHTML($html->render(), HTMLParserMode::HTML_BODY);
 
         $mpdf->Output('cv_piero_nanni.pdf', Destination::INLINE);
     }

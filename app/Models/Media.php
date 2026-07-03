@@ -16,7 +16,7 @@ final class Media extends BaseMedia
     /**
      * All the relationships to be touched.
      *
-     * @var array
+     * @var list<string>
      */
     protected $touches = ['model'];
 

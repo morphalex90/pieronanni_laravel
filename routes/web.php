@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('/about', function () {
     $jobs = Cache::rememberForever('jobs', function () {
-        return Job::orderBy('started_at', 'DESC')->get();
+        return Job::orderBy('started_at', 'desc')->get();
     });
 
     return Inertia::render('about', ['jobs' => $jobs]);
@@ -29,7 +29,7 @@ Route::get('/projects', function () {
     });
 
     $jobs = Cache::rememberForever('jobs_with_projects_technologies_and_media', function () {
-        return Job::with('projects.technologies', 'projects.media')->orderBy('started_at', 'DESC')->get();
+        return Job::with('projects.technologies', 'projects.media')->orderBy('started_at', 'desc')->get();
     });
 
     return Inertia::render('projects', ['technologies' => $technologies, 'allJobs' => $jobs]);
