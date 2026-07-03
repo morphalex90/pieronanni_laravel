@@ -35,6 +35,16 @@ return [
             ],
         ],
         [
+            // SSR emits inline style="" attributes (React style={{}} props).
+            // Nonces cannot cover style attributes, only <style> elements,
+            // so inline styles require 'unsafe-inline'.
+            Directive::STYLE,
+            [
+                Keyword::SELF,
+                Keyword::UNSAFE_INLINE,
+            ],
+        ],
+        [
             Directive::FRAME,
             [
                 'https://open.spotify.com',
