@@ -19,7 +19,7 @@ use Spatie\Csp\Preset;
  * nonce is present in style-src the browser ignores 'unsafe-inline', so
  * nonce-ing style-src breaks every inline style. Script-src keeps its nonce.
  */
-class BasicWithoutStyleNonce implements Preset
+final class BasicWithoutStyleNonce implements Preset
 {
     public function configure(Policy $policy): void
     {
