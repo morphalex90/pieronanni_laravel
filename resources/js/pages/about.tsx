@@ -124,17 +124,19 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                         <h3 className="text-center">Jobs timeline</h3>
 
                         <div className="timeline__jobs">
-                            {jobs.map((job) => (
-                                <TimelineJobItem
-                                    key={job.id}
-                                    job={job}
-                                    isActive={job.id === activeJob}
-                                    startYear={START_YEAR}
-                                    totalYears={years.length}
-                                    currentYear={currentYear}
-                                    onSelect={setActiveJob}
-                                />
-                            ))}
+                            {jobs.length > 0 &&
+                                jobs.map((job) => (
+                                    <TimelineJobItem
+                                        key={job.id}
+                                        job={job}
+                                        isActive={job.id === activeJob}
+                                        startYear={START_YEAR}
+                                        totalYears={years.length}
+                                        currentYear={currentYear}
+                                        onSelect={setActiveJob}
+                                    />
+                                ))
+                            }
                         </div>
 
                         <div className="timeline__years">
@@ -144,9 +146,11 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                         </div>
 
                         <div className="timeline__descriptions">
-                            {jobs.map((job) => (
-                                <JobDescription key={job.id} job={job} isActive={job.id === activeJob} />
-                            ))}
+                            {jobs.length > 0 &&
+                                jobs.map((job) => (
+                                    <JobDescription key={job.id} job={job} isActive={job.id === activeJob} />
+                                ))
+                            }
                         </div>
                     </div>
                 </motion.section>
