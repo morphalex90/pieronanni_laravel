@@ -44,7 +44,7 @@ final class ProjectResource extends Resource
                 MarkdownEditor::make('description')
                     ->maxLength(2000)
                     ->required()
-                    ->hint(fn ($state, $component) => mb_strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->hint(fn ($state, $component) => mb_strlen($state ?? '') . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 TextInput::make('description_cv')->required()->maxLength(255),

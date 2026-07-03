@@ -39,13 +39,13 @@ final class JobResource extends Resource
                 MarkdownEditor::make('description')
                     ->maxLength(1000)
                     ->required()
-                    ->hint(fn ($state, $component) => mb_strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->hint(fn ($state, $component) => mb_strlen($state ?? '') . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 MarkdownEditor::make('description_cv')
                     ->maxLength(1000)
                     ->required()
-                    ->hint(fn ($state, $component) => mb_strlen($state) . '/' . $component->getMaxLength() . ' characters')
+                    ->hint(fn ($state, $component) => mb_strlen($state ?? '') . '/' . $component->getMaxLength() . ' characters')
                     ->lazy()
                     ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
                 DatePicker::make('started_at')->required(),
