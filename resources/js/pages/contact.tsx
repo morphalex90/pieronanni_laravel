@@ -13,8 +13,6 @@ const ANIMATION_DURATION = 0.3
 const ANIMATION_DELAYS = [0, 0.2, 0.4] as const
 const SPOTIFY_URL = 'https://open.spotify.com/embed/playlist/3SjvhmS9oUWxUZehcyhYrT?utm_source=generator&theme=1'
 const SPOTIFY_IFRAME_HEIGHT = 380
-const SPOTIFY_BORDER_RADIUS = 12
-const MESSAGE_MARGIN_TOP = 20
 
 const motionVariants = {
     initial: { y: 10, opacity: 0 },
@@ -53,7 +51,7 @@ export default function Contact() {
                     transition={{ duration: ANIMATION_DURATION, delay: ANIMATION_DELAYS[1] }}
                 >
                     <iframe
-                        style={{ borderRadius: SPOTIFY_BORDER_RADIUS }}
+                        className="contact__spotify"
                         src={SPOTIFY_URL}
                         width="100%"
                         height={SPOTIFY_IFRAME_HEIGHT}
@@ -108,7 +106,7 @@ export default function Contact() {
                                 </div>
 
                                 {recentlySuccessful && (flash.success || flash.error) && (
-                                    <p className="text-sm text-gray-600" style={{ marginTop: MESSAGE_MARGIN_TOP }}>
+                                    <p className="text-sm text-gray-600 contact__flash">
                                         {flash.success || flash.error}
                                     </p>
                                 )}

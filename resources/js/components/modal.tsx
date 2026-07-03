@@ -31,7 +31,7 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
                         <div>
                             <Markdown>{content.description}</Markdown>
 
-                            <div style={{ display: 'flex', gap: 10 }}>
+                            <div className="modal__actions">
                                 <a href={content.url} className="button" target="_blank">
                                     Visit site
                                 </a>

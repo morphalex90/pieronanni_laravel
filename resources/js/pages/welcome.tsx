@@ -27,8 +27,7 @@ export default function Homepage() {
                     initial={{ x: 50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.3, delay: 0.2 }}
-                    className="text-center"
-                    style={{ marginBottom: 20 }}
+                    className="text-center homepage__subtitle"
                 >
                     Full-stack Developer based in London
                 </motion.h2>
