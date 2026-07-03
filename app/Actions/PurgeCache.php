@@ -20,7 +20,7 @@ final class PurgeCache
      * fill (e.g. an empty collection cached during a deploy/replica-lag race)
      * self-heal instead of being stuck forever, as it was under rememberForever.
      */
-    public const TTL = 21600; // 6 hours
+    public const TTL = 2592000; // 1 month
 
     /**
      * @var list<string>
