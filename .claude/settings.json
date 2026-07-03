@@ -34,7 +34,8 @@
       "Bash(redis-cli ping *)",
       "Bash(php -m)",
       "Bash(grep -nA8 \"'redis'\")",
-      "Bash(php -i)"
+      "Bash(php -i)",
+      "Bash(grep -rn 'mb_strlen\\($state\\)' /Users/pieronanni/Documents/GitHub/pieronanni_laravel/app)"
     ]
   }
 }
