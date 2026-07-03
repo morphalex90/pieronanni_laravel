@@ -41,3 +41,13 @@
         }
     }
 }
+
+.contact {
+    &__spotify {
+        border-radius: 12px;
+    }
+
+    &__flash {
+        margin-top: 20px;
+    }
+}

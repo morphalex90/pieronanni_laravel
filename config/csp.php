@@ -12,7 +12,9 @@ return [
      * any class that implements `Spatie\Csp\Preset`
      */
     'presets' => [
-        Spatie\Csp\Presets\Basic::class,
+        // Basic, but without a nonce on style-src (nonces cannot cover inline
+        // style attributes; nonce + 'unsafe-inline' = inline styles blocked).
+        App\Support\Csp\BasicWithoutStyleNonce::class,
         Spatie\Csp\Presets\Sentry::class,
     ],
 
