@@ -74,7 +74,7 @@ final class PDFController extends Controller
         $mpdf->setFooter('{PAGENO}{nbpg}');
 
         $mpdf->WriteHTML($stylesheet, HTMLParserMode::HEADER_CSS);
-        $mpdf->WriteHTML($html->render(), HTMLParserMode::HTML_BODY);
+        $mpdf->WriteHTML($html, HTMLParserMode::HTML_BODY);
 
         $mpdf->Output('cv_piero_nanni.pdf', Destination::INLINE);
     }
