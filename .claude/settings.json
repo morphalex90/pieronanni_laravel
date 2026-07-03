@@ -43,7 +43,8 @@
       "Read(//tmp/**)",
       "Read(//private/tmp/**)",
       "Bash(curl -sSI \"https://www.pieronanni.me/img/background.webp\")",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(echo \"exit=$?\")"
     ]
   }
 }
