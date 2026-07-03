@@ -35,7 +35,10 @@
       "Bash(php -m)",
       "Bash(grep -nA8 \"'redis'\")",
       "Bash(php -i)",
-      "Bash(grep -rn 'mb_strlen\\($state\\)' /Users/pieronanni/Documents/GitHub/pieronanni_laravel/app)"
+      "Bash(grep -rn 'mb_strlen\\($state\\)' /Users/pieronanni/Documents/GitHub/pieronanni_laravel/app)",
+      "Bash(npx sass *)",
+      "Bash(grep -A1 'nth-child\\(1\\)' __TRACKED_VAR__/synt-check.css)",
+      "Bash(grep animation-delay *)"
     ]
   }
 }
