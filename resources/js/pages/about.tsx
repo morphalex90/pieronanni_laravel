@@ -6,7 +6,7 @@ import { Meta } from '@/components/meta'
 import { Layout } from '@/layouts/layout'
 import '../../css/_timeline.scss'
 import { about } from '@/routes'
-import { type JobType } from '@/types'
+import type { JobType } from '@/types'
 
 const START_YEAR = 2011
 
@@ -15,6 +15,7 @@ const generateYears = (from: number, to: number): number[] => Array.from({ lengt
 const getJobDateRange = (startDate: string, endDate: string | null, currentYear: number) => {
     const startYear = parseInt(startDate.substring(0, 4))
     const endYear = endDate ? parseInt(endDate.substring(0, 4)) : currentYear
+
     return { startYear, endYear }
 }
 
@@ -24,7 +25,9 @@ const formatJobDate = (date: string, endDate: string | null): string => {
         month: 'long',
     })
 
-    if (!endDate) return startFormatted
+    if (!endDate) {
+        return startFormatted
+    }
 
     const endFormatted = new Date(endDate).toLocaleDateString('en-GB', {
         year: 'numeric',
@@ -135,8 +138,7 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                                         currentYear={currentYear}
                                         onSelect={setActiveJob}
                                     />
-                                ))
-                            }
+                                ))}
                         </div>
 
                         <div className="timeline__years">
@@ -146,11 +148,7 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                         </div>
 
                         <div className="timeline__descriptions">
-                            {jobs.length > 0 &&
-                                jobs.map((job) => (
-                                    <JobDescription key={job.id} job={job} isActive={job.id === activeJob} />
-                                ))
-                            }
+                            {jobs.length > 0 && jobs.map((job) => <JobDescription key={job.id} job={job} isActive={job.id === activeJob} />)}
                         </div>
                     </div>
                 </motion.section>

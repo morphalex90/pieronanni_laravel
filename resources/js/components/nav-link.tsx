@@ -1,4 +1,5 @@
-import { type InertiaLinkProps, Link, usePage } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
+import type { InertiaLinkProps } from '@inertiajs/react'
 
 export default function NavLink({ active = false, children, ...props }: InertiaLinkProps & { active?: boolean }) {
     const { url } = usePage()

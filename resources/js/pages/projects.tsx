@@ -4,7 +4,7 @@ import { Meta } from '@/components/meta'
 import Project from '@/components/project'
 import { Layout } from '@/layouts/layout'
 import { projects } from '@/routes'
-import { type JobType, type ProjectType, type TechnologyType } from '@/types'
+import type { JobType, ProjectType, TechnologyType } from '@/types'
 
 import '../../css/_modal.scss'
 import '../../css/_projects.scss'
