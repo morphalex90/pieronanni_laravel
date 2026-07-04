@@ -45,7 +45,14 @@
       "Bash(curl -sSI \"https://www.pieronanni.me/img/background.webp\")",
       "Bash(npx tsc *)",
       "Bash(echo \"exit=$?\")",
-      "Bash(vendor/bin/pint app/Filament)"
+      "Bash(vendor/bin/pint app/Filament)",
+      "Bash(sort -k5 -n)",
+      "Bash(xargs ls -la)",
+      "Bash(node -e \"require\\('sharp'\\); console.log\\('sharp ok'\\)\")",
+      "Bash(magick identify *)",
+      "Bash(identify public/img/background.webp)",
+      "Bash(echo \"new: $\\(stat -f%z public/img/background.webp\\) bytes \\($\\(magick identify -format '%wx%h' public/img/background.webp\\)\\)\")",
+      "Bash(node -e ' *)"
     ]
   }
 }
