@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ContactResource\Pages;
 use App\Filament\Resources\ContactResource\Pages\ListContacts;
 use App\Models\Contact;
 use BackedEnum;
@@ -12,9 +11,9 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 final class ContactResource extends Resource
 {
@@ -41,12 +40,6 @@ final class ContactResource extends Resource
                 TextColumn::make('user_agent')->limit(50),
                 TextColumn::make('created_at')->since()->sortable()->dateTooltip(),
             ])
-            ->filters([
-                //
-            ])
-            ->recordActions([
-                // Tables\Actions\EditAction::make(),
-            ])
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
@@ -66,8 +59,11 @@ final class ContactResource extends Resource
     {
         return [
             'index' => ListContacts::route('/'),
-            // 'create' => Pages\CreateContact::route('/create'),
-            // 'edit' => Pages\EditContact::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with('country');
     }
 }

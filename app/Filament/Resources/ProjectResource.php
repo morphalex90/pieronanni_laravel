@@ -7,6 +7,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProjectResource\Pages\CreateProject;
 use App\Filament\Resources\ProjectResource\Pages\EditProject;
 use App\Filament\Resources\ProjectResource\Pages\ListProjects;
+use App\Filament\Support\Forms;
 use App\Models\Job;
 use App\Models\Project;
 use BackedEnum;
@@ -14,7 +15,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
@@ -41,12 +41,7 @@ final class ProjectResource extends Resource
                 TextInput::make('title')->required()->maxLength(255)->columnSpanFull(),
                 TextInput::make('url')->required()->url()->maxLength(255),
                 TextInput::make('github')->url()->maxLength(255)->nullable()->label('GitHub'),
-                MarkdownEditor::make('description')
-                    ->maxLength(2000)
-                    ->required()
-                    ->hint(fn ($state, $component) => mb_strlen($state ?? '') . '/' . $component->getMaxLength() . ' characters')
-                    ->lazy()
-                    ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
+                Forms::markdown('description', 2000),
                 TextInput::make('description_cv')->required()->maxLength(255),
                 DatePicker::make('published_at')->required(),
                 Select::make('job_id')->label('Job')
@@ -55,7 +50,7 @@ final class ProjectResource extends Resource
                         titleAttribute: 'title',
                         modifyQueryUsing: fn (Builder $query) => $query->orderBy('company'),
                     )
-                    ->getOptionLabelFromRecordUsing(fn (Job $user) => "{$user->company['name']} [{$user->title}]")
+                    ->getOptionLabelFromRecordUsing(fn (Job $job) => "{$job->company['name']} [{$job->title}]")
                     ->required()->searchable()->preload(),
                 Select::make('technologies')
                     ->multiple()
@@ -92,9 +87,6 @@ final class ProjectResource extends Resource
                 TextColumn::make('technologies.name')->searchable(isIndividual: true, isGlobal: false),
                 TextColumn::make('published_at')->since()->sortable()->dateTooltip(),
             ])
-            ->filters([
-                //
-            ])
             ->recordActions([
                 EditAction::make(),
             ])
@@ -124,6 +116,7 @@ final class ProjectResource extends Resource
     {
         return parent::getEloquentQuery()->with([
             'job',
+            'technologies',
         ]);
     }
 }

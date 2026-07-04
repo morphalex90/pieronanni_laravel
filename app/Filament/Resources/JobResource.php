@@ -8,13 +8,13 @@ use App\Filament\Resources\JobResource\Pages\CreateJob;
 use App\Filament\Resources\JobResource\Pages\EditJob;
 use App\Filament\Resources\JobResource\Pages\ListJobs;
 use App\Filament\Resources\JobResource\RelationManagers\ProjectsRelationManager;
+use App\Filament\Support\Forms;
 use App\Models\Job;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -36,18 +36,8 @@ final class JobResource extends Resource
                 TextInput::make('title')->required()->columnSpanFull(),
                 TextInput::make('company.name')->label('Company name')->required()->maxLength(100),
                 TextInput::make('company.url')->label('Company url')->required()->maxLength(155),
-                MarkdownEditor::make('description')
-                    ->maxLength(1000)
-                    ->required()
-                    ->hint(fn ($state, $component) => mb_strlen($state ?? '') . '/' . $component->getMaxLength() . ' characters')
-                    ->lazy()
-                    ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
-                MarkdownEditor::make('description_cv')
-                    ->maxLength(1000)
-                    ->required()
-                    ->hint(fn ($state, $component) => mb_strlen($state ?? '') . '/' . $component->getMaxLength() . ' characters')
-                    ->lazy()
-                    ->disableToolbarButtons(['attachFiles', 'codeBlock', 'heading', 'orderedList', 'table', 'blockquote', 'strike']),
+                Forms::markdown('description', 1000),
+                Forms::markdown('description_cv', 1000),
                 DatePicker::make('started_at')->required(),
                 DatePicker::make('ended_at')->nullable(),
                 TextInput::make('location')->required()->maxLength(255),
@@ -67,9 +57,6 @@ final class JobResource extends Resource
                 TextColumn::make('description_cv')->limit(50),
                 TextColumn::make('started_at')->since()->sortable()->dateTooltip(),
                 TextColumn::make('ended_at')->since()->sortable()->dateTooltip(),
-            ])
-            ->filters([
-                //
             ])
             ->recordActions([
                 EditAction::make(),

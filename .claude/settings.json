@@ -44,7 +44,8 @@
       "Read(//private/tmp/**)",
       "Bash(curl -sSI \"https://www.pieronanni.me/img/background.webp\")",
       "Bash(npx tsc *)",
-      "Bash(echo \"exit=$?\")"
+      "Bash(echo \"exit=$?\")",
+      "Bash(vendor/bin/pint app/Filament)"
     ]
   }
 }

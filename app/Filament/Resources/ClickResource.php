@@ -9,10 +9,10 @@ use App\Models\Click;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 final class ClickResource extends Resource
 {
@@ -37,17 +37,7 @@ final class ClickResource extends Resource
                 IconColumn::make('is_bot')->boolean(),
                 TextColumn::make('created_at')->since()->sortable()->dateTimeTooltip(),
             ])
-            ->filters([
-                //
-            ])
-            ->recordActions([
-                // Tables\Actions\EditAction::make(),
-            ])
-            ->toolbarActions([
-                // Tables\Actions\BulkActionGroup::make([
-                //     Tables\Actions\DeleteBulkAction::make(),
-                // ]),
-            ])->defaultSort('id', 'DESC');
+            ->defaultSort('id', 'DESC');
     }
 
     public static function getRelations(): array
@@ -62,5 +52,10 @@ final class ClickResource extends Resource
         return [
             'index' => ListClicks::route('/'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->with('country');
     }
 }
