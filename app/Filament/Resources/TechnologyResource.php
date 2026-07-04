@@ -42,9 +42,6 @@ final class TechnologyResource extends Resource
                 TextColumn::make('name')->sortable(),
                 TextColumn::make('key')->sortable(),
             ])
-            ->filters([
-                //
-            ])
             ->recordActions([
                 EditAction::make(),
             ])
