@@ -114,6 +114,11 @@ main {
     }
 }
 
+// Only ever focused programmatically via the skip link, so no ring needed
+#main-content:focus {
+    outline: none;
+}
+
 .content-wrapper {
     padding-top: 55px;
     flex: 1 1;

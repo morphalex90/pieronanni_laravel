@@ -50,16 +50,17 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
             {technologies.length > 0 && (
                 <div className="technologies">
                     {technologies.map((tech) => (
-                        <div
+                        <button
                             key={tech.key}
+                            type="button"
                             className={'technologies__single' + (activeTechnology === tech.key ? ' is-active' : '')}
                             onClick={() => handleTechnologyFilter(tech.key)}
                             aria-label={'Filter projects by ' + tech.name}
-                            role="button"
+                            aria-pressed={activeTechnology === tech.key}
                         >
                             {tech.key !== '*' && <Icon technology={tech.key} />}
                             <span>{tech.name}</span>
-                        </div>
+                        </button>
                     ))}
                 </div>
             )}
@@ -69,11 +70,11 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
                     <div key={job.id} className="jobs">
                         {job.projects.length > 0 && (
                             <>
-                                <h3 className="text-center">
+                                <h2 className="text-center">
                                     <a href={job.company.url} target="_blank" rel="noreferrer">
                                         {job.company.name}
                                     </a>
-                                </h3>
+                                </h2>
 
                                 <div className="projects">
                                     {job.projects.map((project: ProjectType, projectId: number) => (

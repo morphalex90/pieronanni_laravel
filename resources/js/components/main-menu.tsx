@@ -5,7 +5,7 @@ import NavLink from './nav-link'
 
 export default function MainMenu({ className, position = '' }: { className?: string; position: string }) {
     return (
-        <nav role="navigation" className={'main-menu ' + (position ? '--' + position : '') + (' ' + className)}>
+        <nav aria-label={position === 'header' ? 'Main' : 'Footer'} className={'main-menu ' + (position ? '--' + position : '') + (' ' + className)}>
             <ul id={position === 'header' ? 'main-menu' : ''}>
                 {position === 'header' && (
                     <li className="has-icon">
