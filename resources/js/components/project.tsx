@@ -19,7 +19,8 @@ export default function Project({ project, delay }: { project: ProjectType; dela
 
     return (
         <>
-            <m.div
+            <m.button
+                type="button"
                 className="projects__single"
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -29,9 +30,10 @@ export default function Project({ project, delay }: { project: ProjectType; dela
                     setModalContent(project)
                 }}
                 aria-label={'View project details for ' + project.title}
-                role="button"
+                aria-haspopup="dialog"
+                aria-expanded={modalShow}
             >
-                <div className="projects__single__image">
+                <span className="projects__single__image">
                     <img
                         src={project?.media?.[0] ? project.media[0].url : placeholder}
                         alt={project.title}
@@ -40,17 +42,17 @@ export default function Project({ project, delay }: { project: ProjectType; dela
                         height={200}
                         loading="lazy"
                     />
-                </div>
+                </span>
 
-                <div className="projects__single__content">
-                    <div className="projects__single__title">{project.title}</div>
-                    <div className="projects__single__tech">
+                <span className="projects__single__content">
+                    <span className="projects__single__title">{project.title}</span>
+                    <span className="projects__single__tech">
                         {project?.technologies?.map((tech: TechnologyType) => {
                             return <Icon key={tech.id} technology={tech.key} />
                         })}
-                    </div>
-                </div>
-            </m.div>
+                    </span>
+                </span>
+            </m.button>
 
             <Modal onClose={() => setModalShow(false)} show={modalShow} content={modalContent} />
         </>

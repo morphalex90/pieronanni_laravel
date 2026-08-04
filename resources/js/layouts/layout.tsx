@@ -13,10 +13,16 @@ export function Layout({ className = '', children }: { className: string; childr
 
     return (
         <>
+            <a href="#main-content" className="visually-hidden">
+                Skip to main content
+            </a>
             <Synt />
             <Header />
             <div className="content-wrapper">
-                <main id="main-content">{children}</main>
+                {/* tabIndex -1 so the skip link actually moves focus, not just the scroll position */}
+                <main id="main-content" tabIndex={-1}>
+                    {children}
+                </main>
             </div>
             <Footer />
         </>

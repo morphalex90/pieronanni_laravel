@@ -7,7 +7,12 @@
     &__jobs {
         margin-bottom: 10px;
 
-        div {
+        button {
+            appearance: none;
+            display: block;
+            font: inherit;
+            text-align: left;
+
             cursor: pointer;
             background-color: #ff1493;
             border: 1px solid #fff;
@@ -20,9 +25,10 @@
             width: calc(100% / var(--tot-years) * var(--unit-width));
             margin-left: calc(100% / var(--tot-years) * var(--unit-margin-left));
 
+            // #e00080 hits 4.68:1 on white; brand #ff1493 only reaches 3.63:1 (WCAG 1.4.3 AA needs 4.5:1)
             &.--active {
-                color: #ff1493;
-                border: 1px solid #ff1493;
+                color: #e00080;
+                border: 1px solid #e00080;
                 background-color: #fff;
             }
         }

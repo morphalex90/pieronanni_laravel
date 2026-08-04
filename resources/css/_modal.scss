@@ -22,8 +22,16 @@
         justify-content: space-between;
     }
 
+    // Demoted from h1 to h2 (the page already owns the h1) — restate the old h1 sizing
     &__title {
         margin-bottom: 0;
+        font-size: 28px;
+        text-align: left;
+
+        &::first-letter {
+            font-size: 30px;
+            color: #ff1493;
+        }
     }
 
     &__close {
@@ -32,8 +40,9 @@
         cursor: pointer;
         transition: all 0.4s;
 
+        // #e00080 hits 4.68:1 on the white modal; brand #ff1493 only reaches 3.63:1
         &:hover {
-            color: #ff1493;
+            color: #e00080;
         }
     }
 

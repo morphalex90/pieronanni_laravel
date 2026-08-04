@@ -58,9 +58,9 @@ const TimelineJobItem = ({ job, isActive, startYear, totalYears, currentYear, on
     } as React.CSSProperties
 
     return (
-        <div className={isActive ? '--active' : ''} style={customProperties} onClick={() => onSelect(job.id)} role="button" tabIndex={0}>
+        <button type="button" className={isActive ? '--active' : ''} style={customProperties} onClick={() => onSelect(job.id)} aria-pressed={isActive}>
             {job.company.name}
-        </div>
+        </button>
     )
 }
 
@@ -124,7 +124,7 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                     </p>
 
                     <div className="timeline">
-                        <h3 className="text-center">Jobs timeline</h3>
+                        <h2 className="text-center">Jobs timeline</h2>
 
                         <div className="timeline__jobs">
                             {jobs.length > 0 &&
