@@ -10,23 +10,28 @@
 </div>
 
 ## Locally install & run
+
 copy .env.example to .env and edit the necessary data
 
     composer install
     npm install
     php artisan storage:link
     composer run dev
-    
+
 then open http://localhost:8000
 
 ### Pint
+
     ./vendor/bin/pint --parallel
 
 ### Larastan
+
     ./vendor/bin/phpstan analyse
 
 ### Rector
+
     ./vendor/bin/rector
 
 ### Create model with migration, controller, resource and factory
+
     php artisan make:model Post -mcrf

@@ -8,7 +8,7 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
 // stay out of the initial bundle. Components use the lightweight `m` proxy.
 const loadFeatures = () => import('@/lib/motion-features').then((mod) => mod.default)
 
-createInertiaApp({
+void createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
     layout: (name) => {
         switch (true) {

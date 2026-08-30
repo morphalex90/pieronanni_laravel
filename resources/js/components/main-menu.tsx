@@ -3,7 +3,7 @@ import '../../css/_main-menu.scss'
 import { about, contact, cv, home, projects } from '@/routes'
 import NavLink from './nav-link'
 
-export default function MainMenu({ className, position = '' }: { className?: string; position: string }) {
+export default function MainMenu({ className = '', position }: { className?: string; position: string }) {
     return (
         <nav aria-label={position === 'header' ? 'Main' : 'Footer'} className={'main-menu ' + (position ? '--' + position : '') + (' ' + className)}>
             <ul id={position === 'header' ? 'main-menu' : ''}>

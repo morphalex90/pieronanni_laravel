@@ -58,7 +58,13 @@ const TimelineJobItem = ({ job, isActive, startYear, totalYears, currentYear, on
     } as React.CSSProperties
 
     return (
-        <button type="button" className={isActive ? '--active' : ''} style={customProperties} onClick={() => onSelect(job.id)} aria-pressed={isActive}>
+        <button
+            type="button"
+            className={isActive ? '--active' : ''}
+            style={customProperties}
+            onClick={() => onSelect(job.id)}
+            aria-pressed={isActive}
+        >
             {job.company.name}
         </button>
     )
