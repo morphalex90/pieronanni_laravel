@@ -106,9 +106,7 @@ export default function Contact() {
                                 </div>
 
                                 {recentlySuccessful && (flash.success || flash.error) && (
-                                    <p className="text-sm text-gray-600 contact__flash">
-                                        {flash.success || flash.error}
-                                    </p>
+                                    <p className="contact__flash text-sm text-gray-600">{flash.success || flash.error}</p>
                                 )}
                             </>
                         )}

@@ -1,10 +1,10 @@
-import inertia from '@inertiajs/vite';
-import { wayfinder } from '@laravel/vite-plugin-wayfinder';
-import babel from '@rolldown/plugin-babel';
-import tailwindcss from '@tailwindcss/vite';
-import react, { reactCompilerPreset } from '@vitejs/plugin-react';
-import laravel from 'laravel-vite-plugin';
-import { defineConfig, lazyPlugins } from 'vite-plus';
+import inertia from '@inertiajs/vite'
+import { wayfinder } from '@laravel/vite-plugin-wayfinder'
+import babel from '@rolldown/plugin-babel'
+import tailwindcss from '@tailwindcss/vite'
+import react, { reactCompilerPreset } from '@vitejs/plugin-react'
+import laravel from 'laravel-vite-plugin'
+import { defineConfig, lazyPlugins } from 'vite-plus'
 
 export default defineConfig({
     plugins: lazyPlugins(() => [
@@ -28,13 +28,7 @@ export default defineConfig({
     ]),
     server: {
         watch: {
-            ignored: [
-                '**/.agents/**',
-                '**/.claude/**',
-                '**/.cursor/**',
-                '**/.junie/**',
-                '**/vendor/**',
-            ],
+            ignored: ['**/.agents/**', '**/.claude/**', '**/.cursor/**', '**/.junie/**', '**/vendor/**'],
         },
     },
     lint: {
@@ -57,19 +51,14 @@ export default defineConfig({
     fmt: {
         printWidth: 150,
         tabWidth: 4,
-        singleQuote: false,
-        semi: true,
+        singleQuote: true,
+        semi: false,
         singleAttributePerLine: false,
         htmlWhitespaceSensitivity: 'css',
-        ignorePatterns: [
-            '.github/**',
-            'composer.json',
-            'resources/js/components/ui/*',
-            'resources/views/mail/*',
-        ],
+        ignorePatterns: ['.github/**', 'composer.json', 'resources/js/components/ui/*', 'resources/views/mail/*'],
         sortTailwindcss: {
             functions: ['clsx', 'cn', 'cva'],
             entryPoint: 'resources/css/app.css',
         },
     },
-});
+})
