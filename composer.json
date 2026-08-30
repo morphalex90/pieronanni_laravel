@@ -10,10 +10,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
-        "filament/filament": "^5.6",
-        "filament/spatie-laravel-media-library-plugin": "^5.6",
+        "filament/filament": "^5.7",
+        "filament/spatie-laravel-media-library-plugin": "^5.7",
         "inertiajs/inertia-laravel": "^3.0",
-        "intervention/image-laravel": "^4.0",
+        "intervention/image-laravel": "^4.1",
         "laravel/chisel": "^0.1.0",
         "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0",
@@ -21,23 +21,24 @@
         "league/flysystem-aws-s3-v3": "^3.35",
         "matomo/device-detector": "^6.5",
         "mpdf/mpdf": "^8.3",
-        "sentry/sentry-laravel": "^4.26",
+        "sentry/sentry-laravel": "^4.27",
         "spatie/browsershot": "^5.4",
-        "spatie/laravel-csp": "^3.26",
-        "spatie/laravel-google-fonts": "^1.6",
+        "spatie/laravel-csp": "^3.27",
+        "spatie/laravel-google-fonts": "^1.7",
         "spatie/laravel-markdown": "^2.8",
-        "technikermathe/blade-lucide-icons": "^3.158"
+        "technikermathe/blade-lucide-icons": "^3.171"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",
         "larastan/larastan": "^3.9",
+        "laravel/boost": "^2.2",
         "laravel/pail": "^1.2.5",
         "laravel/pao": "^1.0.6",
         "laravel/pint": "^1.27",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.9.3",
-        "pestphp/pest": "^4.7",
-        "pestphp/pest-plugin-laravel": "^4.1"
+        "pestphp/pest": "^5.1",
+        "pestphp/pest-plugin-laravel": "^5.0"
     },
     "autoload": {
         "psr-4": {
@@ -75,8 +76,7 @@
         ],
         "ci:check": [
             "Composer\\Config::disableProcessTimeout",
-            "npm run lint:check",
-            "npm run format:check",
+            "npm run check",
             "npm run types:check",
             "@test"
         ],
@@ -95,7 +95,8 @@
             "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
-            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan boost:update --ansi"
         ],
         "post-root-package-install": [
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
@@ -104,6 +105,9 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "pre-package-uninstall": [
+            "Illuminate\\Foundation\\ComposerScripts::prePackageUninstall"
         ]
     },
     "extra": {
