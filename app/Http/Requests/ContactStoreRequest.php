@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Rules\Recaptcha;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 final class ContactStoreRequest extends FormRequest
 {
@@ -29,6 +31,11 @@ final class ContactStoreRequest extends FormRequest
             'email' => ['required', 'string', 'max:255', 'email'],
             'message' => ['required', 'string', 'max:1000'],
             'privacy' => ['accepted'],
+            'recaptcha_token' => [
+                Rule::requiredIf(fn (): bool => filled(config('services.recaptcha.secret'))),
+                'string',
+                new Recaptcha('contact'),
+            ],
         ];
     }
 }

@@ -16,6 +16,12 @@ return [
     |
     */
 
+    'recaptcha' => [
+        'site_key' => env('VITE_RECAPTCHA_SITE_KEY'),
+        'secret' => env('RECAPTCHA_SECRET_KEY'),
+        'min_score' => env('RECAPTCHA_MIN_SCORE', 0.5),
+    ],
+
     'postmark' => [
         'key' => env('POSTMARK_API_KEY'),
     ],
