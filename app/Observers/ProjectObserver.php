@@ -16,12 +16,12 @@ final class ProjectObserver
 
     public function created(): void
     {
-        PurgeCache::handle();
+        PurgeCache::handle(Project::class);
     }
 
     public function updated(): void
     {
-        PurgeCache::handle();
+        PurgeCache::handle(Project::class);
     }
 
     public function deleting(Project $project): void
@@ -32,6 +32,6 @@ final class ProjectObserver
 
     public function deleted(): void
     {
-        PurgeCache::handle();
+        PurgeCache::handle(Project::class);
     }
 }

@@ -12,12 +12,12 @@
         </div>
 
         <div class="col-6 text-right">
-            <div>London, UK {!! file_get_contents('svg/location.svg') !!}</div>
-            <div>+44 7724 146851 {!! file_get_contents('svg/call.svg') !!}</div>
+            <div>London, UK {!! file_get_contents(public_path('svg/location.svg')) !!}</div>
+            <div>+44 7724 146851 {!! file_get_contents(public_path('svg/call.svg')) !!}</div>
             <div><a href="mailto:piero.nanni@gmail.com">piero.nanni@gmail.com</a>
-                {!! file_get_contents('svg/mail.svg') !!}</div>
+                {!! file_get_contents(public_path('svg/mail.svg')) !!}</div>
             <div><a href="https://github.com/morphalex90">github.com/morphalex90</a>
-                {!! file_get_contents('svg/github.svg') !!}</div>
+                {!! file_get_contents(public_path('svg/github.svg')) !!}</div>
         </div>
     </div>
 
@@ -59,11 +59,14 @@
                                 <li>
                                     @if (count($project->technologies) > 0)
                                         @foreach ($project->technologies as $tech)
-                                            {!! file_get_contents('svg/' . $tech->key . '.svg') !!}
+                                            @php($techIcon = public_path('svg/' . $tech->key . '.svg'))
+                                            @if (file_exists($techIcon))
+                                                {!! file_get_contents($techIcon) !!}
+                                            @endif
                                         @endforeach
                                         {{-- @else
                                         <div style="height:10px; width:5%; float:left;">
-                                            {!! file_get_contents('svg/placeholder.svg') !!}
+                                            {!! file_get_contents(public_path('svg/placeholder.svg')) !!}
                                         </div> --}}
                                     @endif
 

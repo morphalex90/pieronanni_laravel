@@ -36,6 +36,16 @@ final class UserFactory extends Factory
     }
 
     /**
+     * A user whose email satisfies User::canAccessPanel() for the admin panel.
+     */
+    public function panelUser(): static
+    {
+        return $this->state(fn (array $attributes): array => [
+            'email' => fake()->unique()->userName() . '@gmail.com',
+        ]);
+    }
+
+    /**
      * Indicate that the model's email address should be unverified.
      */
     public function unverified(): static

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\ImageController;
 use App\Models\Media;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -148,20 +148,35 @@ it('serves an unknown mime type as webp', function (): void {
         ->assertHeader('Content-Type', 'image/webp');
 });
 
-it('caches the encoded output and reuses it after the source is deleted', function (): void {
+it('stores the encoded output on disk and reuses it after the source is deleted', function (): void {
     makeMedia('photo.png', 'image/png', imageBytes('png'));
 
     $this->get(route('image.show', ['path' => 'photo.png']), ['Accept' => 'image/webp'])
         ->assertOk();
 
-    expect(Cache::has('img:encoded:photo.png:webp'))->toBeTrue();
+    $cachePath = ImageController::CACHE_DIRECTORY . '/' . hash('xxh128', 'photo.png:webp');
 
-    // Remove the source; the cached encode must still serve.
+    Storage::assertExists($cachePath);
+
+    // Remove the source; the stored encode must still serve.
     Storage::delete('photo.png');
 
     $this->get(route('image.show', ['path' => 'photo.png']), ['Accept' => 'image/webp'])
         ->assertOk()
         ->assertHeader('Content-Type', 'image/webp');
+});
+
+it('purges the encoded output when media changes', function (): void {
+    $media = makeMedia('photo.png', 'image/png', imageBytes('png'));
+
+    $this->get(route('image.show', ['path' => 'photo.png']), ['Accept' => 'image/webp'])
+        ->assertOk();
+
+    Storage::assertExists(ImageController::CACHE_DIRECTORY . '/' . hash('xxh128', 'photo.png:webp'));
+
+    $media->delete();
+
+    Storage::assertMissing(ImageController::CACHE_DIRECTORY . '/' . hash('xxh128', 'photo.png:webp'));
 });
 
 it('does not rate limit outside production', function (): void {

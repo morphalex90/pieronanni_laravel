@@ -13,6 +13,10 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
+        // Page assertions target the Inertia payload, not the built bundle, so
+        // the suite does not depend on a fresh `npm run build`.
+        $this->withoutVite();
+
         Http::fake([
             'https://fonts.googleapis.com/*' => Http::response('', 200),
         ]);

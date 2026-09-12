@@ -10,7 +10,6 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
@@ -23,9 +22,25 @@ use Intervention\Image\Laravel\Facades\Image;
 
 final class ImageController extends Controller
 {
+    /**
+     * Disk directory holding re-encoded image bytes. These are large binary
+     * blobs with a one-year lifetime, so they live on a filesystem disk rather
+     * than in the shared cache store, where they would crowd out ordinary keys.
+     */
+    public const CACHE_DIRECTORY = 'image-cache';
+
     private const CACHE_DURATION = 31536000; // 1 year
 
     private const QUALITY = 75;
+
+    /**
+     * Remove every re-encoded image blob. Called when media changes, since the
+     * stored bytes are keyed by file name and format, not by media version.
+     */
+    public static function purgeEncodedCache(): void
+    {
+        Storage::deleteDirectory(self::CACHE_DIRECTORY);
+    }
 
     public function show(Request $request, string $path): Response
     {
@@ -33,39 +48,36 @@ final class ImageController extends Controller
             $this->ratelimit($request, $path);
         }
 
-        try {
-            $media = Media::where('file_name', $path)->firstOrFail();
-        } catch (Exception $e) {
-            Log::warning("Media not found: {$path}", ['exception' => $e->getMessage()]);
+        $media = Media::query()->where('file_name', $path)->first();
+
+        if ($media === null) {
+            Log::warning("Media not found: {$path}");
             abort(404);
         }
 
         $format = $this->determineFormat($request, $media);
+        [$mime, $encoder] = $this->encoderFor($format);
 
-        // Encoded output is immutable per (path, format) — cache it so we
+        // Encoded output is immutable per (path, format) — store it so we
         // decode+re-encode once instead of on every request.
-        $cacheKey = "img:encoded:{$path}:{$format}";
+        $cachePath = self::CACHE_DIRECTORY . '/' . hash('xxh128', $path . ':' . $format);
 
-        [$output, $mime] = Cache::remember($cacheKey, self::CACHE_DURATION, function () use ($media, $path, $format) {
-            $image_content = $this->loadSource($media, $path);
-            $image = Image::decode($image_content);
+        $output = Storage::exists($cachePath) ? Storage::get($cachePath) : null;
 
-            [$mime, $encoder] = match ($format) {
-                'png' => ['image/png', new PngEncoder],
-                'gif' => ['image/gif', new GifEncoder],
-                'jpeg' => ['image/jpeg', new JpegEncoder(quality: self::QUALITY, strip: true)],
-                default => ['image/webp', new WebpEncoder(quality: self::QUALITY, strip: true)],
-            };
+        if ($output === null || $output === '') {
+            $imageContent = $this->loadSource($media, $path);
 
             try {
-                return [(string) $image->encode($encoder), $mime];
+                $output = (string) Image::decode($imageContent)->encode($encoder);
             } catch (Exception $e) {
                 Log::error("Failed to encode image: {$path}", ['exception' => $e->getMessage()]);
 
                 // Fallback to original bytes if re-encoding fails.
-                return [$image_content, $media->mime_type ?? 'application/octet-stream'];
+                return $this->imageResponse($imageContent, $media->mime_type ?? 'application/octet-stream');
             }
-        });
+
+            Storage::put($cachePath, $output);
+        }
 
         return $this->imageResponse($output, $mime);
     }
@@ -121,6 +133,19 @@ final class ImageController extends Controller
             ->header('Content-Length', (string) mb_strlen($output, '8bit'))
             ->header('Cache-Control', 'public, max-age=' . self::CACHE_DURATION . ', immutable')
             ->header('X-Content-Type-Options', 'nosniff');
+    }
+
+    /**
+     * @return array{0: string, 1: GifEncoder|JpegEncoder|PngEncoder|WebpEncoder}
+     */
+    private function encoderFor(string $format): array
+    {
+        return match ($format) {
+            'png' => ['image/png', new PngEncoder],
+            'gif' => ['image/gif', new GifEncoder],
+            'jpeg' => ['image/jpeg', new JpegEncoder(quality: self::QUALITY, strip: true)],
+            default => ['image/webp', new WebpEncoder(quality: self::QUALITY, strip: true)],
+        };
     }
 
     private function determineFormat(Request $request, Media $media): string
