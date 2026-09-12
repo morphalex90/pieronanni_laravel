@@ -1,0 +1,18 @@
+# Piero Nanni
+
+> Piero Nanni is a full-stack web developer based in London, with 10 years of experience across London and Bologna, specialising in Laravel, React, WordPress and Drupal.
+
+Personal portfolio site of Piero Nanni. It lists work history, 30+ web projects and the technologies used to build them, plus a downloadable CV and a contact form.
+
+## Pages
+
+- [Home](https://www.pieronanni.me): Introduction to Piero Nanni, full-stack developer specialising in Laravel and React.
+- [About](https://www.pieronanni.me/about): Career timeline with roles, employers and dates across London and Bologna.
+- [Projects](https://www.pieronanni.me/projects): Portfolio of 30+ projects grouped by employer, each with the technologies used.
+- [Contact](https://www.pieronanni.me/contact): Contact form for work enquiries.
+
+## Resources
+
+- [CV](https://www.pieronanni.me/cv): Current CV, generated as a PDF.
+- [GitHub](https://github.com/morphalex90): Open source work, including the source of this site.
+- [Sitemap](https://www.pieronanni.me/sitemap.xml): Full list of indexable URLs.
