@@ -19,7 +19,7 @@ final class ContactController extends Controller
      */
     public function store(ContactStoreRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
+        $validated = $request->safe()->except('recaptcha_token');
 
         Contact::create($validated + [
             'ip_address' => $request->ip(),

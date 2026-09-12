@@ -28,12 +28,17 @@ return [
                 Keyword::UNSAFE_EVAL,
                 Keyword::UNSAFE_INLINE,
                 'https://plausible.morpheus90.com',
+                // reCAPTCHA v3 loader and its worker bundle.
+                'https://www.google.com',
+                'https://www.gstatic.com',
             ],
         ],
         [
             Directive::CONNECT,
             [
                 'https://plausible.morpheus90.com',
+                'https://www.google.com',
+                'https://www.gstatic.com',
             ],
         ],
         [
@@ -50,6 +55,8 @@ return [
             Directive::FRAME,
             [
                 'https://open.spotify.com',
+                // reCAPTCHA renders its challenge and badge in an iframe.
+                'https://www.google.com',
             ],
         ],
         [

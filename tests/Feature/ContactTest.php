@@ -4,11 +4,25 @@ declare(strict_types=1);
 
 use App\Mail\Contact as MailContact;
 use App\Models\Contact;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 beforeEach(function () {
     Mail::fake();
 });
+
+function fakeRecaptcha(array $payload = []): void
+{
+    config()->set('services.recaptcha.secret', 'test-secret');
+
+    Http::fake([
+        'https://www.google.com/recaptcha/api/siteverify' => Http::response(array_merge([
+            'success' => true,
+            'action' => 'contact',
+            'score' => 0.9,
+        ], $payload)),
+    ]);
+}
 
 function contactPayload(array $overrides = []): array
 {
@@ -89,3 +103,49 @@ it('throttles repeated contact submissions from the same address', function () {
 
     expect(Contact::count())->toBe(5);
 });
+
+it('accepts a submission with a valid reCAPTCHA token', function () {
+    fakeRecaptcha();
+
+    $response = $this->post(route('contact.store'), contactPayload([
+        'recaptcha_token' => 'token-from-google',
+    ]));
+
+    $response->assertSessionHasNoErrors();
+
+    expect(Contact::count())->toBe(1);
+
+    Mail::assertQueued(MailContact::class, function (MailContact $mail) {
+        expect($mail->data)->not->toHaveKey('recaptcha_token');
+
+        return true;
+    });
+
+    Http::assertSent(fn ($request) => $request['secret'] === 'test-secret'
+        && $request['response'] === 'token-from-google');
+});
+
+it('rejects a submission when reCAPTCHA is configured but no token is sent', function () {
+    fakeRecaptcha();
+
+    $this->post(route('contact.store'), contactPayload())
+        ->assertSessionHasErrors('recaptcha_token');
+
+    expect(Contact::count())->toBe(0);
+    Mail::assertNothingQueued();
+});
+
+it('rejects a submission when reCAPTCHA verification fails', function (array $payload) {
+    fakeRecaptcha($payload);
+
+    $this->post(route('contact.store'), contactPayload([
+        'recaptcha_token' => 'token-from-google',
+    ]))->assertSessionHasErrors('recaptcha_token');
+
+    expect(Contact::count())->toBe(0);
+    Mail::assertNothingQueued();
+})->with([
+    'unsuccessful verification' => [['success' => false]],
+    'score below the threshold' => [['score' => 0.1]],
+    'action mismatch' => [['action' => 'login']],
+]);

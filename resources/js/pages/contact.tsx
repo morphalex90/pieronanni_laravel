@@ -1,8 +1,11 @@
+import type { FormComponentRef } from '@inertiajs/core'
 import { Form, usePage } from '@inertiajs/react'
 import { m } from 'framer-motion'
+import { type MouseEvent, useCallback, useRef, useState } from 'react'
 import InputError from '@/components/input-error'
 import { Meta } from '@/components/meta'
 import { useIsClient } from '@/hooks/use-is-client'
+import { useRecaptcha } from '@/hooks/use-recaptcha'
 import { Layout } from '@/layouts/layout'
 import '../../css/_form.scss'
 import { contact } from '@/routes'
@@ -13,6 +16,7 @@ const ANIMATION_DURATION = 0.3
 const ANIMATION_DELAYS = [0, 0.2, 0.4] as const
 const SPOTIFY_URL = 'https://open.spotify.com/embed/playlist/3SjvhmS9oUWxUZehcyhYrT?utm_source=generator&theme=1'
 const SPOTIFY_IFRAME_HEIGHT = 380
+const RECAPTCHA_ACTION = 'contact'
 
 const motionVariants = {
     initial: { y: 10, opacity: 0 },
@@ -24,6 +28,37 @@ export default function Contact() {
     // Computed on the client only: the weekday depends on the visitor's clock,
     // so rendering it during SSR would risk a hydration mismatch.
     const currentDay = useIsClient() ? new Date().toLocaleDateString('en-GB', { weekday: 'long' }).toLowerCase() : ''
+
+    const executeRecaptcha = useRecaptcha(RECAPTCHA_ACTION)
+    const formRef = useRef<FormComponentRef>(null)
+    const recaptchaTokenRef = useRef('')
+    const [recaptchaError, setRecaptchaError] = useState('')
+
+    // The token is fetched asynchronously, which the <Form> submit event
+    // cannot await, so the button drives the submission itself: validate the
+    // fields natively, resolve a fresh token, then submit programmatically.
+    const submitWithRecaptcha = useCallback(
+        async (event: MouseEvent<HTMLButtonElement>) => {
+            const formElement = event.currentTarget.form
+
+            if (formElement && !formElement.reportValidity()) {
+                return
+            }
+
+            setRecaptchaError('')
+
+            try {
+                recaptchaTokenRef.current = await executeRecaptcha()
+            } catch {
+                setRecaptchaError('The captcha could not be loaded. Please refresh the page and try again.')
+
+                return
+            }
+
+            formRef.current?.submit()
+        },
+        [executeRecaptcha],
+    )
 
     return (
         <Layout className="contact">
@@ -68,7 +103,14 @@ export default function Contact() {
                     animate={motionVariants.animate}
                     transition={{ duration: ANIMATION_DURATION, delay: ANIMATION_DELAYS[2] }}
                 >
-                    <Form {...store.form()} resetOnSuccess options={{ preserveScroll: true }} className="form">
+                    <Form
+                        {...store.form()}
+                        ref={formRef}
+                        resetOnSuccess
+                        options={{ preserveScroll: true }}
+                        transform={(data) => ({ ...data, recaptcha_token: recaptchaTokenRef.current })}
+                        className="form"
+                    >
                         {({ processing, errors, recentlySuccessful }) => (
                             <>
                                 <div className="d-flex">
@@ -132,10 +174,25 @@ export default function Contact() {
                                         <InputError id="privacy_error" className="mt-2" message={errors.privacy} />
                                     </div>
 
-                                    <button className="button" type="submit" disabled={processing}>
+                                    <button className="button" type="button" onClick={submitWithRecaptcha} disabled={processing}>
                                         {processing ? 'Sending' : 'Send'}
                                     </button>
                                 </div>
+
+                                <InputError id="recaptcha_error" className="mt-2" message={recaptchaError || errors.recaptcha_token} />
+
+                                {/* Required by Google when the reCAPTCHA badge is hidden or moved. */}
+                                <p className="contact__recaptcha text-sm text-gray-600">
+                                    This site is protected by reCAPTCHA and the Google{' '}
+                                    <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">
+                                        Privacy Policy
+                                    </a>{' '}
+                                    and{' '}
+                                    <a href="https://policies.google.com/terms" rel="noopener noreferrer" target="_blank">
+                                        Terms of Service
+                                    </a>{' '}
+                                    apply.
+                                </p>
 
                                 {/* Always mounted: an aria-live region that only appears once the
                                     message does is usually missed by screen readers. */}
