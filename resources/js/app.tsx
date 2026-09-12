@@ -1,5 +1,5 @@
 import { createInertiaApp } from '@inertiajs/react'
-import { LazyMotion } from 'framer-motion'
+import { LazyMotion, MotionConfig } from 'framer-motion'
 import '../css/index.scss'
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel'
@@ -22,7 +22,9 @@ void createInertiaApp({
     withApp(app) {
         return (
             <LazyMotion strict features={loadFeatures}>
-                {app}
+                {/* reducedMotion="user" honours the OS setting: animated values jump
+                    straight to their target instead of tweening. */}
+                <MotionConfig reducedMotion="user">{app}</MotionConfig>
             </LazyMotion>
         )
     },

@@ -74,30 +74,62 @@ export default function Contact() {
                                 <div className="d-flex">
                                     <div className="form__field">
                                         <label htmlFor="field_name">Name</label>
-                                        <input name="name" id="field_name" type="text" placeholder="John Doe" required />
-                                        <InputError className="mt-2" message={errors.name} />
+                                        <input
+                                            name="name"
+                                            id="field_name"
+                                            type="text"
+                                            placeholder="John Doe"
+                                            autoComplete="name"
+                                            aria-invalid={errors.name ? true : undefined}
+                                            aria-describedby={errors.name ? 'field_name_error' : undefined}
+                                            required
+                                        />
+                                        <InputError id="field_name_error" className="mt-2" message={errors.name} />
                                     </div>
 
                                     <div className="form__field">
                                         <label htmlFor="field_email">Email</label>
-                                        <input name="email" id="field_email" type="email" placeholder="john@doe.com" required />
-                                        <InputError className="mt-2" message={errors.email} />
+                                        <input
+                                            name="email"
+                                            id="field_email"
+                                            type="email"
+                                            placeholder="john@doe.com"
+                                            autoComplete="email"
+                                            aria-invalid={errors.email ? true : undefined}
+                                            aria-describedby={errors.email ? 'field_email_error' : undefined}
+                                            required
+                                        />
+                                        <InputError id="field_email_error" className="mt-2" message={errors.email} />
                                     </div>
                                 </div>
 
                                 <div className="form__field">
                                     <label htmlFor="field_message">Message</label>
-                                    <textarea name="message" id="field_message" placeholder="Write me anything you want" required />
-                                    <InputError className="mt-2" message={errors.message} />
+                                    <textarea
+                                        name="message"
+                                        id="field_message"
+                                        placeholder="Write me anything you want"
+                                        aria-invalid={errors.message ? true : undefined}
+                                        aria-describedby={errors.message ? 'field_message_error' : undefined}
+                                        required
+                                    />
+                                    <InputError id="field_message_error" className="mt-2" message={errors.message} />
                                 </div>
 
                                 <div className="d-flex">
                                     <div>
                                         <label htmlFor="privacy">
-                                            <input name="privacy" id="privacy" type="checkbox" required />
+                                            <input
+                                                name="privacy"
+                                                id="privacy"
+                                                type="checkbox"
+                                                aria-invalid={errors.privacy ? true : undefined}
+                                                aria-describedby={errors.privacy ? 'privacy_error' : undefined}
+                                                required
+                                            />
                                             <span> Privacy</span>
                                         </label>
-                                        <InputError className="mt-2" message={errors.privacy} />
+                                        <InputError id="privacy_error" className="mt-2" message={errors.privacy} />
                                     </div>
 
                                     <button className="button" type="submit" disabled={processing}>
@@ -105,9 +137,11 @@ export default function Contact() {
                                     </button>
                                 </div>
 
-                                {recentlySuccessful && (flash.success || flash.error) && (
-                                    <p className="contact__flash text-sm text-gray-600">{flash.success || flash.error}</p>
-                                )}
+                                {/* Always mounted: an aria-live region that only appears once the
+                                    message does is usually missed by screen readers. */}
+                                <p aria-live="polite" className="contact__flash text-sm text-gray-600">
+                                    {recentlySuccessful ? flash.success || flash.error : ''}
+                                </p>
                             </>
                         )}
                     </Form>
