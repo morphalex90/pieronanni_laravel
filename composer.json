@@ -16,6 +16,7 @@
         "intervention/image-laravel": "^4.1",
         "laravel/chisel": "^0.1.0",
         "laravel/framework": "^13.17",
+        "laravel/horizon": "^5.49",
         "laravel/tinker": "^3.0",
         "laravel/wayfinder": "^0.1.14",
         "league/flysystem-aws-s3-v3": "^3.35",
