@@ -1,8 +1,8 @@
 <x-mail::message>
-    # User <i>{{ $data['name'] }}</i> asked:
+# User <i>{{ $data['name'] }}</i> asked:
 
-    {{ $data['message'] }}
+{{ $data['message'] }}
 
-    Thanks,
-    {{ config('app.name') }}
+Thanks,<br>
+{{ config('app.name') }}
 </x-mail::message>
