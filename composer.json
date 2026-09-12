@@ -21,6 +21,7 @@
         "league/flysystem-aws-s3-v3": "^3.35",
         "matomo/device-detector": "^6.5",
         "mpdf/mpdf": "^8.3",
+        "resend/resend-laravel": "^1.4",
         "sentry/sentry-laravel": "^4.27",
         "spatie/browsershot": "^5.4",
         "spatie/laravel-csp": "^3.27",
