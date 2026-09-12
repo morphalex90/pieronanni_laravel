@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Middleware\AddCspHeaders;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\StripImageTransformCookies;
@@ -11,7 +12,6 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
 use Sentry\Laravel\Integration;
-use Spatie\Csp\AddCspHeaders;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
