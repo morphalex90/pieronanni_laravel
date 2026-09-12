@@ -6,5 +6,13 @@
     "nightwatch": false,
     "packages": ["filament/filament"],
     "sail": false,
-    "skills": ["infer-conventions", "laravel-best-practices", "testing-best-practices", "wayfinder-development", "tailwindcss-development"]
+    "skills": [
+        "infer-conventions",
+        "laravel-best-practices",
+        "testing-best-practices",
+        "wayfinder-development",
+        "inertia-react-development",
+        "tailwindcss-development",
+        "filament-development"
+    ]
 }
