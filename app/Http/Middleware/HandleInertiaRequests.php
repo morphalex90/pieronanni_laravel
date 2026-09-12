@@ -39,7 +39,9 @@ final class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            'flash' => fn () => $request->session()->only(['success', 'warning', 'error']),
+            'flash' => fn (): array => $request->hasSession()
+                ? $request->session()->only(['success', 'warning', 'error'])
+                : [],
         ];
     }
 }

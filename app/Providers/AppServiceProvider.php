@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Inertia\ExceptionResponse;
+use Inertia\Inertia;
 
 final class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +38,32 @@ final class AppServiceProvider extends ServiceProvider
 
         $this->configureDefaults();
         $this->configureRateLimiting();
+        $this->configureErrorPages();
+    }
+
+    /**
+     * Render the Inertia error page for the status codes worth a branded page.
+     * Skipped while debug mode is on so the Ignition exception page stays visible.
+     */
+    protected function configureErrorPages(): void
+    {
+        Inertia::handleExceptionsUsing(function (ExceptionResponse $response): ExceptionResponse {
+            if (app()->hasDebugModeEnabled()) {
+                return $response;
+            }
+
+            if ($response->request->expectsJson() || $response->request->is('api/*', 'admin/*')) {
+                return $response;
+            }
+
+            if (! in_array($response->statusCode(), [403, 404, 419, 429, 500, 503], true)) {
+                return $response;
+            }
+
+            return $response
+                ->render('error', ['status' => $response->statusCode()])
+                ->withSharedData();
+        });
     }
 
     /**
