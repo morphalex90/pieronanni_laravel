@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    @vite('resources/css/app.css')
+    {{-- Inlined so the renderer needs no network access (all http(s) requests are blocked). --}}
+    <style>{!! Illuminate\Support\Facades\Vite::content('resources/css/app.css') !!}</style>
     <title>CV Piero Nanni</title>
 
     <style>

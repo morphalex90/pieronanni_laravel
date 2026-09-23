@@ -50,7 +50,7 @@
                     {{-- <br> --}}
 
                     <div class="job-description">
-                        <x-markdown>{!! $job->description_cv !!}</x-markdown>
+                        {!! safeMarkdown($job->description_cv) !!}
                     </div>
 
                     <ul class="project-list">
