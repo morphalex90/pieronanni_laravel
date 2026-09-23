@@ -43,6 +43,10 @@ return [
         ],
     ],
 
+    'browsershot' => [
+        'no_sandbox' => (bool) env('BROWSERSHOT_NO_SANDBOX', false),
+    ],
+
     'telegram' => [
         'key' => env('TELEGRAMP_API_TOKEN'),
     ],
