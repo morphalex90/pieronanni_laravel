@@ -7,6 +7,7 @@ namespace App\Actions;
 use App\Models\Job;
 use App\Models\Media;
 use App\Models\Project;
+use App\Models\ProjectTechnology;
 use App\Models\Technology;
 use Illuminate\Support\Facades\Cache;
 
@@ -53,6 +54,10 @@ final class PurgeCache
             self::JOBS_WITH_PROJECTS_TECHNOLOGIES_AND_MEDIA,
         ],
         Project::class => [
+            self::JOBS_WITH_PROJECTS_TECHNOLOGIES,
+            self::JOBS_WITH_PROJECTS_TECHNOLOGIES_AND_MEDIA,
+        ],
+        ProjectTechnology::class => [
             self::JOBS_WITH_PROJECTS_TECHNOLOGIES,
             self::JOBS_WITH_PROJECTS_TECHNOLOGIES_AND_MEDIA,
         ],

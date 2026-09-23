@@ -43,7 +43,7 @@ final class Project extends Model implements HasMedia
      */
     public function technologies(): BelongsToMany
     {
-        return $this->belongsToMany(Technology::class);
+        return $this->belongsToMany(Technology::class)->using(ProjectTechnology::class);
     }
 
     /**

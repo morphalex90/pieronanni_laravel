@@ -65,3 +65,21 @@ it('purges every key when asked for a full purge', function () {
         ->and(Cache::has(PurgeCache::key(PurgeCache::JOBS_WITH_PROJECTS_TECHNOLOGIES)))->toBeFalse()
         ->and(Cache::has(PurgeCache::key(PurgeCache::JOBS_WITH_PROJECTS_TECHNOLOGIES_AND_MEDIA)))->toBeFalse();
 });
+
+it('purges the project keys when only a project\'s technologies change', function () {
+    $project = Project::factory()->for(Job::factory())->create();
+    $technology = Technology::factory()->create();
+
+    warmAllCacheKeys();
+    $project->technologies()->sync([$technology->id]);
+
+    expect(Cache::has(PurgeCache::key(PurgeCache::JOBS_WITH_PROJECTS_TECHNOLOGIES)))->toBeFalse()
+        ->and(Cache::has(PurgeCache::key(PurgeCache::JOBS_WITH_PROJECTS_TECHNOLOGIES_AND_MEDIA)))->toBeFalse()
+        ->and(Cache::has(PurgeCache::key(PurgeCache::JOBS)))->toBeTrue();
+
+    warmAllCacheKeys();
+    $project->technologies()->detach($technology->id);
+
+    expect(Cache::has(PurgeCache::key(PurgeCache::JOBS_WITH_PROJECTS_TECHNOLOGIES)))->toBeFalse()
+        ->and(Cache::has(PurgeCache::key(PurgeCache::JOBS_WITH_PROJECTS_TECHNOLOGIES_AND_MEDIA)))->toBeFalse();
+});
