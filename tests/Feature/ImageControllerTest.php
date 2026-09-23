@@ -56,17 +56,25 @@ function makeMedia(string $fileName, string $mimeType, string $content): Media
     return Media::findOrFail($id);
 }
 
+/**
+ * The id-qualified route path for a media row.
+ */
+function mediaPath(Media $media): string
+{
+    return $media->getKey() . '/' . $media->file_name;
+}
+
 beforeEach(function (): void {
     Storage::fake();
 });
 
 it('returns 404 when the media record does not exist', function (): void {
-    $this->get(route('image.show', ['path' => 'missing.png']))
+    $this->get(route('image.show', ['path' => '999/missing.png']))
         ->assertNotFound();
 });
 
 it('returns 404 when the media row exists but the file is missing', function (): void {
-    DB::table('media')->insert([
+    $id = DB::table('media')->insertGetId([
         'model_type' => 'App\Models\Project',
         'model_id' => 1,
         'collection_name' => 'images',
@@ -82,31 +90,76 @@ it('returns 404 when the media row exists but the file is missing', function ():
     ]);
 
     // No original_url reachable and no file on disk => 404.
-    $this->get(route('image.show', ['path' => 'ghost.png']))
+    $this->get(route('image.show', ['path' => $id . '/ghost.png']))
         ->assertNotFound();
 });
 
-it('serves an image from the storage disk with caching + security headers', function (): void {
-    makeMedia('photo.png', 'image/png', imageBytes('png'));
+it('serves a versioned url as immutable with security headers', function (): void {
+    $media = makeMedia('photo.png', 'image/png', imageBytes('png'));
 
-    $response = $this->get(route('image.show', ['path' => 'photo.png']));
+    $response = $this->get($media->imageRouteUrl());
 
     $response->assertOk()
-        ->assertHeader('X-Content-Type-Options', 'nosniff');
+        ->assertHeader('X-Content-Type-Options', 'nosniff')
+        ->assertHeader('Vary', 'Accept');
 
-    $cacheControl = $response->headers->get('Cache-Control');
-    expect($cacheControl)->toContain('public')
+    expect($response->headers->get('Cache-Control'))->toContain('public')
         ->toContain('immutable')
         ->toContain('max-age=31536000');
+});
 
-    $body = $response->getContent();
-    expect($response->headers->get('Content-Length'))->toBe((string) mb_strlen($body, '8bit'));
+it('does not advertise immutable caching for an unversioned or stale url', function (?string $version): void {
+    $media = makeMedia('photo.png', 'image/png', imageBytes('png'));
+
+    $response = $this->get(route('image.show', ['path' => mediaPath($media), 'v' => $version]));
+
+    $response->assertOk()
+        ->assertHeader('Vary', 'Accept');
+
+    expect($response->headers->get('Cache-Control'))->toContain('public')
+        ->toContain('max-age=3600')
+        ->not->toContain('immutable');
+})->with([
+    'unversioned' => null,
+    'stale version' => '12345',
+]);
+
+it('varies on Accept even when the client does not accept webp', function (): void {
+    $media = makeMedia('photo.png', 'image/png', imageBytes('png'));
+
+    $this->get(route('image.show', ['path' => mediaPath($media)]), ['Accept' => 'text/html'])
+        ->assertOk()
+        ->assertHeader('Vary', 'Accept');
+});
+
+it('requires the media id so a shared file name cannot resolve to the wrong media', function (): void {
+    $first = makeMedia('photo.png', 'image/png', imageBytes('png'));
+    $second = makeMedia('photo.png', 'image/png', imageBytes('png'));
+
+    $this->get(route('image.show', ['path' => 'photo.png']))->assertNotFound();
+    $this->get(route('image.show', ['path' => $second->getKey() . '/other.png']))->assertNotFound();
+    $this->get(route('image.show', ['path' => mediaPath($first)]))->assertOk();
+});
+
+it('re-encodes instead of reusing stored output after the media version changes', function (): void {
+    $media = makeMedia('photo.png', 'image/png', imageBytes('png'));
+
+    $this->get(route('image.show', ['path' => mediaPath($media)]), ['Accept' => 'image/webp'])
+        ->assertOk();
+
+    // Bump the version without firing the observer purge.
+    DB::table('media')->where('id', $media->getKey())->update(['updated_at' => now()]);
+
+    $this->get(route('image.show', ['path' => mediaPath($media)]), ['Accept' => 'image/webp'])
+        ->assertOk();
+
+    expect(Storage::files(ImageController::CACHE_DIRECTORY))->toHaveCount(2);
 });
 
 it('sets an accurate byte Content-Length for binary output', function (): void {
-    makeMedia('photo.png', 'image/png', imageBytes('png'));
+    $media = makeMedia('photo.png', 'image/png', imageBytes('png'));
 
-    $response = $this->get(route('image.show', ['path' => 'photo.png']));
+    $response = $this->get(route('image.show', ['path' => mediaPath($media)]));
     $body = $response->getContent();
 
     // strlen (byte count), not character count.
@@ -116,52 +169,50 @@ it('sets an accurate byte Content-Length for binary output', function (): void {
 });
 
 it('negotiates webp when the Accept header advertises it', function (): void {
-    makeMedia('photo.png', 'image/png', imageBytes('png'));
+    $media = makeMedia('photo.png', 'image/png', imageBytes('png'));
 
-    $this->get(route('image.show', ['path' => 'photo.png']), ['Accept' => 'image/webp,*/*'])
+    $this->get(route('image.show', ['path' => mediaPath($media)]), ['Accept' => 'image/webp,*/*'])
         ->assertOk()
         ->assertHeader('Content-Type', 'image/webp');
 });
 
 it('keeps the original format when the client does not accept webp', function (): void {
-    makeMedia('photo.png', 'image/png', imageBytes('png'));
+    $media = makeMedia('photo.png', 'image/png', imageBytes('png'));
 
-    $this->get(route('image.show', ['path' => 'photo.png']), ['Accept' => 'text/html'])
+    $this->get(route('image.show', ['path' => mediaPath($media)]), ['Accept' => 'text/html'])
         ->assertOk()
         ->assertHeader('Content-Type', 'image/png');
 });
 
 it('normalizes a jpg mime type to the jpeg encoder', function (): void {
     // image/jpeg -> ext "jpeg"; a "jpg" ext must map to the jpeg encoder too.
-    makeMedia('photo.jpg', 'image/jpg', imageBytes('jpeg'));
+    $media = makeMedia('photo.jpg', 'image/jpg', imageBytes('jpeg'));
 
-    $this->get(route('image.show', ['path' => 'photo.jpg']), ['Accept' => 'text/html'])
+    $this->get(route('image.show', ['path' => mediaPath($media)]), ['Accept' => 'text/html'])
         ->assertOk()
         ->assertHeader('Content-Type', 'image/jpeg');
 });
 
 it('serves an unknown mime type as webp', function (): void {
-    makeMedia('photo.bin', 'image/tiff', imageBytes('png'));
+    $media = makeMedia('photo.bin', 'image/tiff', imageBytes('png'));
 
-    $this->get(route('image.show', ['path' => 'photo.bin']), ['Accept' => 'text/html'])
+    $this->get(route('image.show', ['path' => mediaPath($media)]), ['Accept' => 'text/html'])
         ->assertOk()
         ->assertHeader('Content-Type', 'image/webp');
 });
 
 it('stores the encoded output on disk and reuses it after the source is deleted', function (): void {
-    makeMedia('photo.png', 'image/png', imageBytes('png'));
+    $media = makeMedia('photo.png', 'image/png', imageBytes('png'));
 
-    $this->get(route('image.show', ['path' => 'photo.png']), ['Accept' => 'image/webp'])
+    $this->get(route('image.show', ['path' => mediaPath($media)]), ['Accept' => 'image/webp'])
         ->assertOk();
 
-    $cachePath = ImageController::CACHE_DIRECTORY . '/' . hash('xxh128', 'photo.png:webp');
-
-    Storage::assertExists($cachePath);
+    expect(Storage::files(ImageController::CACHE_DIRECTORY))->toHaveCount(1);
 
     // Remove the source; the stored encode must still serve.
     Storage::delete('photo.png');
 
-    $this->get(route('image.show', ['path' => 'photo.png']), ['Accept' => 'image/webp'])
+    $this->get(route('image.show', ['path' => mediaPath($media)]), ['Accept' => 'image/webp'])
         ->assertOk()
         ->assertHeader('Content-Type', 'image/webp');
 });
@@ -169,22 +220,22 @@ it('stores the encoded output on disk and reuses it after the source is deleted'
 it('purges the encoded output when media changes', function (): void {
     $media = makeMedia('photo.png', 'image/png', imageBytes('png'));
 
-    $this->get(route('image.show', ['path' => 'photo.png']), ['Accept' => 'image/webp'])
+    $this->get(route('image.show', ['path' => mediaPath($media)]), ['Accept' => 'image/webp'])
         ->assertOk();
 
-    Storage::assertExists(ImageController::CACHE_DIRECTORY . '/' . hash('xxh128', 'photo.png:webp'));
+    expect(Storage::files(ImageController::CACHE_DIRECTORY))->toHaveCount(1);
 
     $media->delete();
 
-    Storage::assertMissing(ImageController::CACHE_DIRECTORY . '/' . hash('xxh128', 'photo.png:webp'));
+    expect(Storage::files(ImageController::CACHE_DIRECTORY))->toBeEmpty();
 });
 
 it('does not rate limit outside production', function (): void {
-    makeMedia('photo.png', 'image/png', imageBytes('png'));
+    $media = makeMedia('photo.png', 'image/png', imageBytes('png'));
 
     // 20 hits > maxAttempts (10); testing env skips the limiter entirely.
     foreach (range(1, 20) as $ignored) {
-        $this->get(route('image.show', ['path' => 'photo.png']))->assertOk();
+        $this->get(route('image.show', ['path' => mediaPath($media)]))->assertOk();
     }
     unset($ignored);
 });

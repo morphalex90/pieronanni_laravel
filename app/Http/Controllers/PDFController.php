@@ -19,6 +19,15 @@ use Spatie\Browsershot\Browsershot;
 
 final class PDFController extends Controller
 {
+    /**
+     * The CV is rendered from a local file with its CSS inlined, so it needs no
+     * network access. Blocking every remote scheme stops content in the page
+     * from reaching internal services (SSRF) or exfiltrating data.
+     *
+     * @var list<string>
+     */
+    private const BLOCKED_URL_SCHEMES = ['http://', 'https://', 'ws://', 'wss://', 'ftp://'];
+
     public function cv(Request $request): Response
     {
         Click::create([
@@ -28,13 +37,20 @@ final class PDFController extends Controller
         $html = view('pdf.cv-tailwind', ['jobs' => $this->jobsWithProjectsAndTechnologies()]);
 
         $pdf = Browsershot::html($html->render())
-            ->noSandbox()
+            ->disableJavascript()
+            ->blockUrls(self::BLOCKED_URL_SCHEMES)
             // ->setOption('pdf.info.Author', 'Piero Nanni')
             ->showBrowserHeaderAndFooter()
             ->headerHtml(' ')
             ->format('A4')
             ->showBackground();
         // ->footerHtml('<div style="text-align: center;"><span class="pageNumber">blabla</span> / <span class="date"></span></div>'); // https://github.com/spatie/browsershot/discussions/617
+
+        // Keep Chromium's sandbox unless the host genuinely cannot provide it
+        // (e.g. running as root in a container). Prefer fixing the host.
+        if (config('services.browsershot.no_sandbox')) {
+            $pdf->noSandbox();
+        }
 
         return $this->pdfResponse($pdf->pdf());
     }
