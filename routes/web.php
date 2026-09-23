@@ -6,6 +6,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PDFController;
+use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PageController::class, 'home'])->name('home');
@@ -30,6 +31,8 @@ Route::get('/login', function () {
     return redirect('admin/login');
 })->name('login');
 
+// Inertia would overwrite the response's `Vary: Accept` with `Vary: X-Inertia`.
 Route::get('/media/{path}', [ImageController::class, 'show'])
+    ->withoutMiddleware(HandleInertiaRequests::class)
     ->where('path', '.*')
     ->name('image.show');

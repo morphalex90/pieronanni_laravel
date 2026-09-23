@@ -31,11 +31,17 @@ final class ImageController extends Controller
 
     private const CACHE_DURATION = 31536000; // 1 year
 
+    /**
+     * Browser cache lifetime for URLs without a matching version, whose bytes
+     * can change in place when the media is replaced.
+     */
+    private const UNVERSIONED_CACHE_DURATION = 3600; // 1 hour
+
     private const QUALITY = 75;
 
     /**
      * Remove every re-encoded image blob. Called when media changes, since the
-     * stored bytes are keyed by file name and format, not by media version.
+     * stored bytes of stale versions would otherwise never be read again.
      */
     public static function purgeEncodedCache(): void
     {
@@ -48,19 +54,22 @@ final class ImageController extends Controller
             $this->ratelimit($request, $path);
         }
 
-        $media = Media::query()->where('file_name', $path)->first();
+        $media = $this->findMedia($path);
 
         if ($media === null) {
             Log::warning("Media not found: {$path}");
             abort(404);
         }
 
+        $version = $media->imageVersion();
+        $isVersioned = $request->query('v') === $version;
+
         $format = $this->determineFormat($request, $media);
         [$mime, $encoder] = $this->encoderFor($format);
 
-        // Encoded output is immutable per (path, format) — store it so we
-        // decode+re-encode once instead of on every request.
-        $cachePath = self::CACHE_DIRECTORY . '/' . hash('xxh128', $path . ':' . $format);
+        // Encoded output is immutable per (media, version, format) — store it
+        // so we decode+re-encode once instead of on every request.
+        $cachePath = self::CACHE_DIRECTORY . '/' . hash('xxh128', $media->getKey() . ':' . $version . ':' . $format);
 
         $output = Storage::exists($cachePath) ? Storage::get($cachePath) : null;
 
@@ -73,13 +82,13 @@ final class ImageController extends Controller
                 Log::error("Failed to encode image: {$path}", ['exception' => $e->getMessage()]);
 
                 // Fallback to original bytes if re-encoding fails.
-                return $this->imageResponse($imageContent, $media->mime_type ?? 'application/octet-stream');
+                return $this->imageResponse($imageContent, $media->mime_type ?? 'application/octet-stream', $isVersioned);
             }
 
             Storage::put($cachePath, $output);
         }
 
-        return $this->imageResponse($output, $mime);
+        return $this->imageResponse($output, $mime, $isVersioned);
     }
 
     protected function ratelimit(Request $request, string $path): void
@@ -126,12 +135,38 @@ final class ImageController extends Controller
         }
     }
 
-    private function imageResponse(string $output, string $mime): Response
+    /**
+     * Resolve "{id}/{file_name}". File names alone are not unique across media,
+     * so the id is required and the name must match it.
+     */
+    private function findMedia(string $path): ?Media
     {
+        if (preg_match('#^(\d+)/([^/]+)$#', $path, $matches) !== 1) {
+            return null;
+        }
+
+        return Media::query()
+            ->whereKey((int) $matches[1])
+            ->where('file_name', $matches[2])
+            ->first();
+    }
+
+    /**
+     * Only a URL carrying the current media version is safe to cache as
+     * immutable; anything else may change in place and gets a short lifetime.
+     */
+    private function imageResponse(string $output, string $mime, bool $isVersioned): Response
+    {
+        $cacheControl = $isVersioned
+            ? 'public, max-age=' . self::CACHE_DURATION . ', immutable'
+            : 'public, max-age=' . self::UNVERSIONED_CACHE_DURATION;
+
         return response($output, 200)
             ->header('Content-Type', $mime)
             ->header('Content-Length', (string) mb_strlen($output, '8bit'))
-            ->header('Cache-Control', 'public, max-age=' . self::CACHE_DURATION . ', immutable')
+            ->header('Cache-Control', $cacheControl)
+            // The format is negotiated from Accept, so shared caches must key on it.
+            ->header('Vary', 'Accept')
             ->header('X-Content-Type-Options', 'nosniff');
     }
 
