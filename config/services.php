@@ -44,7 +44,7 @@ return [
     ],
 
     'browsershot' => [
-        'no_sandbox' => (bool) env('BROWSERSHOT_NO_SANDBOX', false),
+        'no_sandbox' => (bool) env('BROWSERSHOT_NO_SANDBOX', true),
     ],
 
     'telegram' => [
