@@ -39,7 +39,7 @@ final class Project extends Model implements HasMedia
     ];
 
     /**
-     * @return BelongsToMany<Technology, $this>
+     * @return BelongsToMany<Technology, $this, ProjectTechnology>
      */
     public function technologies(): BelongsToMany
     {
