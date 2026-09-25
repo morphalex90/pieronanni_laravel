@@ -4,6 +4,7 @@ import Icon from '@/components/icon'
 import { Meta, PERSON_ID } from '@/components/meta'
 import { Layout } from '@/layouts/layout'
 import { APP_URL } from '@/lib/config'
+import { showImagePlaceholder } from '@/lib/utils'
 import { contact, freelance, home, projects } from '@/routes'
 import { show } from '@/routes/projects'
 import type { ProjectType } from '@/types'
@@ -104,6 +105,7 @@ export default function Project({ project, isIndexable }: { project: ProjectType
                                     src={image.url}
                                     alt={`${project.title} screenshot ${index + 1}`}
                                     loading={index === 0 ? 'eager' : 'lazy'}
+                                    onError={showImagePlaceholder}
                                 />
                             ))}
                         </div>

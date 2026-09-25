@@ -4,6 +4,7 @@ import { type MouseEvent, useState } from 'react'
 import placeholder from '@/../img/placeholder.svg'
 import Icon from '@/components/icon'
 import Modal from '@/components/modal'
+import { showImagePlaceholder } from '@/lib/utils'
 import { show } from '@/routes/projects'
 import type { ProjectType, TechnologyType } from '@/types'
 
@@ -50,6 +51,7 @@ export default function Project({ project, delay, isAboveFold = false }: { proje
                         height={200}
                         loading={isAboveFold ? 'eager' : 'lazy'}
                         fetchPriority={isAboveFold ? 'high' : undefined}
+                        onError={showImagePlaceholder}
                     />
                 </span>
 
