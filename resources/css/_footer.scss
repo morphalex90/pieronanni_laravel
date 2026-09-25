@@ -4,6 +4,7 @@
     &__container {
         display: flex;
         flex-wrap: wrap;
+        align-items: last baseline;
         width: 95%;
         max-width: 1400px;
         margin: auto;
