@@ -25,10 +25,10 @@
             width: calc(100% / var(--tot-years) * var(--unit-width));
             margin-left: calc(100% / var(--tot-years) * var(--unit-margin-left));
 
-            // #e00080 hits 4.68:1 on white; brand #ff1493 only reaches 3.63:1 (WCAG 1.4.3 AA needs 4.5:1)
+            // #ad005e hits 7.15:1 on white; brand #ff1493 only reaches 3.64:1 (WCAG 1.4.6 AAA needs 7:1)
             &.--active {
-                color: #e00080;
-                border: 1px solid #e00080;
+                color: #ad005e;
+                border: 1px solid #ad005e;
                 background-color: #fff;
             }
         }

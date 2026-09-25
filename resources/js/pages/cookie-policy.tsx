@@ -91,7 +91,7 @@ export default function CookiePolicy() {
                         and the names and lifetimes below may change when they update their services.
                     </p>
 
-                    <div className="legal__table">
+                    <div className="legal__table" role="region" aria-label="Cookies used on this site" tabIndex={0}>
                         <table>
                             <thead>
                                 <tr>

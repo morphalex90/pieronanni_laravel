@@ -34,7 +34,8 @@
 
         &::first-letter {
             font-size: 30px;
-            color: #ff1493;
+            // Large text needs 4.5:1 for AAA: #e00080 hits 4.69:1 on white, brand #ff1493 only 3.64:1
+            color: #e00080;
         }
     }
 
@@ -58,14 +59,14 @@
         cursor: pointer;
         transition: color 0.2s;
 
-        // #e00080 hits 4.68:1 on the white modal; brand #ff1493 only reaches 3.63:1
+        // #ad005e hits 7.15:1 on the white modal; brand #ff1493 only reaches 3.64:1 (WCAG 1.4.6 AAA needs 7:1)
         &:hover,
         &:focus-visible {
-            color: #e00080;
+            color: #ad005e;
         }
 
         &:focus-visible {
-            outline: 2px solid #e00080;
+            outline: 2px solid #ad005e;
             outline-offset: 2px;
         }
     }

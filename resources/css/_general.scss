@@ -56,8 +56,9 @@ a {
     text-decoration: none;
     transition: color 0.4s;
 
+    // #ff5cad hits 7.39:1 on black; brand #ff1493 only reaches 5.77:1 (WCAG 1.4.6 AAA needs 7:1)
     &:hover {
-        color: #ff1493 !important;
+        color: #ff5cad !important;
     }
 }
 
