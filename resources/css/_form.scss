@@ -45,9 +45,25 @@
 .contact {
     &__spotify {
         border-radius: 12px;
+
+        &--blocked {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 20px;
+            border: 1px solid #ff1493;
+            text-align: center;
+        }
     }
 
     &__flash {
         margin-top: 20px;
     }
+}
+
+// The reCAPTCHA badge sits mostly off-screen with inline offsets; zoom shrinks those offsets too, keeping it in view.
+.grecaptcha-badge {
+    zoom: 0.7;
 }

@@ -83,6 +83,18 @@ it('renders the contact page', function () {
         ->assertInertia(fn (AssertableInertia $page) => $page->component('contact'));
 });
 
+it('renders the privacy policy page', function () {
+    $this->get('/privacy-policy')
+        ->assertOk()
+        ->assertInertia(fn (AssertableInertia $page) => $page->component('privacy-policy'));
+});
+
+it('renders the cookie policy page', function () {
+    $this->get('/cookie-policy')
+        ->assertOk()
+        ->assertInertia(fn (AssertableInertia $page) => $page->component('cookie-policy'));
+});
+
 it('permanently redirects the legacy cv.pdf path to the cv route', function () {
     $this->get('/cv.pdf')->assertMovedPermanently()->assertRedirect('/cv');
 });
