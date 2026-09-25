@@ -9,7 +9,7 @@ export default function MainMenu({ className = '', position }: { className?: str
             <ul id={position === 'header' ? 'main-menu' : ''}>
                 {position === 'header' && (
                     <li className="has-icon">
-                        <a href="https://github.com/morphalex90" title="GitHub" target="_blank" rel="noopener noreferrer">
+                        <a href="https://github.com/morphalex90" title="GitHub" target="_blank" rel="me noopener noreferrer">
                             <img src={github} alt="GitHub" title="GitHub" height={26} width={26} />
                         </a>
                     </li>
@@ -42,7 +42,7 @@ export default function MainMenu({ className = '', position }: { className?: str
 
                 {position === 'header' && (
                     <li className="has-icon">
-                        <a href="https://www.linkedin.com/in/piero-nanni-87407193" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.linkedin.com/in/piero-nanni-87407193" title="LinkedIn" target="_blank" rel="me noopener noreferrer">
                             <svg aria-label="LinkedIn" enableBackground="new 0 0 48 48" id="Layer_1" version="1.1" viewBox="0 0 48 48">
                                 <circle cx="24" cy="24" fill="black" r="24" />
                                 <path

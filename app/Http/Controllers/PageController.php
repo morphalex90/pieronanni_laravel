@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\PurgeCache;
 use App\Models\Job;
+use App\Models\Project;
 use App\Models\Technology;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
@@ -38,6 +39,16 @@ final class PageController extends Controller
         });
 
         return Inertia::render('projects', ['technologies' => $technologies, 'allJobs' => $jobs]);
+    }
+
+    public function project(Project $project): Response
+    {
+        $project->load('job', 'technologies', 'media');
+
+        return Inertia::render('project', [
+            'project' => $project,
+            'isIndexable' => $project->isIndexable(),
+        ]);
     }
 
     public function contact(): Response

@@ -14,6 +14,13 @@ final class ProjectObserver
         $project->is_visible_in_cv = true;
     }
 
+    public function saving(Project $project): void
+    {
+        if (blank($project->slug)) {
+            $project->slug = Project::uniqueSlugFor($project->title, $project->getKey());
+        }
+    }
+
     public function created(): void
     {
         PurgeCache::handle(Project::class);

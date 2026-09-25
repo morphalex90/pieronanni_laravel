@@ -40,6 +40,18 @@ final class ImageController extends Controller
     private const QUALITY = 75;
 
     /**
+     * Named output sizes, requested via `?size=`. Only these are accepted so
+     * the query string cannot be used to fill the disk with arbitrary variants.
+     * "thumb" keeps the top of tall page screenshots, enough for the project
+     * card's hover scroll, at twice the card's display width.
+     *
+     * @var array<string, array{width: int, max_height: int}>
+     */
+    private const SIZES = [
+        'thumb' => ['width' => 700, 'max_height' => 1260],
+    ];
+
+    /**
      * Remove every re-encoded image blob. Called when media changes, since the
      * stored bytes of stale versions would otherwise never be read again.
      */
@@ -67,9 +79,12 @@ final class ImageController extends Controller
         $format = $this->determineFormat($request, $media);
         [$mime, $encoder] = $this->encoderFor($format);
 
-        // Encoded output is immutable per (media, version, format) — store it
+        $size = $request->query('size');
+        $size = is_string($size) && isset(self::SIZES[$size]) ? $size : null;
+
+        // Encoded output is immutable per (media, version, format, size) — store it
         // so we decode+re-encode once instead of on every request.
-        $cachePath = self::CACHE_DIRECTORY . '/' . hash('xxh128', $media->getKey() . ':' . $version . ':' . $format);
+        $cachePath = self::CACHE_DIRECTORY . '/' . hash('xxh128', $media->getKey() . ':' . $version . ':' . $format . ':' . ($size ?? 'original'));
 
         $output = Storage::exists($cachePath) ? Storage::get($cachePath) : null;
 
@@ -77,7 +92,19 @@ final class ImageController extends Controller
             $imageContent = $this->loadSource($media, $path);
 
             try {
-                $output = (string) Image::decode($imageContent)->encode($encoder);
+                $image = Image::decode($imageContent);
+
+                if ($size !== null) {
+                    ['width' => $width, 'max_height' => $maxHeight] = self::SIZES[$size];
+
+                    $image->scaleDown(width: $width);
+
+                    if ($image->height() > $maxHeight) {
+                        $image->crop($image->width(), $maxHeight);
+                    }
+                }
+
+                $output = (string) $image->encode($encoder);
             } catch (Exception $e) {
                 Log::error("Failed to encode image: {$path}", ['exception' => $e->getMessage()]);
 

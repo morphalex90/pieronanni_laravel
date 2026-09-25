@@ -1,0 +1,66 @@
+.project-page {
+    max-width: 1100px;
+    margin: 0 auto;
+
+    &__breadcrumb {
+        margin-bottom: 10px;
+        font-size: 0.9rem;
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    &__meta {
+        font-style: italic;
+        margin-bottom: 15px;
+    }
+
+    &__tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 20px;
+        list-style: none;
+        padding: 0;
+        margin: 0 0 30px;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 0 5px;
+        }
+
+        svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+    }
+
+    &__content {
+        flex: 1;
+
+        p a {
+            text-decoration: underline;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 20px 0;
+    }
+
+    &__images {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}

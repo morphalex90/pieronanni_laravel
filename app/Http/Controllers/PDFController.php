@@ -84,7 +84,9 @@ final class PDFController extends Controller
         $mpdf->WriteHTML($stylesheet, HTMLParserMode::HEADER_CSS);
         $mpdf->WriteHTML($html->render(), HTMLParserMode::HTML_BODY);
 
-        return $this->pdfResponse((string) $mpdf->Output('cv_piero_nanni.pdf', Destination::STRING_RETURN));
+        // Superseded by /cv; kept reachable but out of search results so the two CVs don't compete.
+        return $this->pdfResponse((string) $mpdf->Output('cv_piero_nanni.pdf', Destination::STRING_RETURN))
+            ->header('X-Robots-Tag', 'noindex');
     }
 
     /**

@@ -47,14 +47,38 @@ it('renders the projects page with technologies and nested projects', function (
         );
 });
 
+it('renders a project page by its slug', function () {
+    $project = Project::factory()->for(Job::factory())->create(['title' => 'Worcester Bosch', 'description' => str_repeat('word ', 60)]);
+
+    $this->get('/projects/worcester-bosch')
+        ->assertOk()
+        ->assertInertia(fn (AssertableInertia $page) => $page
+            ->component('project')
+            ->where('project.id', $project->id)
+            ->where('isIndexable', true)
+        );
+});
+
+it('marks a project page with a thin description as not indexable', function () {
+    Project::factory()->for(Job::factory())->create(['title' => 'Kobra PDF', 'description' => 'PDF service']);
+
+    $this->get('/projects/kobra-pdf')
+        ->assertOk()
+        ->assertInertia(fn (AssertableInertia $page) => $page->where('isIndexable', false));
+});
+
+it('returns 404 for an unknown project slug', function () {
+    $this->get('/projects/does-not-exist')->assertNotFound();
+});
+
 it('renders the contact page', function () {
     $this->get(route('contact'))
         ->assertOk()
         ->assertInertia(fn (AssertableInertia $page) => $page->component('contact'));
 });
 
-it('redirects the legacy cv.pdf path to the cv route', function () {
-    $this->get('/cv.pdf')->assertRedirect('/cv');
+it('permanently redirects the legacy cv.pdf path to the cv route', function () {
+    $this->get('/cv.pdf')->assertMovedPermanently()->assertRedirect('/cv');
 });
 
 it('redirects the login route to the admin panel', function () {
@@ -69,6 +93,7 @@ it('serves the mpdf cv inline through the response pipeline', function () {
     $response->assertOk();
     $response->assertHeader('Content-Type', 'application/pdf');
     $response->assertHeader('Content-Disposition', 'inline; filename="cv_piero_nanni.pdf"');
+    $response->assertHeader('X-Robots-Tag', 'noindex');
 
     expect($response->getContent())->toStartWith('%PDF-');
 });

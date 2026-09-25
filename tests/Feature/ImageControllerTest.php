@@ -13,10 +13,10 @@ uses(RefreshDatabase::class);
 /**
  * Generate real image bytes in the given format via GD.
  */
-function imageBytes(string $format = 'png'): string
+function imageBytes(string $format = 'png', int $width = 10, int $height = 10): string
 {
-    $gd = imagecreatetruecolor(10, 10);
-    imagefilledrectangle($gd, 0, 0, 9, 9, imagecolorallocate($gd, 120, 60, 200));
+    $gd = imagecreatetruecolor($width, $height);
+    imagefilledrectangle($gd, 0, 0, $width - 1, $height - 1, imagecolorallocate($gd, 120, 60, 200));
 
     ob_start();
     match ($format) {
@@ -238,4 +238,23 @@ it('does not rate limit outside production', function (): void {
         $this->get(route('image.show', ['path' => mediaPath($media)]))->assertOk();
     }
     unset($ignored);
+});
+
+it('serves the thumbnail scaled to the card width and cropped to the top of a tall screenshot', function (): void {
+    $media = makeMedia('screenshot.png', 'image/png', imageBytes('png', 1400, 5000));
+
+    $response = $this->get($media->thumbnail_url, ['Accept' => 'image/webp'])
+        ->assertOk()
+        ->assertHeader('Content-Type', 'image/webp');
+
+    expect(getimagesizefromstring($response->getContent()))->toMatchArray([0 => 700, 1 => 1260]);
+});
+
+it('ignores an unknown size and serves the original dimensions', function (): void {
+    $media = makeMedia('screenshot.png', 'image/png', imageBytes('png', 1400, 900));
+
+    $response = $this->get(route('image.show', ['path' => mediaPath($media), 'size' => 'huge']))
+        ->assertOk();
+
+    expect(getimagesizefromstring($response->getContent()))->toMatchArray([0 => 1400, 1 => 900]);
 });

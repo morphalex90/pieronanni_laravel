@@ -8,7 +8,7 @@ import { useIsClient } from '@/hooks/use-is-client'
 import { useRecaptcha } from '@/hooks/use-recaptcha'
 import { Layout } from '@/layouts/layout'
 import '../../css/_form.scss'
-import { contact } from '@/routes'
+import { contact, home } from '@/routes'
 import { store } from '@/routes/contact'
 import type { SharedData } from '@/types'
 
@@ -26,8 +26,8 @@ const motionVariants = {
 export default function Contact() {
     const { flash } = usePage<SharedData>().props
     // Computed on the client only: the weekday depends on the visitor's clock,
-    // so rendering it during SSR would risk a hydration mismatch.
-    const currentDay = useIsClient() ? new Date().toLocaleDateString('en-GB', { weekday: 'long' }).toLowerCase() : ''
+    // so rendering it during SSR would risk a hydration mismatch. SSR says "day" instead.
+    const currentDay = useIsClient() ? new Date().toLocaleDateString('en-GB', { weekday: 'long' }).toLowerCase() : 'day'
 
     const executeRecaptcha = useRecaptcha(RECAPTCHA_ACTION)
     const formRef = useRef<FormComponentRef>(null)
@@ -65,10 +65,15 @@ export default function Contact() {
             <Meta
                 url={contact().url}
                 description="Get in touch with Piero Nanni, a full-stack developer based in London specialising in Laravel, React and WordPress."
-                title="Contact Piero Nanni | Full-Stack Developer, London"
+                title="Contact: Laravel & React Developer in London"
+                pageType="ContactPage"
+                breadcrumbs={[
+                    { name: 'Home', url: home().url },
+                    { name: 'Contact', url: contact().url },
+                ]}
             />
 
-            <h1 className="text-center">Contact Piero Nanni — Full-Stack Developer in London</h1>
+            <h1 className="text-center">Contact Piero Nanni, Laravel &amp; React developer in London</h1>
 
             <div className="d-flex">
                 <m.div

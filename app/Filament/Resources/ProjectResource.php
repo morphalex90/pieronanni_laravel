@@ -39,6 +39,9 @@ final class ProjectResource extends Resource
         return $schema
             ->components([
                 TextInput::make('title')->required()->maxLength(255)->columnSpanFull(),
+                TextInput::make('slug')->alphaDash()->maxLength(255)->unique(ignoreRecord: true)
+                    ->helperText('Public URL of the project page. Leave empty to generate it from the title.')
+                    ->columnSpanFull(),
                 TextInput::make('url')->required()->url()->maxLength(255),
                 TextInput::make('github')->url()->maxLength(255)->nullable()->label('GitHub'),
                 Forms::markdown('description', 2000),
