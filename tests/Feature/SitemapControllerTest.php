@@ -23,6 +23,8 @@ it('lists the static pages and only projects with enough content to index', func
         url('/projects'),
         url('/freelance-laravel-developer-london'),
         url('/contact'),
+        url('/privacy-policy'),
+        url('/cookie-policy'),
         url('/cv'),
         url('/projects/stephenson-harwood'),
     ]);

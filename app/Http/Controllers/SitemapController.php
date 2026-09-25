@@ -17,6 +17,8 @@ final class SitemapController extends Controller
             route('projects'),
             route('freelance'),
             route('contact'),
+            route('privacy-policy'),
+            route('cookie-policy'),
             route('cv'),
         ];
 

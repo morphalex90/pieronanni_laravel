@@ -1,14 +1,15 @@
 import type { FormComponentRef } from '@inertiajs/core'
-import { Form, usePage } from '@inertiajs/react'
+import { Form, Link, usePage } from '@inertiajs/react'
 import { m } from 'framer-motion'
 import { type MouseEvent, useCallback, useRef, useState } from 'react'
 import InputError from '@/components/input-error'
 import { Meta } from '@/components/meta'
+import SpotifyEmbed from '@/components/spotify-embed'
 import { useIsClient } from '@/hooks/use-is-client'
 import { useRecaptcha } from '@/hooks/use-recaptcha'
 import { Layout } from '@/layouts/layout'
 import '../../css/_form.scss'
-import { contact, home } from '@/routes'
+import { contact, home, privacyPolicy } from '@/routes'
 import { store } from '@/routes/contact'
 import type { SharedData } from '@/types'
 
@@ -90,17 +91,7 @@ export default function Contact() {
                     animate={motionVariants.animate}
                     transition={{ duration: ANIMATION_DURATION, delay: ANIMATION_DELAYS[1] }}
                 >
-                    <iframe
-                        className="contact__spotify"
-                        src={SPOTIFY_URL}
-                        width="100%"
-                        height={SPOTIFY_IFRAME_HEIGHT}
-                        frameBorder="0"
-                        allowFullScreen
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                        loading="lazy"
-                        title="Spotify"
-                    />
+                    <SpotifyEmbed src={SPOTIFY_URL} height={SPOTIFY_IFRAME_HEIGHT} />
                 </m.div>
 
                 <m.div
@@ -174,7 +165,10 @@ export default function Contact() {
                                                 aria-describedby={errors.privacy ? 'privacy_error' : undefined}
                                                 required
                                             />
-                                            <span> Privacy</span>
+                                            <span>
+                                                {' '}
+                                                I agree to the <Link href={privacyPolicy().url}>Privacy Policy</Link>
+                                            </span>
                                         </label>
                                         <InputError id="privacy_error" className="mt-2" message={errors.privacy} />
                                     </div>

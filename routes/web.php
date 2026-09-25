@@ -16,6 +16,8 @@ Route::get('/projects', [PageController::class, 'projects'])->name('projects');
 Route::get('/projects/{project:slug}', [PageController::class, 'project'])->name('projects.show');
 Route::get('/freelance-laravel-developer-london', [PageController::class, 'freelance'])->name('freelance');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::get('/privacy-policy', [PageController::class, 'privacyPolicy'])->name('privacy-policy');
+Route::get('/cookie-policy', [PageController::class, 'cookiePolicy'])->name('cookie-policy');
 
 Route::post('/contact', [ContactController::class, 'store'])
     ->middleware('throttle:contact')
