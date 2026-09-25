@@ -24,11 +24,13 @@ export type ImageType = {
     id: number
     uri: string
     url: string
+    thumbnail_url: string
 }
 
 export type ProjectType = {
     id: number
     title: string
+    slug: string
     url: string
     published_at: string
     github: string
@@ -36,6 +38,7 @@ export type ProjectType = {
     description_cv?: string
     technologies: TechnologyType[]
     media?: ImageType[]
+    job?: JobType
 }
 
 export type JobType = {
