@@ -1,5 +1,6 @@
 .modal {
     position: relative;
+    width: calc(100% - 32px);
     margin: 20px auto 10px auto;
     max-width: calc(1300px - 100px);
     background-color: #fff;
@@ -16,33 +17,57 @@
 
     &__header {
         display: flex;
-        flex-wrap: wrap;
-        border-bottom: 1px solid #ff1493;
-        margin-bottom: 20px;
+        align-items: flex-start;
         justify-content: space-between;
+        gap: 15px;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ff1493;
     }
 
     // Demoted from h1 to h2 (the page already owns the h1) — restate the old h1 sizing
     &__title {
-        margin-bottom: 0;
+        margin: 0;
         font-size: 28px;
+        line-height: 1.2;
         text-align: left;
 
         &::first-letter {
             font-size: 30px;
-            color: #ff1493;
+            // Large text needs 4.5:1 for AAA: #e00080 hits 4.69:1 on white, brand #ff1493 only 3.64:1
+            color: #e00080;
         }
     }
 
+    // #555 keeps 7:1 contrast on the white modal while staying secondary to the title
+    &__meta {
+        margin: 6px 0 0;
+        font-size: 13px;
+        color: #555;
+    }
+
     &__close {
+        flex-shrink: 0;
+        min-width: 40px;
+        min-height: 40px;
+        padding: 0 5px;
         background-color: transparent;
         border: 0;
+        color: #000;
+        font-family: inherit;
+        font-size: 18px;
         cursor: pointer;
-        transition: all 0.4s;
+        transition: color 0.2s;
 
-        // #e00080 hits 4.68:1 on the white modal; brand #ff1493 only reaches 3.63:1
-        &:hover {
-            color: #e00080;
+        // #ad005e hits 7.15:1 on the white modal; brand #ff1493 only reaches 3.64:1 (WCAG 1.4.6 AAA needs 7:1)
+        &:hover,
+        &:focus-visible {
+            color: #ad005e;
+        }
+
+        &:focus-visible {
+            outline: 2px solid #ad005e;
+            outline-offset: 2px;
         }
     }
 
@@ -61,7 +86,8 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
     z-index: 1;
     overflow-x: hidden;
     overflow-y: auto;

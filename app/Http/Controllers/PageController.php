@@ -51,8 +51,23 @@ final class PageController extends Controller
         ]);
     }
 
+    public function freelance(): Response
+    {
+        return Inertia::render('freelance');
+    }
+
     public function contact(): Response
     {
         return Inertia::render('contact');
+    }
+
+    public function privacyPolicy(): Response
+    {
+        return Inertia::render('privacy-policy');
+    }
+
+    public function cookiePolicy(): Response
+    {
+        return Inertia::render('cookie-policy');
     }
 }

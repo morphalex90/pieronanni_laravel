@@ -2,6 +2,7 @@ import type { MouseEvent } from 'react'
 import { useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import Markdown from 'react-markdown'
+import ImageSlider from '@/components/image-slider'
 import { useIsClient } from '@/hooks/use-is-client'
 import { show as showProject } from '@/routes/projects'
 import type { ProjectType } from '@/types'
@@ -69,14 +70,21 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
         return null
     }
 
+    const metaLine = [content.published_at?.substring(0, 4), content.technologies?.map((technology) => technology.name).join(', ')]
+        .filter(Boolean)
+        .join(' · ')
+
     return ReactDOM.createPortal(
         <div className="overlay" onClick={handleCloseClick}>
             <div className="modal" ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="modal-title">
                 <div className="modal__header">
-                    <h2 className="modal__title" id="modal-title">
-                        {title || content.title}
-                    </h2>
-                    <button className="modal__close" type="button" onClick={handleCloseClick} aria-label="Close dialog">
+                    <div>
+                        <h2 className="modal__title" id="modal-title">
+                            {title || content.title}
+                        </h2>
+                        {metaLine && <p className="modal__meta">{metaLine}</p>}
+                    </div>
+                    <button className="modal__close" type="button" onClick={onClose} aria-label="Close dialog">
                         [x]
                     </button>
                 </div>
@@ -102,11 +110,7 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
                             </div>
                         </div>
 
-                        <div>
-                            {content?.media?.map((image) => (
-                                <img key={image.id} src={image.url} alt={title || content.title} loading="lazy" />
-                            ))}
-                        </div>
+                        <div>{content.media && content.media.length > 0 && <ImageSlider images={content.media} alt={title || content.title} />}</div>
                     </div>
                 </div>
             </div>

@@ -52,9 +52,10 @@
             width: auto;
         }
 
+        // #ff5cad hits 7.39:1 on black; brand #ff1493 only reaches 5.77:1 (WCAG 1.4.6 AAA needs 7:1)
         &.is-active,
         &:hover {
-            color: #ff1493;
+            color: #ff5cad;
         }
 
         span {

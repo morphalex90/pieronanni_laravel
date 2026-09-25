@@ -56,8 +56,9 @@ a {
     text-decoration: none;
     transition: color 0.4s;
 
+    // #ff5cad hits 7.39:1 on black; brand #ff1493 only reaches 5.77:1 (WCAG 1.4.6 AAA needs 7:1)
     &:hover {
-        color: #ff1493 !important;
+        color: #ff5cad !important;
     }
 }
 
@@ -133,6 +134,14 @@ main {
         // min-height: 602px;
         padding-top: 62px;
     }
+}
+
+// Anchored to the top, not centred, so the text stays on the background image and clear of the grid lines below it.
+.homepage__hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 4vh;
 }
 
 .homepage__subtitle {

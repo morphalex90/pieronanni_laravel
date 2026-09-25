@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { useEffect } from 'react'
+import CookieBanner from '@/components/cookie-banner'
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import Synt from '@/components/synt'
@@ -25,6 +26,7 @@ export function Layout({ className, children }: { className: string; children: R
                 </main>
             </div>
             <Footer />
+            <CookieBanner />
         </>
     )
 }

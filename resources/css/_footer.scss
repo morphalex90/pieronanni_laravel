@@ -4,6 +4,7 @@
     &__container {
         display: flex;
         flex-wrap: wrap;
+        align-items: last baseline;
         width: 95%;
         max-width: 1400px;
         margin: auto;
@@ -27,6 +28,22 @@
             flex: 0 0 50%;
             max-width: 50%;
             text-align: right;
+        }
+    }
+
+    &__legal {
+        a,
+        button {
+            color: inherit;
+        }
+
+        button {
+            padding: 0;
+            background: none;
+            border: 0;
+            font: inherit;
+            text-decoration: underline;
+            cursor: pointer;
         }
     }
 }

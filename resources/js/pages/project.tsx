@@ -4,7 +4,8 @@ import Icon from '@/components/icon'
 import { Meta, PERSON_ID } from '@/components/meta'
 import { Layout } from '@/layouts/layout'
 import { APP_URL } from '@/lib/config'
-import { contact, home, projects } from '@/routes'
+import { showImagePlaceholder } from '@/lib/utils'
+import { contact, freelance, home, projects } from '@/routes'
 import { show } from '@/routes/projects'
 import type { ProjectType } from '@/types'
 
@@ -90,7 +91,8 @@ export default function Project({ project, isIndexable }: { project: ProjectType
                         </div>
 
                         <p>
-                            Need something similar built in Laravel or React? <Link href={contact().url}>Get in touch</Link> or browse{' '}
+                            Need something similar built in Laravel or React? See how I can help as a{' '}
+                            <Link href={freelance().url}>freelance developer</Link>, <Link href={contact().url}>get in touch</Link> or browse{' '}
                             <Link href={projects().url}>more projects</Link>.
                         </p>
                     </div>
@@ -103,6 +105,7 @@ export default function Project({ project, isIndexable }: { project: ProjectType
                                     src={image.url}
                                     alt={`${project.title} screenshot ${index + 1}`}
                                     loading={index === 0 ? 'eager' : 'lazy'}
+                                    onError={showImagePlaceholder}
                                 />
                             ))}
                         </div>

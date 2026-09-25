@@ -1,0 +1,49 @@
+.legal {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+
+    section {
+        margin-top: 40px;
+    }
+
+    h2 {
+        margin-bottom: 15px;
+    }
+
+    ul {
+        padding-left: 20px;
+        margin-bottom: 15px;
+    }
+
+    li {
+        margin-bottom: 5px;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+
+    &__updated {
+        text-align: center;
+        font-style: italic;
+    }
+
+    &__table {
+        overflow-x: auto;
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th,
+        td {
+            padding: 8px 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: left;
+            vertical-align: top;
+        }
+    }
+}
