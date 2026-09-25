@@ -70,14 +70,21 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
         return null
     }
 
+    const metaLine = [content.published_at?.substring(0, 4), content.technologies?.map((technology) => technology.name).join(', ')]
+        .filter(Boolean)
+        .join(' · ')
+
     return ReactDOM.createPortal(
         <div className="overlay" onClick={handleCloseClick}>
             <div className="modal" ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="modal-title">
                 <div className="modal__header">
-                    <h2 className="modal__title" id="modal-title">
-                        {title || content.title}
-                    </h2>
-                    <button className="modal__close" type="button" onClick={handleCloseClick} aria-label="Close dialog">
+                    <div>
+                        <h2 className="modal__title" id="modal-title">
+                            {title || content.title}
+                        </h2>
+                        {metaLine && <p className="modal__meta">{metaLine}</p>}
+                    </div>
+                    <button className="modal__close" type="button" onClick={onClose} aria-label="Close dialog">
                         [x]
                     </button>
                 </div>
