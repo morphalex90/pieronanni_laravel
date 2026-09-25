@@ -2,6 +2,7 @@ import type { MouseEvent } from 'react'
 import { useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import Markdown from 'react-markdown'
+import ImageSlider from '@/components/image-slider'
 import { useIsClient } from '@/hooks/use-is-client'
 import { show as showProject } from '@/routes/projects'
 import type { ProjectType } from '@/types'
@@ -102,11 +103,7 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
                             </div>
                         </div>
 
-                        <div>
-                            {content?.media?.map((image) => (
-                                <img key={image.id} src={image.url} alt={title || content.title} loading="lazy" />
-                            ))}
-                        </div>
+                        <div>{content.media && content.media.length > 0 && <ImageSlider images={content.media} alt={title || content.title} />}</div>
                     </div>
                 </div>
             </div>
