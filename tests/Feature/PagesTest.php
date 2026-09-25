@@ -71,6 +71,12 @@ it('returns 404 for an unknown project slug', function () {
     $this->get('/projects/does-not-exist')->assertNotFound();
 });
 
+it('renders the freelance page', function () {
+    $this->get('/freelance-laravel-developer-london')
+        ->assertOk()
+        ->assertInertia(fn (AssertableInertia $page) => $page->component('freelance'));
+});
+
 it('renders the contact page', function () {
     $this->get(route('contact'))
         ->assertOk()

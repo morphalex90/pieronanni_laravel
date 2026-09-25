@@ -21,6 +21,7 @@ it('lists the static pages and only projects with enough content to index', func
         url('/') . '/',
         url('/about'),
         url('/projects'),
+        url('/freelance-laravel-developer-london'),
         url('/contact'),
         url('/cv'),
         url('/projects/stephenson-harwood'),

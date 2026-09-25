@@ -2,7 +2,7 @@ import { Link } from '@inertiajs/react'
 import { m } from 'framer-motion'
 import { Meta } from '@/components/meta'
 import { Layout } from '@/layouts/layout'
-import { about, home, projects } from '@/routes'
+import { about, freelance, home, projects } from '@/routes'
 
 export default function Homepage() {
     return (
@@ -39,8 +39,9 @@ export default function Homepage() {
                     I build websites and web applications with Laravel, React, WordPress and Drupal, and have done so for over ten years in Bologna
                     and London. Today I work as a backend developer at CACI (formerly Cyber-Duck) on large Laravel platforms such as Worcester Bosch.
                     Before that I built a music streaming service with Laravel and React at Soundpickr, and delivered sites for clients like Brompton
-                    and Stephenson Harwood at the London agency Purr. See my <Link href={projects().url}>projects</Link> or read more{' '}
-                    <Link href={about().url}>about me</Link>.
+                    and Stephenson Harwood at the London agency Purr. I also take on{' '}
+                    <Link href={freelance().url}>freelance Laravel and React projects</Link>. See my <Link href={projects().url}>projects</Link> or
+                    read more <Link href={about().url}>about me</Link>.
                 </m.p>
 
                 <m.div

@@ -9,6 +9,7 @@ Personal portfolio site of Piero Nanni. It lists work history, 30+ web projects 
 - [Home](https://www.pieronanni.me): Introduction to Piero Nanni, full-stack developer specialising in Laravel and React.
 - [About](https://www.pieronanni.me/about): Career timeline with roles, employers and dates across London and Bologna.
 - [Projects](https://www.pieronanni.me/projects): Portfolio of 30+ projects grouped by employer, each with the technologies used. Each project has its own page at /projects/{slug}; the detailed ones are listed in the sitemap.
+- [Freelance](https://www.pieronanni.me/freelance-laravel-developer-london): Freelance Laravel and React development services in London, with selected work and how to start a project.
 - [Contact](https://www.pieronanni.me/contact): Contact form for work enquiries.
 
 ## Resources
