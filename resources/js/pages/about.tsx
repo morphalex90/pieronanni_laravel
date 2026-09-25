@@ -210,8 +210,8 @@ export default function About({ jobs }: { jobs: JobType[] }) {
 
                     <p>
                         In January 2024, I joined{' '}
-                        <a href="https://www.cyber-duck.co.uk/" className="t-underline" target="_blank" rel="noreferrer" title="Visit CyberDuck">
-                            CyberDuck
+                        <a href="https://www.cyber-duck.co.uk/" className="t-underline" target="_blank" rel="noreferrer" title="Visit Cyber-Duck">
+                            Cyber-Duck
                         </a>{' '}
                         (recently acquired by{' '}
                         <a href="https://www.caci.co.uk/" className="t-underline" target="_blank" rel="noreferrer" title="Visit CACI">
