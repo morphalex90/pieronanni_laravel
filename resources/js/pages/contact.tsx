@@ -154,9 +154,9 @@ export default function Contact() {
                                     <InputError id="field_message_error" className="mt-2" message={errors.message} />
                                 </div>
 
-                                <div className="d-flex">
+                                <div className="form__footer">
                                     <div>
-                                        <label htmlFor="privacy">
+                                        <label htmlFor="privacy" className="form__consent">
                                             <input
                                                 name="privacy"
                                                 id="privacy"
@@ -166,7 +166,6 @@ export default function Contact() {
                                                 required
                                             />
                                             <span>
-                                                {' '}
                                                 I agree to the <Link href={privacyPolicy().url}>Privacy Policy</Link>
                                             </span>
                                         </label>
@@ -181,7 +180,7 @@ export default function Contact() {
                                 <InputError id="recaptcha_error" className="mt-2" message={recaptchaError || errors.recaptcha_token} />
 
                                 {/* Required by Google when the reCAPTCHA badge is hidden or moved. */}
-                                <p className="contact__recaptcha text-sm text-gray-600">
+                                <p className="contact__recaptcha">
                                     This site is protected by reCAPTCHA and the Google{' '}
                                     <a href="https://policies.google.com/privacy" rel="noopener noreferrer" target="_blank">
                                         Privacy Policy
@@ -195,7 +194,7 @@ export default function Contact() {
 
                                 {/* Always mounted: an aria-live region that only appears once the
                                     message does is usually missed by screen readers. */}
-                                <p aria-live="polite" className="contact__flash text-sm text-gray-600">
+                                <p aria-live="polite" className="contact__flash">
                                     {recentlySuccessful ? flash.success || flash.error : ''}
                                 </p>
                             </>
