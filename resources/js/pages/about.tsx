@@ -5,7 +5,7 @@ import Markdown from 'react-markdown'
 import { Meta } from '@/components/meta'
 import { Layout } from '@/layouts/layout'
 import '../../css/_timeline.scss'
-import { about } from '@/routes'
+import { about, home } from '@/routes'
 import type { JobType } from '@/types'
 
 const START_YEAR = 2011
@@ -26,7 +26,7 @@ const formatJobDate = (date: string, endDate: string | null): string => {
     })
 
     if (!endDate) {
-        return startFormatted
+        return `${startFormatted} - Present`
     }
 
     const endFormatted = new Date(endDate).toLocaleDateString('en-GB', {
@@ -104,11 +104,16 @@ export default function About({ jobs }: { jobs: JobType[] }) {
         <Layout className="about">
             <Meta
                 url={about().url}
-                description="Piero Nanni is a full-stack developer with 10 years of experience across London and Bologna, specialising in Laravel, React, WordPress and Drupal."
-                title="About Piero Nanni: Full-Stack Developer, London"
+                description="Piero Nanni is a full-stack developer with over ten years of experience across London and Bologna, specialising in Laravel, React, WordPress and Drupal."
+                title="About Me: Laravel & React Developer in London"
+                pageType="ProfilePage"
+                breadcrumbs={[
+                    { name: 'Home', url: home().url },
+                    { name: 'About', url: about().url },
+                ]}
             />
 
-            <h1 className="text-center">About Piero Nanni: Full-Stack Developer, London</h1>
+            <h1 className="text-center">About Piero Nanni, Laravel &amp; React developer in London</h1>
 
             <div className="d-flex">
                 <m.section
@@ -124,7 +129,7 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                         </Link>
                     </p>
                     <p>
-                        <a href="https://github.com/morphalex90" target="_blank" rel="noreferrer" title="GitHub">
+                        <a href="https://github.com/morphalex90" target="_blank" rel="me noreferrer" title="GitHub">
                             github.com/morphalex90
                         </a>
                     </p>
@@ -200,7 +205,7 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                             Soundpickr
                         </a>{' '}
                         and started working with Laravel and React to build a music streaming service. Sadly this startup shut down at the end of 2023
-                        because of lack of foundings.
+                        because of a lack of funding.
                     </p>
 
                     <p>
@@ -212,7 +217,7 @@ export default function About({ jobs }: { jobs: JobType[] }) {
                         <a href="https://www.caci.co.uk/" className="t-underline" target="_blank" rel="noreferrer" title="Visit CACI">
                             CACI
                         </a>
-                        ) as a backend developer and started working on Worcester Bosch, a gigantic Laravel project.
+                        ) as a backend developer, where I still work today on Worcester Bosch, a gigantic Laravel project.
                     </p>
                 </m.section>
             </div>

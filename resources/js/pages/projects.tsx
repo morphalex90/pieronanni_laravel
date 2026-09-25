@@ -3,7 +3,7 @@ import Icon from '@/components/icon'
 import { Meta } from '@/components/meta'
 import Project from '@/components/project'
 import { Layout } from '@/layouts/layout'
-import { projects } from '@/routes'
+import { home, projects } from '@/routes'
 import type { JobType, ProjectType, TechnologyType } from '@/types'
 
 import '../../css/_modal.scss'
@@ -42,10 +42,15 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
             <Meta
                 url={projects().url}
                 description="Browse 30+ web projects by Piero Nanni: Laravel e-commerce, React apps, WordPress and Drupal sites built across London and Bologna."
-                title="Projects | Laravel, React & WordPress Portfolio"
+                title="Laravel, React & WordPress Projects"
+                pageType="CollectionPage"
+                breadcrumbs={[
+                    { name: 'Home', url: home().url },
+                    { name: 'Projects', url: projects().url },
+                ]}
             />
 
-            <h1 className="text-center">Web Development Projects | Laravel, React & WordPress</h1>
+            <h1 className="text-center">Web development projects in Laravel, React and WordPress</h1>
 
             {technologies.length > 0 && (
                 <div className="technologies">
@@ -66,7 +71,7 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
             )}
 
             {jobs.length > 0 &&
-                jobs.map((job) => (
+                jobs.map((job, jobIndex) => (
                     <div key={job.id} className="jobs">
                         {job.projects.length > 0 && (
                             <>
@@ -78,7 +83,12 @@ export default function Projects({ technologies, allJobs }: { technologies: Tech
 
                                 <div className="projects">
                                     {job.projects.map((project: ProjectType, projectId: number) => (
-                                        <Project key={`${job.id}-${projectId}`} project={project} delay={(projectId + 1) / 12} />
+                                        <Project
+                                            key={`${job.id}-${projectId}`}
+                                            project={project}
+                                            delay={(projectId + 1) / 12}
+                                            isAboveFold={jobIndex === 0 && projectId < 2}
+                                        />
                                     ))}
                                 </div>
                             </>

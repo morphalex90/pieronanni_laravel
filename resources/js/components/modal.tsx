@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react'
 import ReactDOM from 'react-dom'
 import Markdown from 'react-markdown'
 import { useIsClient } from '@/hooks/use-is-client'
+import { show as showProject } from '@/routes/projects'
 import type { ProjectType } from '@/types'
 
 const FOCUSABLE = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
@@ -85,6 +86,11 @@ export default function Modal({ show, onClose, title, content }: { show: boolean
                             <Markdown>{content.description}</Markdown>
 
                             <div className="modal__actions">
+                                {content.slug && (
+                                    <a href={showProject(content).url} className="button">
+                                        Project page
+                                    </a>
+                                )}
                                 <a href={content.url} className="button" target="_blank" rel="noreferrer">
                                     Visit site
                                 </a>

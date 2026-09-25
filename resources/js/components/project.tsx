@@ -1,16 +1,18 @@
 import { m } from 'framer-motion'
-import { useState } from 'react'
+import { type MouseEvent, useState } from 'react'
 
 import placeholder from '@/../img/placeholder.svg'
 import Icon from '@/components/icon'
 import Modal from '@/components/modal'
+import { show } from '@/routes/projects'
 import type { ProjectType, TechnologyType } from '@/types'
 
-export default function Project({ project, delay }: { project: ProjectType; delay: number }) {
+export default function Project({ project, delay, isAboveFold = false }: { project: ProjectType; delay: number; isAboveFold?: boolean }) {
     const [modalShow, setModalShow] = useState(false)
     const [modalContent, setModalContent] = useState<ProjectType>({
         id: 1,
         title: '',
+        slug: '',
         url: '',
         published_at: '',
         github: '',
@@ -19,13 +21,19 @@ export default function Project({ project, delay }: { project: ProjectType; dela
 
     return (
         <>
-            <m.button
-                type="button"
+            {/* A real link so crawlers and new-tab clicks reach the project page; a plain click opens the modal instead. */}
+            <m.a
+                href={show(project).url}
                 className="projects__single"
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.3, delay }}
-                onClick={() => {
+                onClick={(event: MouseEvent<HTMLAnchorElement>) => {
+                    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+                        return
+                    }
+
+                    event.preventDefault()
                     setModalShow(true)
                     setModalContent(project)
                 }}
@@ -35,12 +43,13 @@ export default function Project({ project, delay }: { project: ProjectType; dela
             >
                 <span className="projects__single__image">
                     <img
-                        src={project?.media?.[0] ? project.media[0].url : placeholder}
+                        src={project?.media?.[0] ? project.media[0].thumbnail_url : placeholder}
                         alt={project.title}
                         title={project.title}
                         width={333}
                         height={200}
-                        loading="lazy"
+                        loading={isAboveFold ? 'eager' : 'lazy'}
+                        fetchPriority={isAboveFold ? 'high' : undefined}
                     />
                 </span>
 
@@ -52,7 +61,7 @@ export default function Project({ project, delay }: { project: ProjectType; dela
                         })}
                     </span>
                 </span>
-            </m.button>
+            </m.a>
 
             <Modal onClose={() => setModalShow(false)} show={modalShow} content={modalContent} />
         </>

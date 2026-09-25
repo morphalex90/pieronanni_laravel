@@ -22,16 +22,18 @@ final class Media extends BaseMedia
 
     protected $appends = [
         'url',
+        'thumbnail_url',
     ];
 
     /**
      * Versioned URL for the image route; safe to cache as immutable because it
      * changes whenever the media row does.
      */
-    public function imageRouteUrl(): string
+    public function imageRouteUrl(?string $size = null): string
     {
         return route('image.show', [
             'path' => $this->getKey() . '/' . $this->file_name,
+            ...($size !== null ? ['size' => $size] : []),
             'v' => $this->imageVersion(),
         ]);
     }
@@ -44,9 +46,17 @@ final class Media extends BaseMedia
         return (string) ($this->updated_at?->getTimestamp() ?? 0);
     }
 
+    /**
+     * Served through the image route so visitors get re-encoded WebP instead
+     * of the raw upload.
+     */
     protected function getUrlAttribute(): string
     {
-        return $this->original_url;
-        // return '/media/' . $this->file_name;
+        return $this->imageRouteUrl();
+    }
+
+    protected function getThumbnailUrlAttribute(): string
+    {
+        return $this->imageRouteUrl('thumb');
     }
 }
