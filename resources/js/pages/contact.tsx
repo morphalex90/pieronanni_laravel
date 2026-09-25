@@ -172,7 +172,7 @@ export default function Contact() {
                                         <InputError id="privacy_error" className="mt-2" message={errors.privacy} />
                                     </div>
 
-                                    <button className="button" type="button" onClick={submitWithRecaptcha} disabled={processing}>
+                                    <button className="button" type="submit" onClick={submitWithRecaptcha} disabled={processing}>
                                         {processing ? 'Sending' : 'Send'}
                                     </button>
                                 </div>
