@@ -13,15 +13,46 @@
     <meta name="theme-color" content="#000000" />
     <link rel="preload" fetchpriority="high" href="/img/background.webp" as="image" type="image/webp" />
 
+    <script defer src="http://localhost:8000/tracker/t.js" data-site="01a12135-cb87-709c-b784-f3967357f787"></script>
     {{-- Critical CSS: paints the LCP background (`.synt__background`) immediately.
-         The full synt styles (animated neon lines) load later via layout.css.
-         Allowed by style-src 'unsafe-inline' (no nonce on style-src by design). --}}
+    The full synt styles (animated neon lines) load later via layout.css.
+    Allowed by style-src 'unsafe-inline' (no nonce on style-src by design). --}}
     <style>
-        .synt{position:fixed;top:0;height:100vh;width:100vw;z-index:-1}
-        .synt__container{height:100vh;display:flex;flex-direction:column}
-        .synt__background{z-index:2;background-image:url('/img/background.webp');background-repeat:no-repeat;background-size:cover;background-position:center bottom;height:100%;max-height:60%;margin-top:-1px}
-        .synt__bottom{z-index:1;height:100%;max-height:40%;background-color:#000}
-        body:not(.homepage) .synt{filter:blur(8px)}
+        .synt {
+            position: fixed;
+            top: 0;
+            height: 100vh;
+            width: 100vw;
+            z-index: -1
+        }
+
+        .synt__container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column
+        }
+
+        .synt__background {
+            z-index: 2;
+            background-image: url('/img/background.webp');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center bottom;
+            height: 100%;
+            max-height: 60%;
+            margin-top: -1px
+        }
+
+        .synt__bottom {
+            z-index: 1;
+            height: 100%;
+            max-height: 40%;
+            background-color: #000
+        }
+
+        body:not(.homepage) .synt {
+            filter: blur(8px)
+        }
     </style>
 
     @if(app()->environment('production'))
