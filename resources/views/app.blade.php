@@ -13,7 +13,10 @@
     <meta name="theme-color" content="#000000" />
     <link rel="preload" fetchpriority="high" href="/img/background.webp" as="image" type="image/webp" />
 
-    <script defer src="http://localhost:8000/tracker/t.js" data-site="01a12135-cb87-709c-b784-f3967357f787"></script>
+    <script defer src="https://hotjar.morpheus90.com/tracker/t.js"
+        data-site="01a18401-20ac-73b3-93ca-3822526fd5df"></script>
+    <script defer src="https://hotjar.morpheus90.com/analytics/a.js"
+        data-site="01a18401-20ac-73b3-93ca-3822526fd5df"></script>
     {{-- Critical CSS: paints the LCP background (`.synt__background`) immediately.
     The full synt styles (animated neon lines) load later via layout.css.
     Allowed by style-src 'unsafe-inline' (no nonce on style-src by design). --}}
