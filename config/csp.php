@@ -28,6 +28,7 @@ return [
                 Keyword::UNSAFE_EVAL,
                 Keyword::UNSAFE_INLINE,
                 'https://plausible.morpheus90.com',
+                'https://hotjar.morpheus90.com',
                 // reCAPTCHA v3 loader and its worker bundle.
                 'https://www.google.com',
                 'https://www.gstatic.com',
@@ -37,6 +38,7 @@ return [
             Directive::CONNECT,
             [
                 'https://plausible.morpheus90.com',
+                'https://hotjar.morpheus90.com',
                 'https://www.google.com',
                 'https://www.gstatic.com',
             ],
