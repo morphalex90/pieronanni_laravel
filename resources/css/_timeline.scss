@@ -43,8 +43,9 @@
 
             text-align: center;
             position: relative;
-            background-color: #ff1493;
-            color: #000;
+            // #ad005e: white text reaches 7.15:1; brand #ff1493 tops out at 5.8:1 with black (AAA small text needs 7:1)
+            background-color: #ad005e;
+            color: #fff;
             font-size: 10px;
 
             &:nth-child(even) {
@@ -67,7 +68,7 @@
                 height: 0;
                 border-style: solid;
                 border-width: 6px 0 6px 6px;
-                border-color: transparent transparent transparent #ff1493;
+                border-color: transparent transparent transparent #ad005e;
                 z-index: 1;
             }
 
