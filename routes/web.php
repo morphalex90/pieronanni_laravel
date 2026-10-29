@@ -23,10 +23,9 @@ Route::post('/contact', [ContactController::class, 'store'])
     ->middleware('throttle:contact')
     ->name('contact.store');
 
-Route::middleware('throttle:pdf')->group(function (): void {
-    Route::get('/cv', [PDFController::class, 'cv'])->name('cv');
-    Route::get('/cv-old', [PDFController::class, 'cvOld'])->name('cv-old');
-});
+Route::get('/cv', [PDFController::class, 'cv'])
+    ->middleware('throttle:pdf')
+    ->name('cv');
 
 Route::permanentRedirect('/cv.pdf', '/cv');
 
