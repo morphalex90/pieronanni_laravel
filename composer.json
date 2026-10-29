@@ -23,8 +23,7 @@
         "sentry/sentry-laravel": "^4.29",
         "spatie/browsershot": "^5.4",
         "spatie/laravel-csp": "^3.30",
-        "spatie/laravel-google-fonts": "^1.7",
-        "technikermathe/blade-lucide-icons": "^3.197"
+        "spatie/laravel-google-fonts": "^1.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bbe7003b0d74711e72f75dd9925d75d0",
+    "content-hash": "eea2aef5bd1c3ab807c552b314e8360a",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -10369,71 +10369,6 @@
                 }
             ],
             "time": "2026-10-26T21:55:04+00:00"
-        },
-        {
-            "name": "technikermathe/blade-lucide-icons",
-            "version": "v3.197.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PascaleBeier/blade-lucide-icons.git",
-                "reference": "f0b510785d04b1d2eb9363c240e9ed53a9586a97"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PascaleBeier/blade-lucide-icons/zipball/f0b510785d04b1d2eb9363c240e9ed53a9586a97",
-                "reference": "f0b510785d04b1d2eb9363c240e9ed53a9586a97",
-                "shasum": ""
-            },
-            "require": {
-                "blade-ui-kit/blade-icons": "^1.6",
-                "illuminate/support": "^9.0|^10.0|^11.0|^12.0|^13.0",
-                "php": "^8.1"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^7.0|^8.0|^9.0|^10.0|^11.0",
-                "phpunit/phpunit": "^9.0|^10.0|^11.0|^12.5.12",
-                "spatie/phpunit-snapshot-assertions": "^4.2.14|^5.0|^6.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Technikermathe\\LucideIcons\\BladeLucideIconsServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Technikermathe\\LucideIcons\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dan Pock",
-                    "role": "Original Developer"
-                },
-                {
-                    "name": "Pascale Beier",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A package to easily make use of Lucide icons in your Laravel Blade views.",
-            "homepage": "https://github.com/technikermathe/blade-lucide-icons",
-            "keywords": [
-                "Heroicons",
-                "LucideIcons",
-                "blade",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/PascaleBeier/blade-lucide-icons/issues",
-                "source": "https://github.com/PascaleBeier/blade-lucide-icons/tree/v3.197.0"
-            },
-            "time": "2026-10-29T03:27:42+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
