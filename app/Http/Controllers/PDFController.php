@@ -12,9 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Response as ResponseFactory;
-use Mpdf\HTMLParserMode;
-use Mpdf\Mpdf;
-use Mpdf\Output\Destination;
 use Spatie\Browsershot\Browsershot;
 
 final class PDFController extends Controller
@@ -53,40 +50,6 @@ final class PDFController extends Controller
         }
 
         return $this->pdfResponse($pdf->pdf());
-    }
-
-    public function cvOld(): Response
-    {
-        $stylesheet = (string) file_get_contents(public_path('css/cv.css'));
-
-        $html = view('pdf.cv-old', ['jobs' => $this->jobsWithProjectsAndTechnologies()]);
-
-        $mpdf = new Mpdf([
-            'tempDir' => storage_path('app/private'),
-            'margin_left' => 0,
-            'margin_right' => 0,
-            'margin_top' => 5,
-            'margin_bottom' => 5,
-            'default_font' => 'calibri',
-
-            'margin_footer' => 5,
-
-            'pagenumPrefix' => 'Page ',
-            'nbpgPrefix' => ' / ',
-            'nbpgSuffix' => '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', // add margin right to pagination
-        ]);
-
-        $mpdf->defaultfooterline = 0;
-        $mpdf->SetTitle('CV Piero Nanni');
-        $mpdf->SetAuthor('Piero Nanni');
-        $mpdf->setFooter('{PAGENO}{nbpg}');
-
-        $mpdf->WriteHTML($stylesheet, HTMLParserMode::HEADER_CSS);
-        $mpdf->WriteHTML($html->render(), HTMLParserMode::HTML_BODY);
-
-        // Superseded by /cv; kept reachable but out of search results so the two CVs don't compete.
-        return $this->pdfResponse((string) $mpdf->Output('cv_piero_nanni.pdf', Destination::STRING_RETURN))
-            ->header('X-Robots-Tag', 'noindex');
     }
 
     /**

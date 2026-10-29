@@ -16,6 +16,11 @@ use Pest\Browser\Api\PendingAwaitablePage;
  * leave the AAA rules (e.g. color-contrast-enhanced) disabled, so the tags are
  * passed explicitly here. The plugin only injects axe-core lazily from that
  * assertion, so the bundled copy is loaded into the page first.
+ *
+ * Sections fade in with framer-motion (opacity still tweens under reduced
+ * motion), so axe waits until every inline-styled element is fully opaque;
+ * otherwise a slow runner audits half-faded text and reports false contrast
+ * failures.
  */
 function assertMeetsWcagAaa(PendingAwaitablePage|On $page): void
 {
@@ -25,6 +30,13 @@ function assertMeetsWcagAaa(PendingAwaitablePage|On $page): void
 
     $violations = $page->script(<<<'JS'
         async () => {
+            const isFading = () => [...document.querySelectorAll('[style*="opacity"]')]
+                .some((element) => Number(getComputedStyle(element).opacity) < 1);
+
+            for (const deadline = Date.now() + 5000; isFading() && Date.now() < deadline; ) {
+                await new Promise((resolve) => setTimeout(resolve, 50));
+            }
+
             const results = await window.axe.run(document, {
                 runOnly: {
                     type: 'tag',

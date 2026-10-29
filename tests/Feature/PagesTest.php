@@ -6,6 +6,7 @@ use App\Models\Click;
 use App\Models\Job;
 use App\Models\Project;
 use App\Models\Technology;
+use Illuminate\Support\Facades\Route;
 use Inertia\Testing\AssertableInertia;
 
 it('renders the homepage', function () {
@@ -103,19 +104,6 @@ it('redirects the login route to the admin panel', function () {
     $this->get(route('login'))->assertRedirect('admin/login');
 });
 
-it('serves the mpdf cv inline through the response pipeline', function () {
-    Job::factory()->has(Project::factory()->count(2))->create();
-
-    $response = $this->get(route('cv-old'));
-
-    $response->assertOk();
-    $response->assertHeader('Content-Type', 'application/pdf');
-    $response->assertHeader('Content-Disposition', 'inline; filename="cv_piero_nanni.pdf"');
-    $response->assertHeader('X-Robots-Tag', 'noindex');
-
-    expect($response->getContent())->toStartWith('%PDF-');
-});
-
 it('records a click and serves the browsershot cv', function () {
     Job::factory()->has(Project::factory()->count(2))->create();
 
@@ -131,11 +119,13 @@ it('records a click and serves the browsershot cv', function () {
 );
 
 it('throttles repeated cv requests from the same address', function () {
-    Job::factory()->create();
+    expect(Route::getRoutes()->getByName('cv')->gatherMiddleware())->toContain('throttle:pdf');
+
+    Route::get('pdf-throttle-probe', fn () => 'ok')->middleware('throttle:pdf');
 
     foreach (range(1, 20) as $ignored) {
-        $this->get(route('cv-old'))->assertOk();
+        $this->get('pdf-throttle-probe')->assertOk();
     }
 
-    $this->get(route('cv-old'))->assertStatus(429);
+    $this->get('pdf-throttle-probe')->assertStatus(429);
 });

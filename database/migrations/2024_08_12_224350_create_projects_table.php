@@ -18,10 +18,12 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Job::class)->constrained();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->string('url');
             $table->string('github')->nullable();
             $table->text('description');
             $table->string('description_cv');
+            $table->boolean('is_visible_in_cv');
             $table->date('published_at');
         });
     }
