@@ -16,6 +16,7 @@ copy .env.example to .env and edit the necessary data
     composer install
     npm install
     php artisan storage:link
+    php artisan google-fonts:fetch
     composer run dev
 
 then open http://localhost:8000

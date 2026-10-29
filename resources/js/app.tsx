@@ -10,14 +10,6 @@ const loadFeatures = () => import('@/lib/motion-features').then((mod) => mod.def
 
 void createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
-    layout: (name) => {
-        switch (true) {
-            case name === 'welcome':
-                return null
-            default:
-                return null
-        }
-    },
     strictMode: true,
     withApp(app) {
         return (

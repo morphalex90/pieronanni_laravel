@@ -14,10 +14,15 @@ use Pest\Browser\Api\PendingAwaitablePage;
  *
  * The plugin's assertNoAccessibilityIssues() calls axe with its defaults, which
  * leave the AAA rules (e.g. color-contrast-enhanced) disabled, so the tags are
- * passed explicitly here.
+ * passed explicitly here. The plugin only injects axe-core lazily from that
+ * assertion, so the bundled copy is loaded into the page first.
  */
 function assertMeetsWcagAaa(PendingAwaitablePage|On $page): void
 {
+    if ($page->script('typeof window.axe === "undefined"') === true) {
+        $page->script((string) file_get_contents(base_path('vendor/pestphp/pest-plugin-browser/resources/js/axe.min.js')));
+    }
+
     $violations = $page->script(<<<'JS'
         async () => {
             const results = await window.axe.run(document, {
